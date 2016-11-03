@@ -1,5 +1,5 @@
 package com.duayres.repository;
 
-public class UsuarioService {
+public class UsuarioRepository {
 
 }
