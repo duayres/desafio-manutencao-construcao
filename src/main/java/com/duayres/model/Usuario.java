@@ -24,9 +24,9 @@ public class Usuario implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "id")
-	private Integer idUsuario;
+	private Long idUsuario;
 	
-	@NotBlank(message="O nome não pode estar em branco.") //notempty não se mostrou eficiente pois não "trimma" o dado
+	@NotBlank(message="O nome não pode estar em branco.") //NotEmpty não se mostrou eficiente pois não "trimma" o dado
 	@Column(name = "nome", nullable = false, length = 150)
 	private String nomeUsuario;
 	
@@ -54,11 +54,11 @@ public class Usuario implements Serializable {
 	private Boolean status;
 	
 
-	public Integer getIdUsuario() {
+	public Long getIdUsuario() {
 		return idUsuario;
 	}
 
-	public void setIdUsuario(Integer idUsuario) {
+	public void setIdUsuario(Long idUsuario) {
 		this.idUsuario = idUsuario;
 	}
 

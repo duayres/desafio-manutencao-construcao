@@ -21,6 +21,9 @@
 		<!-- Servlet API -->
 		<servlet.version>3.1.0</servlet.version>
 
+		<!-- PostgreSQL driver -->
+		<postgres-driver.version>9.4.1210.jre7</postgres-driver.version>
+
 		<!-- Thymeleaf -->
 		<thymeleaf.version>3.0.0.RELEASE</thymeleaf.version>
 
@@ -101,6 +104,13 @@
 			<artifactId>thymeleaf-spring4</artifactId>
 			<version>${thymeleaf.version}</version>
 			<scope>compile</scope>
+		</dependency>
+
+		<!-- PostgreSQL driver -->
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>${postgres-driver.version}</version>
 		</dependency>
 
 		<!-- Bean Validation / Hibernate Validator -->

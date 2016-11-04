@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.jdbc.datasource.lookup.JndiDataSourceLookup;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
@@ -20,7 +21,7 @@ import com.duayres.model.Agendamento;
 import com.duayres.repository.AgendamentoRepository;
 
 /**
- * boilerplate.. 90% inútil hahaha
+ * boilerplate.. 70% inútil hahaha
  */
 @Configuration
 @ComponentScan(basePackageClasses = AgendamentoRepository.class)
@@ -31,17 +32,24 @@ public class JPAConfig {
 
 	@Bean
 	public DataSource dataSource() {
-		JndiDataSourceLookup dataSourceLookup = new JndiDataSourceLookup();
+		/*JndiDataSourceLookup dataSourceLookup = new JndiDataSourceLookup();
 		dataSourceLookup.setResourceRef(true);
-		return dataSourceLookup.getDataSource("jdbc/agendamento");
+		return dataSourceLookup.getDataSource("jdbc/agendamento");*/
+	    DriverManagerDataSource dataSource = new DriverManagerDataSource();
+	    dataSource.setDriverClassName("org.postgresql.Driver");
+	    dataSource.setUrl("jdbc:postgresql://localhost:5432/agendamento");
+	    dataSource.setUsername("postgres");
+	    dataSource.setPassword("123");
+	    
+	    return dataSource; 
 	}
 	
 	@Bean
 	public JpaVendorAdapter jpaVendorAdapter() {
 		HibernateJpaVendorAdapter adapter = new HibernateJpaVendorAdapter();
 		adapter.setDatabase(Database.POSTGRESQL);
-		adapter.setShowSql(false);
-		adapter.setGenerateDdl(false);
+		adapter.setShowSql(true);
+		adapter.setGenerateDdl(true);
 		adapter.setDatabasePlatform("org.hibernate.dialect.PostgreSQLDialect");
 		return adapter;
 	}
