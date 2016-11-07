@@ -1,5 +1,9 @@
 package com.duayres.repository;
 
-public class UsuarioRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.duayres.model.Usuario;
+
+public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
 
 }

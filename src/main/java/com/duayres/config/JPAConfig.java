@@ -27,9 +27,8 @@ import com.duayres.repository.AgendamentoRepository;
  */
 @Configuration
 @ComponentScan(basePackageClasses = AgendamentoRepository.class)
-@EnableJpaRepositories(basePackageClasses = AgendamentoRepository.class, enableDefaultTransactions = false)
+@EnableJpaRepositories(basePackageClasses = AgendamentoRepository.class, enableDefaultTransactions = true)
 @EnableTransactionManagement
-@ComponentScan(basePackageClasses = AgendamentoRepository.class)
 public class JPAConfig {
 
 	@Bean
@@ -56,7 +55,7 @@ public class JPAConfig {
 		return adapter;
 	}
 	
-	@Bean
+	/*@Bean
 	public EntityManagerFactory entityManagerFactory(DataSource dataSource, JpaVendorAdapter jpaVendorAdapter) {
 		LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
 		factory.setDataSource(dataSource);
@@ -65,19 +64,39 @@ public class JPAConfig {
 		factory.setPackagesToScan(Agendamento.class.getPackage().getName());
 		factory.afterPropertiesSet();
 		return factory.getObject();
+	}*/
+
+	@Bean
+	public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
+	    LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
+	    em.setDataSource(dataSource());
+		em.setPackagesToScan(Agendamento.class.getPackage().getName());
+	    //JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
+	    em.setJpaVendorAdapter(jpaVendorAdapter());
+	    em.setJpaProperties(additionalProperties());
+	    return em;
 	}
 	
-	@Bean
+	/*@Bean
 	public PlatformTransactionManager transactionManager(EntityManagerFactory entityManagerFactory) {
 		JpaTransactionManager transactionManager = new JpaTransactionManager();
 		transactionManager.setEntityManagerFactory(entityManagerFactory);
 		return transactionManager;
+	}*/
+	
+	
+	@Bean
+	public JpaTransactionManager transactionManager( EntityManagerFactory entityManagerFactory )
+	{
+		return new JpaTransactionManager( entityManagerFactory );
 	}
 	
 	private Properties additionalProperties() {
 		  Properties properties = new Properties();
-		  //properties.setProperty("hibernate.hbm2ddl.auto", "create-drop");
+		  properties.setProperty("hibernate.hbm2ddl.auto", "create-drop");//create-drop
 		  properties.setProperty("hibernate.temp.use_jdbc_metadata_defaults","false");
+		  properties.setProperty("hibernate.format_sql", "false");
+		  properties.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQL9Dialect");
 		  return properties;
 	}
 }

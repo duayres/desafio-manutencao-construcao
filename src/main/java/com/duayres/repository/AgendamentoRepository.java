@@ -1,5 +1,9 @@
 package com.duayres.repository;
 
-public class AgendamentoRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.duayres.model.Agendamento;
+
+public interface AgendamentoRepository extends JpaRepository<Agendamento, Integer> {
 
 }
