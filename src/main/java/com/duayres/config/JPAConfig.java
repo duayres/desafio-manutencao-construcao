@@ -1,5 +1,7 @@
 package com.duayres.config;
 
+import java.util.Properties;
+
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
@@ -59,6 +61,7 @@ public class JPAConfig {
 		LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
 		factory.setDataSource(dataSource);
 		factory.setJpaVendorAdapter(jpaVendorAdapter);
+		factory.setJpaProperties(additionalProperties());
 		factory.setPackagesToScan(Agendamento.class.getPackage().getName());
 		factory.afterPropertiesSet();
 		return factory.getObject();
@@ -71,4 +74,10 @@ public class JPAConfig {
 		return transactionManager;
 	}
 	
+	private Properties additionalProperties() {
+		  Properties properties = new Properties();
+		  //properties.setProperty("hibernate.hbm2ddl.auto", "create-drop");
+		  properties.setProperty("hibernate.temp.use_jdbc_metadata_defaults","false");
+		  return properties;
+	}
 }
