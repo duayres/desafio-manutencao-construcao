@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
@@ -33,6 +34,7 @@ public class Usuario implements Serializable {
 	
 	@NotBlank(message="O nome não pode estar em branco.") //NotEmpty não se mostrou eficiente pois não "trimma" o dado
 	@Column(name = "nome", nullable = false, length = 150)
+	@NotNull
 	private String nomeUsuario;
 	
 	@NotBlank(message="O Email não pode estar em branco.")

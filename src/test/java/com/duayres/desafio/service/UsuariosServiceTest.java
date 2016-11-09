@@ -8,6 +8,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 /*import org.springframework.security.core.userdetails.UsernameNotFoundException;*/
+import org.springframework.dao.DataIntegrityViolationException;
 
 /*import com.github.springtestdbunit.annotation.DatabaseOperation;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
@@ -24,7 +25,7 @@ import com.github.springtestdbunit.annotation.DatabaseTearDown;
 
 public class UsuariosServiceTest extends AbstractIntegrationTest{
 	public static final String DATASET_CENARIO_LIMPO = "classpath:datasets/AbstractDataset.xml";
-	public static final String DATASET_USUARIOS = "classpath:datasets/UsuariosDataset.xml";
+	public static final String DATASET_USUARIOS = "classpath:datasets/UsuarioDataset.xml";
 	
 	@Autowired(required = false)
 	private UsuarioService usuarioService;
@@ -53,10 +54,10 @@ public class UsuariosServiceTest extends AbstractIntegrationTest{
 		/*this.authenticate(1);*/
 		Usuario user = new Usuario();
 		user.setIdUsuario(null);
-		user.setNomeUsuario("Maria Da Barbosa");
-		user.setEmail("maria.db@gmail.com");
-		user.setSenha("admin");
-		user.setConfSenha("admin");
+		user.setNomeUsuario("Mauricio de Souza");
+		user.setEmail("mauricio.tdm@gmail.com");
+		user.setSenha("cebolinha");
+		user.setConfSenha("cebolinha");
 		user.setStatus(true);
 		user.setTipo(TipoUsuario.COLABORADOR);
 		
@@ -73,7 +74,7 @@ public class UsuariosServiceTest extends AbstractIntegrationTest{
 	 * Metodo que testa com falha a inserção de um usuario
 	 * A inserção falha pois o teste tenta inserir um email que ja existe, o que não é permitido (uk)
 	 */
-	@Test/*(expected = EmailJaCadastradoException.class)*/
+	@Test(expected = DataIntegrityViolationException.class)/*(expected = EmailJaCadastradoException.class)*/
 	@DatabaseSetup(type = DatabaseOperation.CLEAN_INSERT, value = {DATASET_USUARIOS}, connection = "dataSource")
 	@DatabaseTearDown(DATASET_CENARIO_LIMPO)
 	public void testCadastrarUsuariosMustFail(){
@@ -100,9 +101,9 @@ public class UsuariosServiceTest extends AbstractIntegrationTest{
 	@DatabaseTearDown(DATASET_CENARIO_LIMPO)
 	public void testEditarUsuariosMustPass(){
 		/*this.authenticate(1);*/
-		Usuario user = this.usuarioRepository.findOne(1);
+		Usuario user = this.usuarioRepository.findAll().get(0);//this.usuarioRepository.findOne(Long.parseLong("1"));
 		
-		Assert.assertEquals(user.getNomeUsuario(), "Victor Carvalho");
+		Assert.assertEquals(user.getNomeUsuario(), "Eduardo Ayres");
 		
 		user.setNomeUsuario("Usuario alterado 1");
 		user = usuarioService.save(user);
@@ -120,8 +121,8 @@ public class UsuariosServiceTest extends AbstractIntegrationTest{
 	public void testEditarUsuariosMustFail(){
 		/*this.authenticate(1);*/
 		
-		Usuario user = this.usuarioRepository.findOne(1);
-		Assert.assertEquals(user.getNomeUsuario(), "Victor Carvalho");
+		Usuario user = this.usuarioService.listAll().get(0);//this.usuarioRepository.findOne(Long.parseLong("1"));
+		Assert.assertEquals(user.getNomeUsuario(), "Eduardo Ayres");
 		
 		user.setNomeUsuario(null);
 		user = usuarioService.save(user);
@@ -137,7 +138,7 @@ public class UsuariosServiceTest extends AbstractIntegrationTest{
 	@DatabaseTearDown(DATASET_CENARIO_LIMPO)
 	public void testLoginMustPass(){
 		Usuario usuario = new Usuario();
-		usuario.setEmail("victor.blq@gmail.com");
+		usuario.setEmail("duzao7667@gmail.com");
 		usuario.setSenha("admin");
 		
 		/*usuario = usuarioService.login(usuario);*/
@@ -170,14 +171,14 @@ public class UsuariosServiceTest extends AbstractIntegrationTest{
 	public void testVerificaEmailJaCadastradoMustPass(){
 		Usuario usuario = new Usuario();
 		
-		usuario.setNomeUsuario("Victor");
+		usuario.setNomeUsuario("Eduardo");
 		List<Usuario> usuarios = usuarioService.find(usuario);
 		Assert.assertEquals(usuarios.size(), 1);
-		Assert.assertEquals(usuarios.get(0).getNomeUsuario(), "Victor Carvalho");
+		Assert.assertEquals(usuarios.get(0).getNomeUsuario(), "Eduardo Ayres");
 		
 		usuario = new Usuario();
-		usuario.setEmail("gmail");
+		usuario.setEmail("eduardo@");
 		usuarios = usuarioService.find(usuario);
-		Assert.assertEquals(usuarios.size(), 2);
+		Assert.assertEquals(usuarios.size(), 1);
 	}
 }

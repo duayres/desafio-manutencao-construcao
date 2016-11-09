@@ -50,7 +50,7 @@ public class JPAConfig {
 		HibernateJpaVendorAdapter adapter = new HibernateJpaVendorAdapter();
 		adapter.setDatabase(Database.POSTGRESQL);
 		adapter.setShowSql(true);
-		adapter.setGenerateDdl(true);
+		//adapter.setGenerateDdl(true);
 		adapter.setDatabasePlatform("org.hibernate.dialect.PostgreSQLDialect");
 		return adapter;
 	}
@@ -93,7 +93,7 @@ public class JPAConfig {
 	
 	private Properties additionalProperties() {
 		  Properties properties = new Properties();
-		  properties.setProperty("hibernate.hbm2ddl.auto", "create-drop");//create-drop
+		  properties.setProperty("hibernate.hbm2ddl.auto", "update");//create-drop
 		  properties.setProperty("hibernate.temp.use_jdbc_metadata_defaults","false");
 		  properties.setProperty("hibernate.format_sql", "false");
 		  properties.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQL9Dialect");

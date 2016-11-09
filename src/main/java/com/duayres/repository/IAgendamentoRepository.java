@@ -4,6 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.duayres.model.Agendamento;
 
-public interface IAgendamentoRepository extends JpaRepository<Agendamento, Integer> {
+public interface IAgendamentoRepository extends JpaRepository<Agendamento, Long> {
 
 }
