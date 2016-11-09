@@ -16,11 +16,14 @@ import org.hibernate.validator.constraints.NotBlank;
 
 import org.springframework.validation.ObjectError;
 
+/**
+ * @author Eduardo Ayres
+ *
+ */
 @Entity
-@Table(name = "usuario")
+@Table(name = "tipo_equipamento")
 public class TipoDeEquipamento implements Serializable {
-
-
+	
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -28,10 +31,10 @@ public class TipoDeEquipamento implements Serializable {
 	private Long idEquipamento;
 	
 	@NotBlank(message="O nome não pode estar em branco.") //NotEmpty não se mostrou eficiente pois não "trimma" o dado
-	@Column(name = "nome", nullable = false, length = 150)
+	@Column(nullable = false, length = 150)
 	private String nome;
 	
-	//@NotBlank(message="O Email não pode estar em branco.")
+	@NotBlank(message="A descrição não pode estar em branco.")
 	private String descricao;
 	
 	//@NotBlank(message="A senha não pode estar em branco.") //atentar que será criptografada (oneway: hashcode)

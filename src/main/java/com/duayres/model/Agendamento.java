@@ -16,6 +16,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 /**
  * @author Eduardo Ayres
@@ -40,9 +41,14 @@ public class Agendamento implements Serializable {
 	private Calendar dataFinal;
 	
 	@ManyToOne(fetch=FetchType.EAGER)//(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
-    @JoinColumn(name = "localizacao", nullable = false, insertable=false, updatable=false)
+    //@JoinColumn(name = "localizacao", nullable = false, insertable=false, updatable=false)
 	private Localizacao localizacao;
-	
+
+	@NotNull
+	@ManyToOne(fetch=FetchType.EAGER)
+    @JoinColumn(name = "tipo_equipamento", nullable = false, insertable=false, updatable=false)
+	private TipoDeEquipamento tipoEquipamento;
+
 	@OneToMany(fetch=FetchType.EAGER)
 	@JoinTable(name="membro")
 	private List<Usuario> membros;
@@ -68,6 +74,14 @@ public class Agendamento implements Serializable {
 		return localizacao;
 	}
 
+	public TipoDeEquipamento getTipoEquipamento() {
+		return tipoEquipamento;
+	}
+
+	public void setTipoEquipamento(TipoDeEquipamento tipoEquipamento) {
+		this.tipoEquipamento = tipoEquipamento;
+	}
+	
 	public void setLocalizacao(Localizacao localizacao) {
 		this.localizacao = localizacao;
 	}

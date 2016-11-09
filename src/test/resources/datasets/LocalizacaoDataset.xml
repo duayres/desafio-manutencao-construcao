@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+	<localizacao
+		id="1"
+		nome="Bloco 3, Sala 45"/>
+		
+	<localizacao
+		id="2"
+		nome="Bloco 9, Sala 21"/>
+</dataset>

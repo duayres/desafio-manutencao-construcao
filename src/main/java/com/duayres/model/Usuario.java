@@ -16,6 +16,10 @@ import org.hibernate.validator.constraints.NotBlank;
 
 import org.springframework.validation.ObjectError;
 
+/**
+ * @author Eduardo Ayres
+ *
+ */
 @Entity
 @Table(name = "usuario")
 public class Usuario implements Serializable {

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+	<usuarios
+		id_usuario="1"
+		nome_usuario="Eduardo Ayres"
+		email="eduardo@eduardoayres.com"
+		ativo="true"
+		senha="522d7ee4d28e5ab11e54f061d1a020190198be27"
+		tipo_usuario="0"/><!-- admin -->>
+		
+	<usuarios
+		id_usuario="2"
+		nome_usuario="Fulano de tal"
+		email="fulano@10minutemail.com"
+		ativo="true"
+		senha="522d7ee4d28e5ab11e54f061d1a020190198be27"
+		tipo_usuario="1"/><!-- colaborador -->
+		
+</dataset>

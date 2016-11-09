@@ -4,6 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.duayres.model.Localizacao;
 
-public interface LocalizacaoRepository extends JpaRepository<Localizacao, Integer> {
+public interface ILocalizacaoRepository extends JpaRepository<Localizacao, Integer> {
 
 }

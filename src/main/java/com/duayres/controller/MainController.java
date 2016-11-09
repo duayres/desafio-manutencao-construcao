@@ -20,21 +20,23 @@ public class MainController {
 
 	@Autowired
 	private UsuarioService usuarioService;
+	@Autowired
 	private AgendamentoService agService;
+	@Autowired
 	private TipoDeEquipamentoService tpService;
 	
 	@RequestMapping("/teste")
 	public String teste(){
 		System.out.println("testão! xD");
 		
-		Usuario u = new Usuario();
+		/*Usuario u = new Usuario();
 		u.setTipo(com.duayres.model.TipoUsuario.ADMINISTRADOR);
 		u.setEmail("cebola@cebola.com");
 		u.setNomeUsuario("Eduardo Cebola");
 		u.setStatus(true);
 		u.setSenha("ahue1234");
 		u.setConfSenha("ahue1234");
-		this.usuarioService.inserir(u);
+		this.usuarioService.save(u);
 		
 		
 		TipoDeEquipamento e = new TipoDeEquipamento();
@@ -42,15 +44,15 @@ public class MainController {
 		e.setNome("Ar condicionado CCE");
 		e.setStatus(true);
 		e.setFoto("www.troll.com/troll.jpg");
-		tpService.inserir(e);
+		this.tpService.save(e);
 		
-		/*Agendamento a = new Agendamento();
-		a.setLocalizacao(new Localizacao());
+		Agendamento a = new Agendamento();
+		//a.setLocalizacao(new Localizacao());
 		a.setDataInicial(Calendar.getInstance());
 		a.setDataFinal(Calendar.getInstance());
 		a.setMembros(Arrays.asList(u));
 		
-		agService.inserir(a);*/
+		this.agService.save(a);*/
 		
 		return "xD";
 	}

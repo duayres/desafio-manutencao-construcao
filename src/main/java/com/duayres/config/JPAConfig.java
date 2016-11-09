@@ -20,14 +20,14 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.duayres.model.Agendamento;
-import com.duayres.repository.AgendamentoRepository;
+import com.duayres.repository.IAgendamentoRepository;
 
 /**
  * boilerplate.. 70% inútil hahaha
  */
 @Configuration
-@ComponentScan(basePackageClasses = AgendamentoRepository.class)
-@EnableJpaRepositories(basePackageClasses = AgendamentoRepository.class, enableDefaultTransactions = true)
+@ComponentScan(basePackageClasses = IAgendamentoRepository.class)
+@EnableJpaRepositories(basePackageClasses = IAgendamentoRepository.class, enableDefaultTransactions = true)
 @EnableTransactionManagement
 public class JPAConfig {
 
