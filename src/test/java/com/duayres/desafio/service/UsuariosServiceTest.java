@@ -74,7 +74,7 @@ public class UsuariosServiceTest extends AbstractIntegrationTest{
 	 * Metodo que testa com falha a inserção de um usuario
 	 * A inserção falha pois o teste tenta inserir um email que ja existe, o que não é permitido (uk)
 	 */
-	@Test(expected = DataIntegrityViolationException.class)/*(expected = EmailJaCadastradoException.class)*/
+	@Test(expected = DataIntegrityViolationException.class)/*(expected = EmailJaExistenteException.class)*/
 	@DatabaseSetup(type = DatabaseOperation.CLEAN_INSERT, value = {DATASET_USUARIOS}, connection = "dataSource")
 	@DatabaseTearDown(DATASET_CENARIO_LIMPO)
 	public void testCadastrarUsuariosMustFail(){
@@ -103,12 +103,12 @@ public class UsuariosServiceTest extends AbstractIntegrationTest{
 		/*this.authenticate(1);*/
 		Usuario user = this.usuarioRepository.findAll().get(0);//this.usuarioRepository.findOne(Long.parseLong("1"));
 		
-		Assert.assertEquals(user.getNomeUsuario(), "Eduardo Ayres");
+		Assert.assertEquals(user.getNome(), "Eduardo Ayres");
 		
-		user.setNomeUsuario("Usuario alterado 1");
+		user.setNomeUsuario("Outro Eduardo");
 		user = usuarioService.save(user);
 		
-		Assert.assertEquals(user.getNomeUsuario(), "Usuario alterado 1");
+		Assert.assertEquals(user.getNome(), "Outro Eduardo");
 	}
 	
 	/**
@@ -121,12 +121,13 @@ public class UsuariosServiceTest extends AbstractIntegrationTest{
 	public void testEditarUsuariosMustFail(){
 		/*this.authenticate(1);*/
 		
-		Usuario user = this.usuarioService.listAll().get(0);//this.usuarioRepository.findOne(Long.parseLong("1"));
-		Assert.assertEquals(user.getNomeUsuario(), "Eduardo Ayres");
+		Usuario user = this.usuarioRepository.findByIdUsuario(Long.parseLong("1000"));
 		
+		Assert.assertEquals(user.getNome(), "Eduardo Ayres");
 		user.setNomeUsuario(null);
 		user = usuarioService.save(user);
 		
+		System.out.println(user.getNome());
 		Assert.fail();
 	}
 	
@@ -174,7 +175,7 @@ public class UsuariosServiceTest extends AbstractIntegrationTest{
 		usuario.setNomeUsuario("Eduardo");
 		List<Usuario> usuarios = usuarioService.find(usuario);
 		Assert.assertEquals(usuarios.size(), 1);
-		Assert.assertEquals(usuarios.get(0).getNomeUsuario(), "Eduardo Ayres");
+		Assert.assertEquals(usuarios.get(0).getNome(), "Eduardo Ayres");
 		
 		usuario = new Usuario();
 		usuario.setEmail("eduardo@");

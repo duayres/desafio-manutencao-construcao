@@ -4,11 +4,13 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import com.duayres.model.Usuario;
 
+@Repository
 public interface IUsuarioRepository extends JpaRepository<Usuario, Long> {
-	public List<Usuario> findByNomeUsuarioIgnoreCaseContainingAndEmailIgnoreCaseContaining(String nomeUsuario, String email);
+	public List<Usuario> findByNomeIgnoreCaseContainingAndEmailIgnoreCaseContaining(String nome, String email);
 	
 	public Optional<Usuario> findByEmailIgnoreCase(String email);
 	

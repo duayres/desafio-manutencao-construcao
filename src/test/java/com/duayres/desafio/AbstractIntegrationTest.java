@@ -16,6 +16,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.duayres.config.JPAConfig;
+import com.duayres.config.JPAConfigTest;
 import com.duayres.config.ServiceConfig;
 import com.duayres.config.WebConfig;
 import com.duayres.model.Usuario;
@@ -25,7 +26,7 @@ import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {WebConfig.class, JPAConfig.class, ServiceConfig.class})
+@ContextConfiguration(classes = {WebConfig.class, JPAConfigTest.class, ServiceConfig.class})
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DirtiesContextTestExecutionListener.class,
 	TransactionalTestExecutionListener.class, DbUnitTestExecutionListener.class})
 @WebAppConfiguration

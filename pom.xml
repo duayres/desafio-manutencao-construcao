@@ -22,7 +22,7 @@
 		<servlet.version>3.1.0</servlet.version>
 
 		<!-- PostgreSQL driver -->
-		<postgres-driver.version>9.4.1210.jre7</postgres-driver.version>
+		<postgres-driver.version>9.4.1212.jre7</postgres-driver.version>
 
 		<!-- Thymeleaf -->
 		<thymeleaf.version>3.0.0.RELEASE</thymeleaf.version>
@@ -42,7 +42,31 @@
 
 		<!-- Spring Data JPA -->
 		<spring-data-jpa.version>1.10.2.RELEASE</spring-data-jpa.version>
+		
+		<jstl.version>1.2</jstl.version>
+		
+		<!-- webjars versions -->
+		<angular.version>1.5.8</angular.version>
+		<angular-material.version>1.1.1</angular-material.version>
+		<eits-ng.version>1.1.0-SNAPSHOT</eits-ng.version>
+		<jquery.version>3.1.0</jquery.version>
+		
 	</properties>
+
+	<!-- Additional EITS Repositories -->
+	<repositories>
+		<repository>
+			<id>eits-repository-release</id>
+			<url>http://maven.eits.com.br/content/repositories/releases</url>
+		</repository>
+		<repository>
+			<id>eits-repository-snapshot</id>
+			<url>http://maven.eits.com.br/content/repositories/snapshots</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
 
 	<build>
 
@@ -144,6 +168,39 @@
 			<version>${spring-data-jpa.version}</version>
 			<scope>compile</scope>
 		</dependency>
+
+		<!-- Angular Modules -->
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>eits-ng</artifactId>
+			<version>${eits-ng.version}</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>jquery</artifactId>
+					<groupId>org.webjars.bower</groupId>
+				</exclusion>
+
+				<exclusion>
+					<artifactId>angularjs</artifactId>
+					<groupId>org.webjars.bower</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<!-- Jquery -->
+		<dependency>
+			<groupId>org.webjars.bower</groupId>
+			<artifactId>jquery</artifactId>
+			<version>${jquery.version}</version>
+		</dependency>
+
+		<!-- Moment.js -->
+		<dependency>
+			<groupId>org.webjars.bower</groupId>
+			<artifactId>moment</artifactId>
+			<version>2.15.1</version>
+		</dependency>
+
 		
 		<!-- Testes -->
 		<dependency>

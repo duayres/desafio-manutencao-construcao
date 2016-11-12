@@ -14,9 +14,9 @@ public class UsuarioService {
 	@Autowired
 	private IUsuarioRepository usuarioRepository;
 	
-	//@Transactional
+	@Transactional
 	public Usuario save(Usuario usuario){
-		return this.usuarioRepository.save(usuario);
+		return this.usuarioRepository.saveAndFlush(usuario);
 	}
 	
 	public Usuario findUserById( Long id )
@@ -24,14 +24,13 @@ public class UsuarioService {
 		return this.usuarioRepository.findOne( id );
 	}
 	
-	@Transactional
 	public List<Usuario> listAll(){
 		return usuarioRepository.findAll();
 	}
 	
-	@Transactional
+
 	public List<Usuario> find(Usuario usuario) {
-		if(usuario.getNomeUsuario() == null){
+		if(usuario.getNome() == null){
 			usuario.setNomeUsuario("");
 		}
 		
@@ -39,7 +38,7 @@ public class UsuarioService {
 			usuario.setEmail("");
 		}
 		
-		return usuarioRepository.findByNomeUsuarioIgnoreCaseContainingAndEmailIgnoreCaseContaining(usuario.getNomeUsuario(), usuario.getEmail());
+		return usuarioRepository.findByNomeIgnoreCaseContainingAndEmailIgnoreCaseContaining(usuario.getNome(), usuario.getEmail());
 	}
 	
 }

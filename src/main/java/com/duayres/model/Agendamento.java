@@ -119,4 +119,26 @@ public class Agendamento implements Serializable {
 			return false;
 		return true;
 	}	
+	
+	
+	public Boolean verificaDataInicialPassada() {
+		Calendar agora = Calendar.getInstance();
+		return dataInicial.before(agora.getTime());
+	}
+	
+	public Boolean verificaDataFinalPassada() {
+		Calendar agora = Calendar.getInstance();
+		return dataFinal.before(agora.getTime());
+	}
+	
+	public Boolean verificaDataInicialHoje() {
+		Calendar agora = Calendar.getInstance();
+		return dataInicial.equals(agora.getTime());
+	}	
+	
+	public Boolean verificaDataFinalHoje() {
+		Calendar agora = Calendar.getInstance();
+		return dataFinal.equals(agora.getTime());
+	}
+	
 }

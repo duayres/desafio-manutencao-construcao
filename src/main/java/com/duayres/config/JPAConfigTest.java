@@ -29,7 +29,7 @@ import com.duayres.repository.IAgendamentoRepository;
 @ComponentScan(basePackageClasses = IAgendamentoRepository.class)
 @EnableJpaRepositories(basePackageClasses = IAgendamentoRepository.class, enableDefaultTransactions = true)
 @EnableTransactionManagement
-public class JPAConfig {
+public class JPAConfigTest {
 
 	@Bean
 	public DataSource dataSource() {
@@ -93,7 +93,7 @@ public class JPAConfig {
 	
 	private Properties additionalProperties() {
 		  Properties properties = new Properties();
-		  properties.setProperty("hibernate.hbm2ddl.auto", "create-drop");//create-drop
+		  properties.setProperty("hibernate.hbm2ddl.auto", "none");//create-drop
 		  properties.setProperty("hibernate.temp.use_jdbc_metadata_defaults","false");
 		  properties.setProperty("hibernate.format_sql", "false");
 		  properties.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQL9Dialect");

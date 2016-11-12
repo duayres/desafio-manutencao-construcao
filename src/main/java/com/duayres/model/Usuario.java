@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.validation.ConstraintViolationException;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Email;
@@ -34,8 +35,7 @@ public class Usuario implements Serializable {
 	
 	@NotBlank(message="O nome não pode estar em branco.") //NotEmpty não se mostrou eficiente pois não "trimma" o dado
 	@Column(name = "nome", nullable = false, length = 150)
-	@NotNull
-	private String nomeUsuario;
+	private String nome;
 	
 	@NotBlank(message="O Email não pode estar em branco.")
 	@Email(message="Você digitou um email inválido. Favor conferir.")//validacao automatica de email
@@ -69,12 +69,17 @@ public class Usuario implements Serializable {
 		this.idUsuario = idUsuario;
 	}
 
-	public String getNomeUsuario() {
-		return nomeUsuario;
+	public String getNome() {
+		return nome;
 	}
 
-	public void setNomeUsuario(String nomeUsuario) {
-		this.nomeUsuario = nomeUsuario;
+	public void setNomeUsuario(String nome) {
+		if (nome==null){
+			/*Infelizmente ele não está validando nulos da edição
+			 * @todo verificar o driver se está bugado, provavelmente é isso*/
+			//throw new ConstraintViolationException(null);
+		}
+		this.nome = nome;
 	}
 
 	public String getEmail() {
