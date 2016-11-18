@@ -1,16 +1,10 @@
 package com.duayres.controller;
 
-import java.util.Arrays;
-import java.util.Calendar;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
-import com.duayres.model.Agendamento;
-import com.duayres.model.Localizacao;
-import com.duayres.model.TipoDeEquipamento;
-import com.duayres.model.Usuario;
 import com.duayres.service.AgendamentoService;
 import com.duayres.service.TipoDeEquipamentoService;
 import com.duayres.service.UsuarioService;
@@ -26,7 +20,7 @@ public class MainController {
 	private TipoDeEquipamentoService tpService;
 	
 	@RequestMapping("/teste")
-	public String teste(){
+	public ModelAndView teste(){
 		System.out.println("testão! xD");
 		
 		/*Usuario u = new Usuario();
@@ -54,6 +48,6 @@ public class MainController {
 		
 		this.agService.save(a);*/
 		
-		return "xD";
+		return new ModelAndView("login");
 	}
 }

@@ -2,6 +2,7 @@ package com.duayres.service;
 
 import java.util.List;
 
+import org.directwebremoting.annotations.RemoteMethod;
 import org.directwebremoting.annotations.RemoteProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,8 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.duayres.model.Usuario;
 import com.duayres.repository.IUsuarioRepository;
 
-@Service
-public class UsuarioService {
+@RemoteProxy
+public class DWRUsuarioService {
 	@Autowired
 	private IUsuarioRepository usuarioRepository;
 	
@@ -20,16 +21,22 @@ public class UsuarioService {
 		return this.usuarioRepository.saveAndFlush(usuario);
 	}
 	
+	//@RemoteMethod
 	public Usuario findUserById( Long id )
 	{
 		return this.usuarioRepository.findOne( id );
 	}
-	
+
+	public Usuario axae( Long idx )
+	{
+		return this.usuarioRepository.findOne( idx );
+	}
+	//@RemoteMethod
 	public List<Usuario> listAll(){
 		return usuarioRepository.findAll();
 	}
 	
-
+	//@RemoteMethod
 	public List<Usuario> find(Usuario usuario) {
 		if(usuario.getNome() == null){
 			usuario.setNomeUsuario("");

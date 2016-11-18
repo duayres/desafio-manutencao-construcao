@@ -1,0 +1,63 @@
+<md-dialog aria-label="Usuario" flex="50">
+    <form ng-cloak ng-submit="UserFormCtrl.submitForm()" name="usuario-form">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>Usuario</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="UserFormCtrl.closeModal()">
+                    X
+                </md-button>
+            </div>
+        </md-toolbar>
+
+        <md-dialog-content>
+            <div class="md-dialog-content" >
+                <input type="hidden" name="idUsuario" ng-model="UserFormCtrl.usuario.idUsuario">
+                <div layout="row">
+                    <md-input-container flex="70">
+                        <label>Nome</label>
+                        <input type="text" maxlength="140" id="nome"  md-maxlength="140" ng-model="UserFormCtrl.usuario.nomeUsuario" required> 
+                    </md-input-container>
+
+                    <md-input-container  flex="30">
+                        <label>Email</label>
+                        <input type="email" id="email" ng-model="UserFormCtrl.usuario.email" required>
+                    </md-input-container>
+                </div>
+
+                <div layout="row">
+                    <md-input-container  flex ng-hide="UserFormCtrl.usuario.idUsuario">
+                        <label>Senha</label>
+                        <input type="text" id="senha" ng-model="UserFormCtrl.usuario.senha" required>
+                    </md-input-container>
+
+                    <md-input-container  flex ng-hide="UserFormCtrl.usuario.idUsuario">
+                        <label>Confirme a Senha</label>
+                        <input type="text" id="confSenha" ng-model="UserFormCtrl.usuario.confSenha" required>
+                    </md-input-container>
+
+                    <md-input-container flex="30">
+                        <label>Tipo</label>
+                        <md-select ng-model="UserFormCtrl.usuario.tipo" required>
+                            <md-option><em>None</em></md-option>
+                            <md-option ng-repeat="tipo in UserFormCtrl.tiposUsuarios" ng-value="tipo">
+                                {{tipo}}
+                            </md-option>
+                        </md-select>
+                    </md-input-container>
+                </div>
+            </div>
+        </md-dialog-content>
+
+        <md-dialog-actions layout="row">
+            <p class="exception" id="exception"></p>
+            <span flex></span>
+            <md-button ng-click="UserFormCtrl.closeModal()">
+                Cancelar
+            </md-button>
+            <md-button type="submit" class="md-primary">
+                Salvar
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

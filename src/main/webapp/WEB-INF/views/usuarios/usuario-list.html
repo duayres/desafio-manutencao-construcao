@@ -1,0 +1,44 @@
+<md-content flex layout-padding class="layout-fill" ng-controller="UsuarioController as UserCtrl" ng-init="UserCtrl.carregarUsuarios()">
+    <md-toolbar class="md-theme-light">
+        <h2 class="md-toolbar-tools">
+            <span>Usuários</span>
+        </h2>
+    </md-toolbar>
+
+    <table class="table mdl-data-table" style="width: 100%;">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Email</th>
+                <th>Tipo</th>
+                <th>Ativo</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <!-- ng-repeat="usuario in UserCtrl.usuarios" -->
+            <tr dir-paginate="usuario in UserCtrl.usuarios | itemsPerPage: 5">
+                <td>{{usuario.nomeUsuario}}</td>
+                <td>{{usuario.email}}</td>
+                <td>{{usuario.tipo}}</td>
+                <td>
+                    <md-switch md-no-ink ng-disabled="usuario.idUsuario == UserCtrl.usuarioLogado.idUsuario" class="md-success" ng-model="usuario.ativo" ng-change="UserCtrl.toggleAtivoUsuario(usuario)" layout="row" layout-align="center center" aria-label="Switch 1"></md-switch>
+                </td>
+                <td>
+                    <md-button class="md-fab md-warn md-mini" aria-label="Editar" ng-click="UserCtrl.openModal(event, usuario);">
+                        <i class="zmdi zmdi-edit"></i>
+                    </md-button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <dir-pagination-controls></dir-pagination-controls>
+    
+    <md-fab-speed-dial md-direction="up" class="md-fling md-primary md-fab-bottom-right"  ng-click="UserCtrl.openModal()">
+      <md-fab-trigger>
+        <md-button aria-label="Add..." class="md-primary md-fab"><i class="zmdi zmdi-plus zmdi-hc-lg"></i></md-button>
+      </md-fab-trigger>
+    </md-fab-speed-dial>
+</md-content>

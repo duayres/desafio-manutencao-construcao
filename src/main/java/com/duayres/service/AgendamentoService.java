@@ -25,7 +25,7 @@ public class AgendamentoService {
 	 * @return Boolean
 	 */
 	public Boolean verificaDataIntervaloAgendamentoColisao(Agendamento agendamento){
-		this.agendamentoRepository.findAngendamentosOnDatasInterval(agendamento);
+		//this.agendamentoRepository.findAngendamentosOnDatasInterval(agendamento);
 		
 		return true;
 	}

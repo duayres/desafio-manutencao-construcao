@@ -1,0 +1,41 @@
+<md-dialog aria-label="Sala" flex="50">
+    <form ng-cloak ng-submit="SalasFormCtrl.submitForm()" name="sala-form">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>Usuario</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="SalasFormCtrl.closeModal()">
+                    X
+                </md-button>
+            </div>
+        </md-toolbar>
+
+        <md-dialog-content>
+            <div class="md-dialog-content" >
+                <input type="hidden" name="idSala" ng-model="SalasFormCtrl.sala.idSala">
+                <div layout="row">
+                    <md-input-container flex="70">
+                        <label>Nome</label>
+                        <input type="text" maxlength="100" id="nome" required  md-maxlength="100" ng-model="SalasFormCtrl.sala.nomeSala">
+                    </md-input-container>
+
+                    <md-input-container  flex="30">
+                        <label>Capacidade</label>
+                        <input type="number" min="1" max="99999" id="idade" required ng-model="SalasFormCtrl.sala.capacidade">
+                    </md-input-container>
+                </div>
+            </div>
+        </md-dialog-content>
+
+        <md-dialog-actions layout="row">
+            <p style="color: red;" id="exception"></p>
+            <span flex></span>
+            <md-button ng-click="SalasFormCtrl.closeModal()">
+                Cancelar
+            </md-button>
+            <md-button type="submit" class="md-primary">
+                Salvar
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

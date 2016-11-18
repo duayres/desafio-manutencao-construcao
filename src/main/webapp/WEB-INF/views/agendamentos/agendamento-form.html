@@ -1,0 +1,111 @@
+<md-content flex layout-padding class="layout-fill" ng-init="AgndFormCtrl.carregarDados();">
+    <md-toolbar class="md-theme-light">
+        <h2 class="md-toolbar-tools">
+            <span>Agendamento</span>
+        </h2>
+    </md-toolbar>
+
+    <form ng-cloak ng-submit="AgndFormCtrl.submitForm()" name="agendForm" >
+        <input type="hidden" name="idAgendamento" ng-model="AgndFormCtrl.agendamento.idAgendamento">
+        <div layout="row">
+            <md-input-container flex="70">
+                <label>Nome</label>
+                <input type="text" maxlength="100" id="nome"  md-maxlength="100" ng-model="AgndFormCtrl.agendamento.nomeAgendamento" >
+            </md-input-container>
+
+            <md-input-container flex-gt-md="30">
+                <label>Timepicker</label>
+                <input mdc-datetime-picker="" date="true" time="false" type="text" placeholder="Data" min-date="date" format="DD/MM/YYYY" ng-model="AgndFormCtrl.agendamento.data" class="md-input" >
+            </md-input-container>
+
+            <md-input-container flex-gt-md="30">
+                <label>Timepicker</label>
+                <input mdc-datetime-picker="" date="false" time="true" type="text" short-time="true"  placeholder="Time" min-date="minDate" format="HH:mm" ng-model="AgndFormCtrl.agendamento.hora" class=" md-input" >
+            </md-input-container> 
+        </div>
+
+        <div layout="row">
+            <md-input-container flex="40">
+                <label>Sala</label>
+                <md-select  ng-model="AgndFormCtrl.agendamento.salaDeReuniao" ng-change="AgndFormCtrl.verificaCapacidade();">
+                    <md-option><em>Escolha</em></md-option>
+                    <md-option ng-repeat="sala in AgndFormCtrl.salasDeReuniao" ng-value="sala" >
+                        {{sala.nomeSala}}
+                    </md-option>
+                </md-select>
+            </md-input-container>
+
+            <md-input-container flex="20">
+                <label>Duração (Horas)</label>
+                <input type="number" min="1" max="8"  ng-model="AgndFormCtrl.agendamento.duracao" >
+            </md-input-container>
+
+            <md-input-container flex="40">
+                <input type="file" id="arquivo" aria-label="Arquivo" name="arquivo" ng-show="false">
+                <md-button class="md-raised" ng-click="AgndFormCtrl.upload()" >
+                    Arquivo
+                </md-button>
+                <small ng-show="AgndFormCtrl.agendamento.urlArquivo">
+                    <a href="{{AgndFormCtrl.agendamento.urlArquivo}}" class="link" target="_blank">
+                        <i class="zmdi zmdi-file zmdi-hc-2x"></i>
+                    </a>
+                    Clique no icone para baixar o arquivo atual
+                </small>
+            </md-input-container>
+        </div>
+
+        <h3 flex="100">Pesquisar Usuários</h3>
+        <div layout="row">
+            <form ng-cloak>
+                <md-input-container flex="50">
+                    <label>Nome</label>
+                    <input type="text" maxlength="140" md-maxlength="140" ng-model="AgndFormCtrl.usuarioPesquisa.nomeUsuario">
+                </md-input-container>
+
+                <md-input-container flex="50">
+                    <label>Email</label>
+                    <input type="text" ng-model="AgndFormCtrl.usuarioPesquisa.email">
+                </md-input-container>
+
+                <md-button class="md-primary" ng-click="AgndFormCtrl.pesquisaUsuario();">
+                    Pesquisar
+                </md-button>
+            </form>
+        </div>
+
+        <div layout="row">
+
+            <table class="table mdl-data-table" style="width: 100%;">
+                <thead>
+                    <tr>
+                        <th>Adicionar</th>
+                        <th>Nome</th>
+                        <th>Email</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr ng-repeat="usuario in AgndFormCtrl.usuarios" class="usuario">
+                        <td>
+                            <md-checkbox ng-checked="AgndFormCtrl.verificaParticipante(usuario);" aria-label="Select" ng-disabled="AgndFormCtrl.agendamento.salaDeReuniao == undefined" ng-click="AgndFormCtrl.select(usuario);">
+                            </md-checkbox>
+                        </td>
+                        <td>{{usuario.nomeUsuario}}</td>
+                        <td>{{usuario.email}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div layout="row" >
+            <p style="color: red;" id="exception"></p>
+            <span flex></span>
+            <md-button ng-click="AgndFormCtrl.cancelar();">
+                Cancelar
+            </md-button>
+            <md-button ng-click="AgndFormCtrl.submitForm();" class="md-primary">
+                Salvar
+            </md-button>
+        </div>
+    </form>
+</md-content>

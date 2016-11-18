@@ -1,0 +1,27 @@
+<md-sidenav
+            class="md-sidenav-left"
+            md-component-id="left"
+            md-is-locked-open="$mdMedia('gt-md')"
+            md-whiteframe="1"
+            style="overflow: hidden;" 
+            flex>
+    <md-toolbar class="md-theme-indigo" hide-gt-md>
+        <h1 class="md-toolbar-tools">Menu</h1>
+    </md-toolbar>
+    <div layout="column" layout-fill style="padding-bottom: 32px;" ng-cloak>
+        <md-button md-whiteframe="2" ng-href="#/agendamento">
+            <p layout layout-align="center"><i class="zmdi zmdi-check zmdi-hc-2x"></i></p>
+            <p layout layout-align="center">Agendamentos</p>
+        </md-button>
+
+        <md-button md-whiteframe="2" ng-href="#/usuario">
+            <p layout layout-align="center"><i class="zmdi zmdi-account zmdi-hc-2x"></i></p>
+            <p layout layout-align="center">Usuários</p>
+        </md-button>
+
+        <md-button md-whiteframe="2" ng-href="#/salasdereuniao">
+            <p layout layout-align="center"><i class="zmdi zmdi-calendar-check zmdi-hc-2x"></i></p>
+            <p layout layout-align="center">Sala de Reunião</p>
+        </md-button>
+    </div>
+</md-sidenav>

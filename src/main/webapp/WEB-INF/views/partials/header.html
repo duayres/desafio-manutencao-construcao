@@ -1,0 +1,15 @@
+<md-toolbar class="md-hue-2" ng-controller="UsuarioController as UserCtrl">
+    <div class="md-toolbar-tools">
+        <md-button class="md-icon-button" ng-click="toggleLeft()" aria-label="Favorite" hide-gt-md>
+            <i class="zmdi zmdi-menu zmdi-hc-lg"></i>
+        </md-button>
+        <h2>
+            <span>Sistema de gerenciamento de salas de reunião</span>
+        </h2>
+        <span flex></span>
+        <span class="md-body-1">Olá {{UserCtrl.usuarioLogado.nomeUsuario}} <small class="md-caption">({{UserCtrl.usuarioLogado.tipo}})</small></span>
+        <md-button class="md-button" aria-label="Favorite" ng-click="UserCtrl.logout()">
+            Sair
+        </md-button>
+    </div>
+</md-toolbar>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Sistema Gerenciador de Salas de Reunião</title>
+        <link rel="stylesheet" href="./assets/css/app.css">
+        <link rel="stylesheet" href="./webjars/angular-material/1.1.1/angular-material.min.css">
+    </head>
+
+    <body ng-app="salasDeReuniao">
+
+        <div layout="column" flex role="main" ng-controller="UsuarioController as UserCtrl" style="height: 100%;">
+            <md-content layout="vertical" flex>
+                <div layout="row" layout-align="center center" layout-fill>
+                    <md-whiteframe class="md-whiteframe-2dp" flex="30" layout="column" layout-padding>
+                        <md-content>
+                            <div layout="row" layout-align="center center">
+                                <p>Sistema Gerenciador de Salas de Reunião</p>
+                            </div>
+                            <div layout="row" layout-align="center center">
+                                <p>Faça Login</p>
+                            </div>
+                            <form ng-submit="UserCtrl.login()" method="POST">
+                                <md-input-container class="md-block">
+                                    <label>Email</label>
+                                    <input required name="username" type="email" ng-model="usuario.email">
+                                </md-input-container>
+                                <md-input-container class="md-block">
+                                    <label>Senha</label>
+                                    <input required name="password" type="password" ng-model="usuario.senha">
+                                </md-input-container>
+                                <div layout="row" layout-align="end center">
+                                    <p class="exception" id="exception"></p>
+                                    <span flex></span>
+                                    <md-input-container class="md-block" >
+                                        <md-button type="submit" class="md-raised">Login</md-button>
+                                    </md-input-container>
+                                </div>
+                            </form>
+                        </md-content>
+                    </md-whiteframe>
+                </div>
+            </md-content>
+        </div>
+         <!--AppConfig-->
+        <script type="text/javascript" src="./assets/js/config/appConfig.js"></script>
+
+        <!-- JQuery -->
+        <script type="text/javascript" src="./webjars/jquery/3.1.0/dist/jquery.min.js"></script>
+
+        <!-- Angular.JS -->
+        <script type="text/javascript" src="./webjars/angular/1.5.8/angular.min.js"></script>
+        <script type="text/javascript" src="./webjars/angular-route/1.5.8/angular-route.min.js"></script>
+        <script type="text/javascript" src="./webjars/angular-animate/1.5.8/angular-animate.min.js"></script>
+        <script type="text/javascript" src="./webjars/angular-aria/1.5.8/angular-aria.min.js"></script>
+        <script type="text/javascript" src="./webjars/angular-messages/1.5.8/angular-messages.min.js"></script>
+
+        <!--Angular Material-->
+        <script type="text/javascript" src="./webjars/angular-material/1.1.1/angular-material.min.js"></script>
+
+        <!--App.js-->
+        <script type="text/javascript" src="./assets/js/App.js"></script>
+
+        <!--Plugins-->
+        <script type="text/javascript" src="./assets/js/plugins/angular-sanitize.min.js"></script>
+        <script type="text/javascript" src="./webjars/moment/2.15.1/moment.js"></script>
+        <script type="text/javascript" src="./assets/plugins/material-datetime-picker/js/angular-material-datetimepicker.min.js"></script>
+        
+        <!--Router-->
+        <script type="text/javascript" src="./assets/js/config/router.js"></script>
+        
+        <!--Send Service-->
+        <script type="text/javascript" src="./assets/js/service/sendService.js"></script>
+
+        <!--Eits-ng-->
+        <script type="text/javascript" src="./webjars/eits-ng/1.1.0-SNAPSHOT/eits-ng.js"></script> 
+        <script type="text/javascript" src="./webjars/eits-ng/1.1.0-SNAPSHOT/broker/dwr-broker.js"></script>
+
+        <!--Controllers-->
+        <script type="text/javascript" src="./assets/js/controllers/AppController.js"></script>
+        <script type="text/javascript" src="./assets/js/controllers/AgendamentoController.js"></script>
+        <script type="text/javascript" src="./assets/js/controllers/UsuarioController.js"></script>
+        
+        <!--Directives-->
+        <script type="text/javascript" src="./assets/js/directives/HeaderDirective.js"></script>
+        <script type="text/javascript" src="./assets/js/directives/SideBarDirective.js"></script>
+        <script type="text/javascript" src="./assets/js/directives/PaginationDirective.js"></script>
+        
+        <!--DWR-->
+        <script src="./assets/js/dwr/engine.js"></script>
+    	<script src="./assets/js/dwr/util.js"></script>
+
+    </body>
+</html>

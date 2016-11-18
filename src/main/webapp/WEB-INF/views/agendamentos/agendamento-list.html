@@ -1,0 +1,47 @@
+<md-content flex layout-padding class="layout-fill" ng-controller="AgendamentoController as AgndCtrl" ng-init="AgndCtrl.carregarAgendamento()">
+    <md-toolbar class="md-theme-light">
+        <h2 class="md-toolbar-tools">
+            <span>Agendamentos</span>
+        </h2>
+    </md-toolbar>
+    <table class="table mdl-data-table" style="width: 100%;">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Sala</th>
+                <th>Quantidade de usuários</th>
+                <th>Data</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        
+        <tbody>
+        <!-- ng-repeat="agendamento in AgndCtrl.agendamentos" -->
+            <tr dir-paginate="agendamento in AgndCtrl.agendamentos | itemsPerPage: 10">
+                <td>{{agendamento.nomeAgendamento}}</td>
+                <td>{{agendamento.salaDeReuniao.nomeSala}}</td>
+                <td>{{agendamento.participantes.length}}</td>
+                <td>
+                    <p>{{agendamento.data | date: 'dd/MM/yyyy'}} {{agendamento.hora | date: 'HH:mm'}}<p>
+                    <p>{{agendamento.duracao}} Horas</p>
+                </td>
+                <td>
+                    <md-button class="md-fab md-warn md-mini" aria-label="Editar" ng-href="#/agendamento/editar/{{agendamento.idAgendamento}}">
+                        <i class="zmdi zmdi-edit"></i>
+                    </md-button>
+                    <md-button class="md-fab md-danger-bom md-mini" aria-label="Excluir" ng-click="AgndCtrl.excluir(event, agendamento.idAgendamento, $index);">
+                        <i class="zmdi zmdi-close"></i>
+                    </md-button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <dir-pagination-controls></dir-pagination-controls>
+
+    <md-fab-speed-dial md-direction="up" class="md-fling md-primary md-fab-bottom-right" >
+      <md-fab-trigger>
+        <md-button aria-label="Add..." class="md-primary md-fab" ng-href="#/agendamento/novo" ><i class="zmdi zmdi-plus zmdi-hc-lg"></i></md-button>
+      </md-fab-trigger>
+    </md-fab-speed-dial>
+</md-content>

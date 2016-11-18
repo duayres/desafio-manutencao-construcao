@@ -13,6 +13,7 @@ import javax.persistence.Transient;
 import javax.validation.ConstraintViolationException;
 import javax.validation.constraints.NotNull;
 
+import org.directwebremoting.annotations.DataTransferObject;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -24,6 +25,7 @@ import org.springframework.validation.ObjectError;
  */
 @Entity
 @Table(name = "usuario")
+@DataTransferObject
 public class Usuario implements Serializable {
 
 
