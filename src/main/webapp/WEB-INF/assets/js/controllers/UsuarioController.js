@@ -1,6 +1,6 @@
 "use strict";
 app.controller("UsuarioController", function($scope, $importService, send, $mdDialog, $mdToast){
-    $importService("UsuariosService");
+    $importService("DWRUsuarioService");
     this.usuarios = [];
 
     if(sessionStorage.getItem("usuarioLogado") != null && sessionStorage.getItem("usuarioLogado") != ""){
@@ -16,7 +16,8 @@ app.controller("UsuarioController", function($scope, $importService, send, $mdDi
             .success(function(usuarios){
                 UserCtrl.usuarios = usuarios;
         });
-        // UsuariosService.listAll();
+        UserCtrl.usuarios=DWRUsuarioService.listAll();
+        console.log(UserCtrl.usuarios.nome);
     }
     
     this.openModal = function(event, _usuario){
@@ -47,7 +48,7 @@ app.controller("UsuarioController", function($scope, $importService, send, $mdDi
         if(usuario.ativo == false){
             var confirm = $mdDialog.confirm()
                 .title("Tem certeza que deseja desativar esse usuario?")
-                .textContent("Ela não estará mais disponível e não poderá mais fazer login depois de desativado.")
+                .textContent("Ele não estará mais disponível nem poderá mais fazer login depois de desativado.")
                 .ariaLabel("Desativar Usuario")
                 .ok("Desativar")
                 .cancel("Cancelar");

@@ -1,9 +1,12 @@
 package com.duayres.model;
 
+import org.directwebremoting.annotations.DataTransferObject;
+
 /**
  * @author Eduardo Ayres
  *
  */
+@DataTransferObject
 public enum TipoUsuario {
 	
 	ADMINISTRADOR("Administrador"),

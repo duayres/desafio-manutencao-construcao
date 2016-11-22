@@ -1,1 +1,1 @@
-var base_url = "http://localhost:8080/salasdereuniao/";
+var base_url = "http://localhost:8080/desafio/";

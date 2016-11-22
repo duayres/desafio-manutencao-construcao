@@ -19,7 +19,18 @@ public class MainController {
 	@Autowired
 	private TipoDeEquipamentoService tpService;
 	
-	@RequestMapping("/teste")
+	
+	@RequestMapping("/login")
+	public ModelAndView login(){
+	return new ModelAndView("index");
+	}
+	
+	@RequestMapping("/home")
+	public ModelAndView home(){
+	return new ModelAndView("index");
+	}
+	
+	@RequestMapping("/")
 	public ModelAndView teste(){
 		System.out.println("testão! xD");
 		

@@ -352,7 +352,7 @@ if (typeof dwr == 'undefined') dwr = {};
   dwr.engine._scriptTagProtection = "throw 'allowScriptTagRemoting is false.';";
 
   /** The default path to the DWR servlet */
-  dwr.engine._pathToDwrServlet = "/salasdereuniao/dwr";
+  dwr.engine._pathToDwrServlet = "/desafio/dwr";
 
   /** Custom path to the DWR servlet */
   dwr.engine._overridePath = "";
@@ -365,7 +365,7 @@ if (typeof dwr == 'undefined') dwr = {};
   };
 
   /** The webapp's contextPath */
-  dwr.engine._contextPath = "/salasdereuniao";
+  dwr.engine._contextPath = "/desafio";
 
   /** Custom contextPath */
   dwr.engine._overrideContextPath = "";

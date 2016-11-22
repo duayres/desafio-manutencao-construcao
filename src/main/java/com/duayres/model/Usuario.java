@@ -57,11 +57,14 @@ public class Usuario implements Serializable {
 	@Transient
 	private String exception;
 	
-	@Column(name = "tipo_usuario", nullable = false)
+	@Column(name = "status", nullable = false)
+	private Boolean status;	
+	
+	//@Column(name = "tipo_usuario", nullable = false)
 	private TipoUsuario tipoUsuario;	
 	
-	private Boolean status;
-	
+
+
 
 	public Long getIdUsuario() {
 		return idUsuario;
@@ -120,11 +123,11 @@ public class Usuario implements Serializable {
 		return tipoUsuario;
 	}
 
-	public void setTipo(TipoUsuario tipo) {
-		this.tipoUsuario = tipo;
+	public void setTipo(TipoUsuario tipoUsuario) {
+		this.tipoUsuario = tipoUsuario;
 	}
 
-	public Boolean setStatus() {
+	public Boolean getStatus() {
 		return status;
 	}
 

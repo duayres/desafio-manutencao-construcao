@@ -41,7 +41,7 @@ import com.duayres.controller.MainController;
 //import nz.net.ultraq.thymeleaf.LayoutDialect;
 
 @Configuration
-//@ComponentScan(basePackageClasses = { MainController.class })
+@ComponentScan(basePackageClasses = { MainController.class })
 @EnableWebMvc
 @EnableSpringDataWebSupport
 public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationContextAware {
@@ -94,13 +94,15 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationCon
 	 * Configuração experimental do DWR começa aqui:
 	 * 
 	 */
-	/*@Bean
-	public DwrController dwrController(ApplicationContext applicationContext) {
+	@Bean
+	public DwrController dwrController(ApplicationContext applicationContextx) {
 
-		BeanDefinitionRegistry beanDefinitionRegistry = (BeanDefinitionRegistry) applicationContext
+		BeanDefinitionRegistry beanDefinitionRegistry = (BeanDefinitionRegistry) applicationContextx
 				.getAutowireCapableBeanFactory();
 		Map<String, String> configParam = new HashMap<String, String>();
 		configParam.put("activeReverseAjaxEnabled", "true");
+		configParam.put("allowScriptTagRemoting", "true");
+		
 		configParam.put("debug", "true");
 		
 
@@ -131,12 +133,12 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationCon
 	@Bean
 	public DwrHandlerMapping dwrHandlerMapping(DwrController dwrController) {
 		Map<String, DwrController> urlMap = new HashMap<String, DwrController>();
-		urlMap.put("/dwr/", dwrController);
+		urlMap.put("/dwr/**/*", dwrController);
 
 		DwrHandlerMapping dwrHandlerMapping = new DwrHandlerMapping();
-		dwrHandlerMapping.setAlwaysUseFullPath(true);
+		dwrHandlerMapping.setAlwaysUseFullPath(false);
 		dwrHandlerMapping.setUrlMap(urlMap);
 		return dwrHandlerMapping;
-	}*/
+	}
 
 }

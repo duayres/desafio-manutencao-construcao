@@ -1,7 +1,8 @@
 "use strict";
 app.controller("AppController", function($scope, $timeout, $mdSidenav, send, $http, $mdToast){
     if(sessionStorage.getItem("logged") != "true"){
-        location.href=base_url;
+        //location.href=base_url; 
+    	/*@todo aqui está o login*/
     }    
     
     //usado para abrir a sidebar em dispositivos menores
