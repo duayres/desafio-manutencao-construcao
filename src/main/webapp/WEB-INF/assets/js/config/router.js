@@ -18,7 +18,11 @@ app.config(["$routeProvider", function($routeProvider){
         controller: "AgendamentoFormController as AgndFormCtrl"            
     })
     .when("/desafio", {
-    	templateUrl: './views/salasdereuniao/salasdereuniao-list.html',
-        controller: 'SalasDeReuniaoController'	
+    	templateUrl: './views/tipodeequipamento/tipodeequipamento-list.html',
+        controller: 'TipoDeEquipamentoController'	
+    })
+    .when("/tipodeequipamento", {
+    	templateUrl: './views/tipodeequipamento/tipodeequipamento-list.html',
+        controller: 'TipoDeEquipamentoController'	
     })
 }]);

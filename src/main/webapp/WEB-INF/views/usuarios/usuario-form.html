@@ -16,7 +16,7 @@
                 <div layout="row">
                     <md-input-container flex="70">
                         <label>Nome</label>
-                        <input type="text" maxlength="140" id="nome"  md-maxlength="140" ng-model="UserFormCtrl.usuario.nomeUsuario" required> 
+                        <input type="text" maxlength="140" id="nome"  md-maxlength="140" ng-model="UserFormCtrl.usuario.nome" required> 
                     </md-input-container>
 
                     <md-input-container  flex="30">
@@ -41,7 +41,7 @@
                         <md-select ng-model="UserFormCtrl.usuario.tipo" required>
                             <md-option><em>None</em></md-option>
                             <md-option ng-repeat="tipo in UserFormCtrl.tiposUsuarios" ng-value="tipo">
-                                {{tipo}}
+                                {{tipo.tipoUsuario}}
                             </md-option>
                         </md-select>
                     </md-input-container>

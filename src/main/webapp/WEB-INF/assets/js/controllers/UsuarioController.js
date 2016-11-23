@@ -12,12 +12,16 @@ app.controller("UsuarioController", function($scope, $importService, send, $mdDi
     var UserCtrl = this;
     
     this.carregarUsuarios = function(){
-        send.get("/usuarios")
+        /*send.get("/usuarios")
             .success(function(usuarios){
                 UserCtrl.usuarios = usuarios;
+        });*/
+        DWRUsuarioService.listAll({
+        	callback: function(usuarios){UserCtrl.usuarios=usuarios}
         });
-        UserCtrl.usuarios=DWRUsuarioService.listAll();
-        console.log(UserCtrl.usuarios.nome);
+        DWRUsuarioService.listTiposUsuario({
+        	callback: function(tipos){UserCtrl.tipos=tipos}
+        });
     }
     
     this.openModal = function(event, _usuario){
@@ -29,7 +33,7 @@ app.controller("UsuarioController", function($scope, $importService, send, $mdDi
             clickOutsideToClose: true,
             fullscreen: $scope.customFullscreen,
             locals:{
-                data: {usuarios: UserCtrl.usuarios, usuario: _usuario, tiposUsuarios: $scope.tiposUsuarios, usuarioLogado: UserCtrl.usuarioLogado}
+                data: {usuarios: UserCtrl.usuarios, usuario: _usuario, tiposUsuarios: UserCtrl.tipos, usuarioLogado: UserCtrl.usuarioLogado}
             }
         }).then(function(usuario){
             if(usuario){
@@ -45,7 +49,7 @@ app.controller("UsuarioController", function($scope, $importService, send, $mdDi
     }
 
     this.toggleAtivoUsuario = function(usuario){
-        if(usuario.ativo == false){
+        if(usuario.status == false){
             var confirm = $mdDialog.confirm()
                 .title("Tem certeza que deseja desativar esse usuario?")
                 .textContent("Ele não estará mais disponível nem poderá mais fazer login depois de desativado.")
@@ -61,13 +65,13 @@ app.controller("UsuarioController", function($scope, $importService, send, $mdDi
                     return;
                 }, function(response){
                     if(response.status == 403){
-                        usuario.ativo = !usuario.ativo;
+                        usuario.status = !usuario.status;
                         $scope.toast403();
                     }
                 });
             }, function(){
                 $mdDialog.hide();
-                usuario.ativo = !usuario.ativo;
+                usuario.status = !usuario.status;
             });
         }else{
             delete usuario.errors;
@@ -76,7 +80,7 @@ app.controller("UsuarioController", function($scope, $importService, send, $mdDi
                 return;
             },function(response){
                 if(response.status == 403){
-                    usuario.ativo = !usuario.ativo;
+                    usuario.status = !usuario.status;
                     $scope.toast403();
                 }
             });
@@ -90,7 +94,7 @@ app.controller("UsuarioController", function($scope, $importService, send, $mdDi
             var authString = btoa(response.data.email+":"+response.data.senha);
             
             sessionStorage.setItem("authToken",  "Basic "+authString);
-            sessionStorage.setItem("usuarioLogado", JSON.stringify(response.data));
+            sessionStorage.setItem("usuarioLogado", "cebolinha");//JSON.stringify(response.data));
             location.href=base_url+"home";
         }, function(response){
             if(response.status == 400){

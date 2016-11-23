@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.duayres.model.TipoUsuario;
 import com.duayres.model.Usuario;
 import com.duayres.repository.IUsuarioRepository;
 
@@ -28,7 +29,10 @@ public class UsuarioService {
 	public List<Usuario> listAll(){
 		return usuarioRepository.findAll();
 	}
-	
+
+	public TipoUsuario[] listTiposUsuario(){
+		return TipoUsuario.values();
+	}
 
 	public List<Usuario> find(Usuario usuario) {
 		if(usuario.getNome() == null){

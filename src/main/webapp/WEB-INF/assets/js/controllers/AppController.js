@@ -35,13 +35,13 @@ app.controller("AppController", function($scope, $timeout, $mdSidenav, send, $ht
     $http.defaults.headers.common['Authorization'] = sessionStorage.getItem("authToken"); 
     
     //recupera do servidor os tipos de usuarios e coloca na scope
-    $scope.tiposUsuarios = [];
+    /*$scope.tiposUsuarios = [];
     
     send.get("/tipoUsuario")
         .success(function(data){
             $scope.tiposUsuarios = data;  
         }
-    );
+    );*/
     //fim tipos de usuarios
 
     $scope.toast403 = function(){

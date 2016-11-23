@@ -10,8 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.duayres.model.TipoDeEquipamento;
 import com.duayres.repository.ITipoDeEquipamentoRepository;
 
-@Service
-public class TipoDeEquipamentoService {
+@RemoteProxy
+public class DWRTipoDeEquipamentoService {
 	@Autowired
 	private ITipoDeEquipamentoRepository tipoDeEquipamentoRepository;
 	

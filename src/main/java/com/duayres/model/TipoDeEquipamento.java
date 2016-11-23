@@ -1,19 +1,26 @@
 package com.duayres.model;
 
+import java.awt.image.BufferedImage;
+import java.io.BufferedOutputStream;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.imageio.ImageIO;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import org.hibernate.validator.constraints.Email;
+import org.directwebremoting.annotations.DataTransferObject;
 import org.hibernate.validator.constraints.NotBlank;
-
 import org.springframework.validation.ObjectError;
 
 /**
@@ -22,6 +29,7 @@ import org.springframework.validation.ObjectError;
  */
 @Entity
 @Table(name = "tipo_equipamento")
+@DataTransferObject
 public class TipoDeEquipamento implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
@@ -36,10 +44,9 @@ public class TipoDeEquipamento implements Serializable {
 	
 	@NotBlank(message="A descrição não pode estar em branco.")
 	private String descricao;
-	
-	//@NotBlank(message="A senha não pode estar em branco.") //atentar que será criptografada (oneway: hashcode)
-	@Column(length=50)
-	private String foto;
+
+	@Lob
+	private byte[] foto;
 
 	@Transient
 	private List<ObjectError> errors;
@@ -66,12 +73,20 @@ public class TipoDeEquipamento implements Serializable {
 		this.descricao = descricao;
 	}
 
-	public String getFoto() {
-		return foto;
+	public BufferedImage getFoto() {
+		InputStream in = new ByteArrayInputStream(this.foto);
+        try {
+			return ImageIO.read(in);
+		} catch (IOException e) {
+			e.printStackTrace();//@todo fazer melhor
+		}
+		return null;
 	}
 
-	public void setFoto(String foto) {
-		this.foto = foto;
+	public void setFoto(BufferedImage foto) {
+        BufferedOutputStream saida = new ByteArrayOutputStream();
+        ImageIO.write(foto, "JPG" /* for instance */, saida);
+        this.foto = saida.toByteArray();
 	}
 
 	public Boolean getStatus() {

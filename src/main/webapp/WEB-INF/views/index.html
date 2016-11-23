@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html lang="pt" ng-app="salasDeReuniao">
+<html lang="pt" ng-app="agendamentoManutencao">
     <head>
-        <title>Sistema Gerenciador de Salas de Reunião</title>
+        <title>Sistema Gerenciador de Manutenção de Equipamento</title>
         <link rel="stylesheet" href="./webjars/angular-material/1.1.1/angular-material.min.css">
         <link rel="stylesheet" href="./assets/css/material-icons/css/material-design-iconic-font.min.css">
         <link rel="stylesheet" href="./assets/plugins/material-datetime-picker/css/material-datetimepicker.min.css">
         <link rel="stylesheet" href="./assets/css/app.css">
     </head>
     
-    <body ng-controller="AppController">
+    <body ng-controller="AppController" md-colors="{background: 'blue-gray-500'}" class="md-theme-blue-gray">
         <header></header>
         
         <section layout="row" style="height: 80%;">
@@ -58,8 +58,8 @@
         <script type="text/javascript" src="./assets/js/controllers/AgendamentoFormController.js"></script>
         <script type="text/javascript" src="./assets/js/controllers/UsuarioController.js"></script>
         <script type="text/javascript" src="./assets/js/controllers/UsuarioFormController.js"></script>
-        <script type="text/javascript" src="./assets/js/controllers/SalasDeReuniaoController.js"></script>
-        <script type="text/javascript" src="./assets/js/controllers/SalasDeReuniaoFormController.js"></script>
+        <script type="text/javascript" src="./assets/js/controllers/TipoDeEquipamentoController.js"></script>
+        <script type="text/javascript" src="./assets/js/controllers/TipoDeEquipamentoFormController.js"></script>
         
         <!--Directives-->
         <script type="text/javascript" src="./assets/js/directives/HeaderDirective.js"></script>

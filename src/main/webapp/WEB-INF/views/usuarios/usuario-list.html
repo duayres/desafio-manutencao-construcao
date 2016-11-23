@@ -23,7 +23,7 @@
                 <td>{{usuario.email}}</td>
                 <td>{{usuario.tipo.tipoUsuario}}</td>
                 <td>
-                    <md-switch md-no-ink ng-disabled="usuario.idUsuario == UserCtrl.usuarioLogado.idUsuario" class="md-success" ng-model="usuario.ativo" ng-change="UserCtrl.toggleAtivoUsuario(usuario)" layout="row" layout-align="center center" aria-label="Switch 1"></md-switch>
+                    <md-switch md-no-ink ng-disabled="usuario.idUsuario == UserCtrl.usuarioLogado.idUsuario" class="md-success" ng-model="usuario.status" ng-change="UserCtrl.toggleAtivoUsuario(usuario)" layout="row" layout-align="center center" aria-label="Switch 1"></md-switch>
                 </td>
                 <td>
                     <md-button class="md-fab md-warn md-mini" aria-label="Editar" ng-click="UserCtrl.openModal(event, usuario);">

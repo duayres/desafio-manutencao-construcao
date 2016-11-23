@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.duayres.model.TipoUsuario;
 import com.duayres.model.Usuario;
 import com.duayres.repository.IUsuarioRepository;
 
@@ -27,16 +28,14 @@ public class DWRUsuarioService {
 		return this.usuarioRepository.findOne( id );
 	}
 
-	public Usuario axae( Long idx )
-	{
-		return this.usuarioRepository.findOne( idx );
-	}
-	//@RemoteMethod
 	public List<Usuario> listAll(){
 		return usuarioRepository.findAll();
 	}
 	
-	//@RemoteMethod
+	public TipoUsuario[] listTiposUsuario(){
+		return TipoUsuario.values();
+	}
+	
 	public List<Usuario> find(Usuario usuario) {
 		if(usuario.getNome() == null){
 			usuario.setNomeUsuario("");

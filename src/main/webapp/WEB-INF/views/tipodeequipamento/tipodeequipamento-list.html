@@ -1,0 +1,37 @@
+<md-content flex layout-padding class="layout-fill" ng-controller="TipoDeEquipamentoController as TipoDeEquipamentoCtrl" ng-init="TipoDeEquipamentoCtrl.carregarTiposDeEquipamento()">
+    <md-toolbar class="md-theme-light">
+        <h2 class="md-toolbar-tools">
+            <span>Tipos de Equipamento</span>
+        </h2>
+    </md-toolbar>
+
+    <table class="table mdl-data-table" style="width: 100%;">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Foto</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr ng-repeat="equipamento in TipoDeEquipamentoCtrl.tiposDeEquipamento">
+                <td >{{equipamento.nome}}</td>
+                <td >{{equipamento.capacidade}}Será uma<br>foto xD</td>
+                <td width="10">
+                    <md-button class="md-fab md-warn md-mini" aria-label="Editar" ng-click="TipoDeEquipamentoCtrl.openModal(event, equipamento);">
+                        <i class="zmdi zmdi-edit"></i>
+                    </md-button>
+                    <md-button class="md-fab md-danger-bom md-mini" aria-label="Editar" ng-click="TipoDeEquipamentoCtrl.excluir(event, equipamento.idEquipamento, $index);">
+                        <i class="zmdi zmdi-close"></i>
+                    </md-button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <md-fab-speed-dial md-direction="up" class="md-fling md-primary md-fab-bottom-right"  ng-click="TipoDeEquipamentoCtrl.openModal()">
+      <md-fab-trigger>
+        <md-button aria-label="Add..." class="md-primary md-fab"><i class="zmdi zmdi-plus zmdi-hc-lg"></i></md-button>
+      </md-fab-trigger>
+    </md-fab-speed-dial>
+</md-content>

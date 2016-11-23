@@ -65,9 +65,9 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationCon
 	 */
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
-		registry.addResourceHandler("/assets/**").addResourceLocations("/WEB-INF/assets/");
-		registry.addResourceHandler("/views/**").addResourceLocations("/WEB-INF/views/");
+		registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/").setCachePeriod(1);
+		registry.addResourceHandler("/assets/**").addResourceLocations("/WEB-INF/assets/").setCachePeriod(1);
+		registry.addResourceHandler("/views/**").addResourceLocations("/WEB-INF/views/").setCachePeriod(1);
 	}
 	
     @Bean

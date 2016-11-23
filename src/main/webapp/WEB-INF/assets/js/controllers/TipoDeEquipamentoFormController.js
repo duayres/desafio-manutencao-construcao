@@ -1,13 +1,13 @@
-app.controller("SalasDeReuniaoFormController", function($scope, $mdDialog, data, send, $mdToast){
-	this.sala = data.sala;
-	var SalasFormCtrl = this;
+app.controller("TipoDeEquipamentoFormController", function($scope, $mdDialog, data, send, $mdToast){
+	this.equipamento = data.equipamento;
+	var EquipamentosFormCtrl = this;
 	
 	this.submitForm = function(){
-		if(SalasFormCtrl.sala){
-			delete SalasFormCtrl.sala.errors;
-			send.post("/salasdereuniao", SalasFormCtrl.sala)
+		if(EquipamentosFormCtrl.equipamento){
+			delete TipoDeEquipamentosFormCtrl.equipamento.errors;
+			send.post("/tipodeequipamento", EquipamentosFormCtrl.equipamento)
 			.then(function(response){
-				if(SalasFormCtrl.sala.idSala){
+				if(TipoDeEquipamentosFormCtrl.equipamento.idEquipamento){
 	                    $mdDialog.hide();
 	                }else{
 	                    $mdDialog.hide(response.data);
