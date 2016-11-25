@@ -1,10 +1,17 @@
 package com.duayres.controller;
 
+import java.util.Arrays;
+import java.util.Calendar;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.duayres.model.Agendamento;
+import com.duayres.model.Localizacao;
+import com.duayres.model.TipoDeEquipamento;
+import com.duayres.model.Usuario;
 import com.duayres.service.AgendamentoService;
 import com.duayres.service.TipoDeEquipamentoService;
 import com.duayres.service.UsuarioService;
@@ -22,12 +29,41 @@ public class MainController {
 	
 	@RequestMapping("/login")
 	public ModelAndView login(){
-	return new ModelAndView("index");
+		return new ModelAndView("login");
 	}
 	
 	@RequestMapping("/home")
 	public ModelAndView home(){
-	return new ModelAndView("index");
+		
+		if (usuarioService.listAll().isEmpty()){
+			Usuario u = new Usuario();
+			u.setTipoUsuario(com.duayres.model.TipoUsuario.ADMINISTRADOR);
+			u.setEmail("cebola@cebola.com");
+			u.setNome("Eduardo Cebola");
+			u.setStatus(true);
+			u.setSenha("ahue1234");
+			u.setConfSenha("ahue1234");
+			u=this.usuarioService.save(u);
+			
+			
+			TipoDeEquipamento e = new TipoDeEquipamento();
+			e.setDescricao("Ar condicionado da minie");
+			e.setNome("Ar condicionado CCE");
+			e.setStatus(true);
+			//e.setFoto(null);
+			e=this.tpService.save(e);
+			
+			Agendamento a = new Agendamento();
+			a.setDataInicial(Calendar.getInstance());
+			a.setDataFinal(Calendar.getInstance());
+			a.setMembros(Arrays.asList(u));
+			a.setTipoEquipamento(e);
+			//a.setLocalizacao(new Localizacao());
+			
+			this.agService.save(a);
+		}
+		
+		return new ModelAndView("index");
 	}
 	
 	@RequestMapping("/")

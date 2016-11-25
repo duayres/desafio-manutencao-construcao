@@ -46,7 +46,7 @@ public class Agendamento implements Serializable {
 
 	@NotNull
 	@ManyToOne(fetch=FetchType.EAGER)
-    @JoinColumn(name = "tipo_equipamento", nullable = false, insertable=false, updatable=false)
+    @JoinColumn(name = "tipo_equipamento", nullable = false)//, insertable=false, updatable=false)
 	private TipoDeEquipamento tipoEquipamento;
 
 	@OneToMany(fetch=FetchType.EAGER)

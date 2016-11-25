@@ -14,16 +14,31 @@
             <div class="md-dialog-content" >
                 <input type="hidden" name="idEquipamento" ng-model="EquipamentosFormCtrl.equipamento.idEquipamento">
                 <div layout="row">
-                    <md-input-container flex="70">
+                    <md-input-container flex="60">
                         <label>Nome</label>
                         <input type="text" maxlength="100" id="nome" required  md-maxlength="100" ng-model="EquipamentosFormCtrl.equipamento.nomeEquipamento">
                     </md-input-container>
 
-                    <md-input-container  flex="30">
-                        <label>Capacidade</label>
-                        <input type="number" min="1" max="99999" id="idade" required ng-model="EquipamentosFormCtrl.equipamento.capacidade">
-                    </md-input-container>
+            <md-input-container flex="40">
+                <input type="file" id="foto" aria-label="Foto" name="foto" ng-show="false">
+                <md-button class="md-raised" ng-click="TipoDeEquipamentoFormCtrl.upload()" >
+                    Foto
+                </md-button>
+                <small ng-show="TipoDeEquipamentoFormCtrl.equipamento.foto">
+                    <a href="{{TipoDeEquipamentoFormCtrl.equipamento.foto}}" class="link" target="_blank">
+                        <i class="zmdi zmdi-file zmdi-hc-2x"></i>
+                    </a>
+                    Clique no icone para baixar o arquivo atual
+                </small>
+            </md-input-container>
                 </div>
+				<div layout="row">
+			        <md-input-container flex="100">
+			          <label>Descrição</label>
+			          <textarea ng-model="TipoDeEquipamentoFormCtrl.equipamento.descricao" rows="3" md-select-on-focus></textarea>
+			        </md-input-container>
+                </div>
+                
             </div>
         </md-dialog-content>
 

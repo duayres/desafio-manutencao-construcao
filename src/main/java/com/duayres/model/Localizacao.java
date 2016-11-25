@@ -20,7 +20,7 @@ import org.hibernate.validator.constraints.NotBlank;
  */
 @Entity
 @Table(name = "localizacao")
-@DataTransferObject
+@DataTransferObject(type="hibernate3")
 public class Localizacao {
 
 	@Id

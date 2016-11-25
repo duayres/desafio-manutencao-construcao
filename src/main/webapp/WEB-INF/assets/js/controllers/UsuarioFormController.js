@@ -5,7 +5,17 @@ app.controller("UsuarioFormController", function($scope, $mdDialog, data, send, 
     var UserFormCtrl = this;
 
     this.submitForm = function(){
-        delete UserFormCtrl.usuario.errors;
+    	delete UserFormCtrl.usuario.errors;
+    	delete UserFormCtrl.usuario.exception;
+    	
+    	
+        DWRUsuarioService.save(UserFormCtrl.usuario, {
+        	callback : function ( result ) {
+        		alert(result);
+        	}
+        });
+        
+        /*
         if(UserFormCtrl.usuario.tipo){
             send.post("/usuarios", UserFormCtrl.usuario)
             .then(function(response){
@@ -46,7 +56,7 @@ app.controller("UsuarioFormController", function($scope, $mdDialog, data, send, 
                     $("#exception").html(error);
                 } 
             });
-        }
+        }*/
     }
 
     this.closeModal = function(){

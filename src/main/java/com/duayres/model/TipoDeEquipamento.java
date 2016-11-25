@@ -46,6 +46,7 @@ public class TipoDeEquipamento implements Serializable {
 	private String descricao;
 
 	@Lob
+	@Column(name = "foto")
 	private byte[] foto;
 
 	@Transient
@@ -78,14 +79,18 @@ public class TipoDeEquipamento implements Serializable {
         try {
 			return ImageIO.read(in);
 		} catch (IOException e) {
-			e.printStackTrace();//@todo fazer melhor
+			e.printStackTrace();//TODO fazer melhor
 		}
 		return null;
 	}
 
 	public void setFoto(BufferedImage foto) {
-        BufferedOutputStream saida = new ByteArrayOutputStream();
-        ImageIO.write(foto, "JPG" /* for instance */, saida);
+		ByteArrayOutputStream saida = new ByteArrayOutputStream();
+        try {
+			ImageIO.write(foto, "JPG" , saida);
+		} catch (IOException e) {
+			e.printStackTrace();//TODO fazer melhor
+		}
         this.foto = saida.toByteArray();
 	}
 

@@ -6,13 +6,14 @@ import org.directwebremoting.annotations.DataTransferObject;
  * @author Eduardo Ayres
  *
  */
-@DataTransferObject
+@DataTransferObject(type="enum")
 public enum TipoUsuario {
 	
 	ADMINISTRADOR("Administrador"),
 	COLABORADOR("Colaborador");
 	
 	private String tipo;
+	
 	
 	TipoUsuario(String tipo){
 		this.tipo = tipo;

@@ -1,5 +1,5 @@
-<!-- <!DOCTYPE dwr PUBLIC "-//GetAhead Limited//DTD Direct Web Remoting 3.0//EN" 
-	"http://getahead.org/dwr/dwr30.dtd"> -->
+<!DOCTYPE dwr PUBLIC "-//GetAhead Limited//DTD Direct Web Remoting 3.0//EN" 
+	"http://getahead.org/dwr/dwr30.dtd">
 <dwr>
 	<init>
 		<creator id="none" class="org.directwebremoting.create.NullCreator" />
@@ -42,17 +42,27 @@
 	<allow>
 
 		<create creator="new" javascript="UsuarioService">
-			<param name="class" value="com.duayres.service.DWRUsuarioService" />
+			<param name="class" value="com.duayres.service.UsuarioService" />
 		</create>
-		
-		<convert converter="bean" match="com.duayres.model.Usuario" />
+
+		<convert converter="bean" match="org.springframework.validation.ObjectError" />
 		
 		<convert converter="bean" match="java.util.Optional"/>
 	
 		<convert converter="null" match="void" />
 		<convert converter="null" match="java.lang.Void" />
 	
-		<convert converter="miniException" match="java.lang.Throwable" />
+		<convert converter="exception" match="java.lang.Throwable" />
+		<convert converter="exception" match="java.lang.Exception" />
+		<convert converter="exception" match="org.postgresql.util.ServerErrorMessage" />
+		
+		<!--convert match="java.lang.Exception" converter="exception">
+		  <param name='include' value='message,lineNumber'/>
+		</convert-->
+		<convert converter="bean" match="java.lang.StackTraceElement" />
+		
+		
+		
 	
 		<convert converter="primitive" match="boolean" />
 		<convert converter="primitive" match="byte" />

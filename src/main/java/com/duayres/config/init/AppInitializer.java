@@ -1,5 +1,6 @@
 package com.duayres.config.init;
 
+import javax.servlet.Filter;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletRegistration;
 
@@ -7,10 +8,12 @@ import org.directwebremoting.servlet.DwrServlet;
 import org.directwebremoting.spring.DwrSpringServlet;
 import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
+import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.DispatcherServlet;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 import com.duayres.config.JPAConfig;
+import com.duayres.config.SecurityConfig;
 import com.duayres.config.ServiceConfig;
 import com.duayres.config.WebConfig;
 
@@ -60,7 +63,7 @@ public class AppInitializer extends AbstractAnnotationConfigDispatcherServletIni
 
 	@Override
 	protected Class<?>[] getRootConfigClasses() {
-		return new Class<?>[] { JPAConfig.class, ServiceConfig.class };
+		return new Class<?>[] { JPAConfig.class, ServiceConfig.class, SecurityConfig.class };
 	}
 
 	@Override
@@ -70,24 +73,25 @@ public class AppInitializer extends AbstractAnnotationConfigDispatcherServletIni
 
 	@Override
 	protected String[] getServletMappings() {
-		return new String[] { "/" };
+		return new String[] { "/dwr/*","/" };
 	}
 	
 	
 	@Override
 	public void onStartup(ServletContext servletContext) {
 	    AnnotationConfigWebApplicationContext rootAppContext = new AnnotationConfigWebApplicationContext();
-	//scan the package of your @Configuration java files
+	//scan pela pacote de classes com annotation @Configuration
 	    rootAppContext.scan("com.duayres.config");
 	    servletContext.addListener(new ContextLoaderListener(rootAppContext));
 	    
 	    
 	    AnnotationConfigWebApplicationContext webAppContext = new AnnotationConfigWebApplicationContext();
 	    webAppContext.setParent(rootAppContext);
-	    rootAppContext.scan("com.duayres.config");            // scan some other packages
+	    rootAppContext.scan("com.duayres.config");            // scan dos config tudo
 	    
-		DwrServlet dwrServlet = new DwrSpringServlet();
-		//dwrServlet.setApplicationContext(dispatcherServletContext);//não funga o.O
+		DwrSpringServlet dwrServlet = new DwrSpringServlet();
+		//dwrServlet.set;
+		//dwrServlet.setApplicationContext(dispatcherServletContext);//não funga esse carai o.O
 		
 		ServletRegistration.Dynamic defaultDispatcher = servletContext.addServlet("dispatcher",
 				new DispatcherServlet(webAppContext));
@@ -103,7 +107,20 @@ public class AppInitializer extends AbstractAnnotationConfigDispatcherServletIni
 		dwrDispatcher.addMapping("/");
 		dwrDispatcher.setInitParameter("debug", "true");
 		dwrDispatcher.setInitParameter("allowScriptTagRemoting", "true");	
+		dwrDispatcher.setInitParameter("accessLogLevel", "CALL");
 	    
+	}
+	
+	/**
+	 * Encoding -> UTF-8
+	 */
+	@Override
+	protected Filter[] getServletFilters()
+	{
+		CharacterEncodingFilter encodingFilter = new CharacterEncodingFilter();
+		encodingFilter.setEncoding("UTF-8");
+		
+		return new Filter[] {encodingFilter};
 	}
 }
 	/**

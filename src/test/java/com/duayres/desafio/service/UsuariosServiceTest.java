@@ -54,12 +54,12 @@ public class UsuariosServiceTest extends AbstractIntegrationTest{
 		/*this.authenticate(1);*/
 		Usuario user = new Usuario();
 		user.setIdUsuario(null);
-		user.setNomeUsuario("Mauricio de Souza");
+		user.setNome("Mauricio de Souza");
 		user.setEmail("mauricio.tdm@gmail.com");
 		user.setSenha("cebolinha");
 		user.setConfSenha("cebolinha");
 		user.setStatus(true);
-		user.setTipo(TipoUsuario.COLABORADOR);
+		user.setTipoUsuario(TipoUsuario.COLABORADOR);
 		
 		user = usuarioService.save(user);
 		
@@ -81,12 +81,12 @@ public class UsuariosServiceTest extends AbstractIntegrationTest{
 		/*this.authenticate(1);*/
 		Usuario user = new Usuario();
 		user.setIdUsuario(null);
-		user.setNomeUsuario("Marcel Micheletto");
+		user.setNome("Marcel Micheletto");
 		user.setEmail("eduardo@eduardoayres.com");
 		user.setSenha("admin");
 		user.setConfSenha("admin");
 		user.setStatus(true);
-		user.setTipo(TipoUsuario.COLABORADOR);
+		user.setTipoUsuario(TipoUsuario.COLABORADOR);
 		
 		user = usuarioService.save(user);
 		
@@ -105,7 +105,7 @@ public class UsuariosServiceTest extends AbstractIntegrationTest{
 		
 		Assert.assertEquals(user.getNome(), "Eduardo Ayres");
 		
-		user.setNomeUsuario("Outro Eduardo");
+		user.setNome("Outro Eduardo");
 		user = usuarioService.save(user);
 		
 		Assert.assertEquals(user.getNome(), "Outro Eduardo");
@@ -124,7 +124,7 @@ public class UsuariosServiceTest extends AbstractIntegrationTest{
 		Usuario user = this.usuarioRepository.findByIdUsuario(Long.parseLong("1000"));
 		
 		Assert.assertEquals(user.getNome(), "Eduardo Ayres");
-		user.setNomeUsuario(null);
+		user.setNome(null);
 		user = usuarioService.save(user);
 		
 		System.out.println(user.getNome());
@@ -172,7 +172,7 @@ public class UsuariosServiceTest extends AbstractIntegrationTest{
 	public void testVerificaEmailJaCadastradoMustPass(){
 		Usuario usuario = new Usuario();
 		
-		usuario.setNomeUsuario("Eduardo");
+		usuario.setNome("Eduardo");
 		List<Usuario> usuarios = usuarioService.find(usuario);
 		Assert.assertEquals(usuarios.size(), 1);
 		Assert.assertEquals(usuarios.get(0).getNome(), "Eduardo Ayres");

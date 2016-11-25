@@ -1,6 +1,7 @@
 package com.duayres.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.directwebremoting.annotations.RemoteProxy;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +37,7 @@ public class UsuarioService {
 
 	public List<Usuario> find(Usuario usuario) {
 		if(usuario.getNome() == null){
-			usuario.setNomeUsuario("");
+			usuario.setNome("");
 		}
 		
 		if(usuario.getEmail() == null){
@@ -44,6 +45,10 @@ public class UsuarioService {
 		}
 		
 		return usuarioRepository.findByNomeIgnoreCaseContainingAndEmailIgnoreCaseContaining(usuario.getNome(), usuario.getEmail());
+	}
+
+	public Optional<Usuario> findByEmailIgnoreCaseAndStatusTrue(String username) {
+		return usuarioRepository.findByEmailIgnoreCaseAndStatusTrue(username);
 	}
 	
 }

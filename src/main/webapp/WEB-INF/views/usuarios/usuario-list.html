@@ -19,9 +19,9 @@
         <tbody>
             <!-- ng-repeat="usuario in UserCtrl.usuarios" -->
             <tr dir-paginate="usuario in UserCtrl.usuarios | itemsPerPage: 5">
-                <td>{{usuario.nome}}</td>
+                <td style="text-transform:capitalize;">{{usuario.nome}}</td>
                 <td>{{usuario.email}}</td>
-                <td>{{usuario.tipo.tipoUsuario}}</td>
+                <td>{{usuario.tipoUsuario}}</td>
                 <td>
                     <md-switch md-no-ink ng-disabled="usuario.idUsuario == UserCtrl.usuarioLogado.idUsuario" class="md-success" ng-model="usuario.status" ng-change="UserCtrl.toggleAtivoUsuario(usuario)" layout="row" layout-align="center center" aria-label="Switch 1"></md-switch>
                 </td>

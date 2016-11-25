@@ -35,13 +35,14 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
 import com.duayres.controller.MainController;
+import com.duayres.rest.UsuarioRestController;
 
 
 //import com.github.mxab.thymeleaf.extras.dataattribute.dialect.DataAttributeDialect;
 //import nz.net.ultraq.thymeleaf.LayoutDialect;
 
 @Configuration
-@ComponentScan(basePackageClasses = { MainController.class })
+@ComponentScan(basePackageClasses = { MainController.class, UsuarioRestController.class })
 @EnableWebMvc
 @EnableSpringDataWebSupport
 public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationContextAware {
@@ -102,7 +103,7 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationCon
 		Map<String, String> configParam = new HashMap<String, String>();
 		configParam.put("activeReverseAjaxEnabled", "true");
 		configParam.put("allowScriptTagRemoting", "true");
-		
+		configParam.put("accessLogLevel", "CALL");
 		configParam.put("debug", "true");
 		
 
@@ -110,7 +111,8 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationCon
 		scanner.addIncludeFilter(new AnnotationTypeFilter(RemoteProxy.class));
 		scanner.addIncludeFilter(new AnnotationTypeFilter(DataTransferObject.class));
 		scanner.addIncludeFilter(new AnnotationTypeFilter(GlobalFilter.class));
-		scanner.scan("com.duayres.service","com.duayres.model");
+		scanner.scan("com.duayres.service","com.duayres.model","com.duayres.security");
+		
 
 		DwrController dwrController = new DwrController();
 		dwrController.setDebug(true);

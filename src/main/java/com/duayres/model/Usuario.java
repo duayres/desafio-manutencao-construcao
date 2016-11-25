@@ -5,18 +5,16 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
-import javax.validation.ConstraintViolationException;
-import javax.validation.constraints.NotNull;
 
 import org.directwebremoting.annotations.DataTransferObject;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
-
 import org.springframework.validation.ObjectError;
 
 /**
@@ -25,7 +23,7 @@ import org.springframework.validation.ObjectError;
  */
 @Entity
 @Table(name = "usuario")
-@DataTransferObject
+@DataTransferObject(type="hibernate3")
 public class Usuario implements Serializable {
 
 
@@ -61,6 +59,7 @@ public class Usuario implements Serializable {
 	private Boolean status;	
 	
 	//@Column(name = "tipo_usuario", nullable = false)
+	@Enumerated
 	private TipoUsuario tipoUsuario;	
 	
 
@@ -78,12 +77,7 @@ public class Usuario implements Serializable {
 		return nome;
 	}
 
-	public void setNomeUsuario(String nome) {
-		if (nome==null){
-			/*Infelizmente ele não está validando nulos da edição
-			 * @todo verificar o driver se está bugado, provavelmente é isso*/
-			//throw new ConstraintViolationException(null);
-		}
+	public void setNome(String nome) {
 		this.nome = nome;
 	}
 
@@ -119,11 +113,11 @@ public class Usuario implements Serializable {
 		this.errors = errors;
 	}
 
-	public TipoUsuario getTipo() {
+	public TipoUsuario getTipoUsuario() {
 		return tipoUsuario;
 	}
 
-	public void setTipo(TipoUsuario tipoUsuario) {
+	public void setTipoUsuario(TipoUsuario tipoUsuario) {
 		this.tipoUsuario = tipoUsuario;
 	}
 
