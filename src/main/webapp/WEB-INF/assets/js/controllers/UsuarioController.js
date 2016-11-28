@@ -3,11 +3,11 @@ app.controller("UsuarioController", function($scope, $importService, send, $mdDi
     $importService("DWRUsuarioService");
     this.usuarios = [];
 
-    if(sessionStorage.getItem("usuarioLogado") != null && sessionStorage.getItem("usuarioLogado") != ""){
+    /*if(sessionStorage.getItem("usuarioLogado") != null && sessionStorage.getItem("usuarioLogado") != ""){
         this.usuarioLogado = JSON.parse(sessionStorage.getItem("usuarioLogado"));
-    }else{
+    }else{*/
         this.usuarioLogado = "";
-    }
+    //}
 
     var UserCtrl = this;
     
@@ -94,10 +94,10 @@ app.controller("UsuarioController", function($scope, $importService, send, $mdDi
             var authString = btoa(response.data.email+":"+response.data.senha);
             
             sessionStorage.setItem("authToken",  "Basic "+authString);
-            sessionStorage.setItem("usuarioLogado", "cebolinha");//JSON.stringify(response.data));
+            sessionStorage.setItem("usuarioLogado", JSON.stringify(response.data));
             location.href=base_url+"home";
         }, function(response){
-            if(response.status == 400){
+            if(response.status == 403){
                 $("#exception").html(response.data.exception);
 
                 setTimeout(function(){

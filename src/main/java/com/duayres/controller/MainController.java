@@ -4,12 +4,14 @@ import java.util.Arrays;
 import java.util.Calendar;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.duayres.model.Agendamento;
-import com.duayres.model.Localizacao;
 import com.duayres.model.TipoDeEquipamento;
 import com.duayres.model.Usuario;
 import com.duayres.service.AgendamentoService;
@@ -27,7 +29,27 @@ public class MainController {
 	private TipoDeEquipamentoService tpService;
 	
 	
-	@RequestMapping("/login")
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	public ResponseEntity<Usuario> doLogin(Usuario usuario){
+		Usuario u = new Usuario();
+		u.setTipoUsuario(com.duayres.model.TipoUsuario.ADMINISTRADOR);
+		u.setEmail("eduardo@eduardoayres.com");
+		u.setNome("Eduardo Cebola");
+		u.setStatus(true);
+		u.setSenha("282ea255eb874bb63fb22f2f4e54a0a1f1e746e6");
+		u.setConfSenha("282ea255eb874bb63fb22f2f4e54a0a1f1e746e6");
+		u=this.usuarioService.save(u);
+		try {
+			Usuario user = usuarioService.login(usuario);
+			return ResponseEntity.ok(user);
+		} catch (UsernameNotFoundException e) {
+			Usuario user = new Usuario();
+			user.setException("Usuario ou senha incorretos");
+			return ResponseEntity.badRequest().body(user);
+		}
+	}
+	
+	@RequestMapping(value = "/")
 	public ModelAndView login(){
 		return new ModelAndView("login");
 	}
@@ -41,8 +63,8 @@ public class MainController {
 			u.setEmail("cebola@cebola.com");
 			u.setNome("Eduardo Cebola");
 			u.setStatus(true);
-			u.setSenha("ahue1234");
-			u.setConfSenha("ahue1234");
+			u.setSenha("282ea255eb874bb63fb22f2f4e54a0a1f1e746e6");
+			u.setConfSenha("282ea255eb874bb63fb22f2f4e54a0a1f1e746e6");
 			u=this.usuarioService.save(u);
 			
 			
@@ -66,35 +88,4 @@ public class MainController {
 		return new ModelAndView("index");
 	}
 	
-	@RequestMapping("/")
-	public ModelAndView teste(){
-		System.out.println("testão! xD");
-		
-		/*Usuario u = new Usuario();
-		u.setTipo(com.duayres.model.TipoUsuario.ADMINISTRADOR);
-		u.setEmail("cebola@cebola.com");
-		u.setNomeUsuario("Eduardo Cebola");
-		u.setStatus(true);
-		u.setSenha("ahue1234");
-		u.setConfSenha("ahue1234");
-		this.usuarioService.save(u);
-		
-		
-		TipoDeEquipamento e = new TipoDeEquipamento();
-		e.setDescricao("Ar condicionado da minie");
-		e.setNome("Ar condicionado CCE");
-		e.setStatus(true);
-		e.setFoto("www.troll.com/troll.jpg");
-		this.tpService.save(e);
-		
-		Agendamento a = new Agendamento();
-		//a.setLocalizacao(new Localizacao());
-		a.setDataInicial(Calendar.getInstance());
-		a.setDataFinal(Calendar.getInstance());
-		a.setMembros(Arrays.asList(u));
-		
-		this.agService.save(a);*/
-		
-		return new ModelAndView("login");
-	}
 }

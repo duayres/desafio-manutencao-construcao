@@ -53,9 +53,13 @@ public class DWRUsuarioService {
 		
 		return usuarioRepository.findByNomeIgnoreCaseContainingAndEmailIgnoreCaseContaining(usuario.getNome(), usuario.getEmail());
 	}
+
+	public Optional<Usuario> findByEmailIgnoreCaseAndStatusTrue(String username) {
+		return usuarioRepository.findByEmailIgnoreCaseAndStatusTrue(username);
+	}
 	
 	public Usuario login(Usuario usuario) {
-		usuario.setSenha(encoder.encodePassword(usuario.getSenha(), "palavraaleatoria"));
+		usuario.setSenha(encoder.encodePassword(usuario.getSenha(), "palavrasecreta"));
 		Optional<Usuario> userOpt = usuarioRepository.findByEmailIgnoreCaseAndSenha(usuario.getEmail(), usuario.getSenha());
 		
 		Usuario user = userOpt.orElseThrow(() -> new UsernameNotFoundException("Usuario e/ou senha não encontrados"));

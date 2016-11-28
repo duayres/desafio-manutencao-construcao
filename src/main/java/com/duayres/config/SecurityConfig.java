@@ -31,10 +31,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
     @Override
     protected void configure(HttpSecurity http) throws Exception {
       http.csrf().disable()
-        .authorizeRequests().anyRequest().authenticated();
-        //.antMatchers("/user/**").hasRole("ADMIN")
-        //.and().httpBasic().realmName("REALM_TESTE").authenticationEntryPoint(getBasicAuthEntryPoint())
-        //.and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);//We don't need sessions to be created.
+        .authorizeRequests().anyRequest().authenticated()
+        .antMatchers("/user/**").hasRole("ADMIN")
+        .and().httpBasic().realmName("REALM_DESAFIO").authenticationEntryPoint(getBasicAuthEntryPoint())
+        .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
     
     @Bean
@@ -43,13 +43,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
     }
     
     /*
-     * Ignorar auth na tela de login
+     * Ignorar auth na tela de login, assets e webjars
      */
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring()
         	.antMatchers(HttpMethod.OPTIONS, "/**")
-        	.antMatchers("/login");
+        	.antMatchers("/")
+        	.antMatchers("/login")
+        	.antMatchers("/webjars/**")
+        	.antMatchers("/assets/**");
+        
     }
 
 }

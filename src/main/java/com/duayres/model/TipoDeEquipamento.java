@@ -1,7 +1,6 @@
 package com.duayres.model;
 
 import java.awt.image.BufferedImage;
-import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -45,7 +44,7 @@ public class TipoDeEquipamento implements Serializable {
 	@NotBlank(message="A descrição não pode estar em branco.")
 	private String descricao;
 
-	@Lob
+	@Lob//@Type(type="org.hibernate.type.PrimitiveByteArrayBlobType")
 	@Column(name = "foto")
 	private byte[] foto;
 

@@ -3,8 +3,9 @@ package com.duayres.service;
 import java.util.List;
 import java.util.Optional;
 
-import org.directwebremoting.annotations.RemoteProxy;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,6 +15,8 @@ import com.duayres.repository.IUsuarioRepository;
 
 @Service
 public class UsuarioService {
+	private ShaPasswordEncoder encoder = new ShaPasswordEncoder();
+	
 	@Autowired
 	private IUsuarioRepository usuarioRepository;
 	
@@ -51,4 +54,12 @@ public class UsuarioService {
 		return usuarioRepository.findByEmailIgnoreCaseAndStatusTrue(username);
 	}
 	
+	
+	public Usuario login(Usuario usuario) {
+		usuario.setSenha(encoder.encodePassword(usuario.getSenha(), "palavrasecreta"));
+		Optional<Usuario> userOpt = usuarioRepository.findByEmailIgnoreCaseAndSenha(usuario.getEmail(), usuario.getSenha());
+		
+		Usuario user = userOpt.orElseThrow(() -> new UsernameNotFoundException("Usuario e/ou senha não encontrados"));
+		return user;
+	}
 }
