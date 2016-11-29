@@ -7,7 +7,7 @@
             <span>Sistema de gerenciamento de agendamentos</span>
         </h2>
         <span flex></span>
-        <span class="md-body-1">Olá {{UserCtrl.usuarioLogado.nomeUsuario}} <small class="md-caption">({{UserCtrl.usuarioLogado.tipo}})</small></span>
+        <span class="md-body-1">Olá {{UserCtrl.usuarioLogado.nome}} <small class="md-caption">({{UserCtrl.usuarioLogado.tipoUsuario | capitalize}})</small></span>
         <md-button class="md-button" aria-label="Favorite" ng-click="UserCtrl.logout()">
             Sair
         </md-button>

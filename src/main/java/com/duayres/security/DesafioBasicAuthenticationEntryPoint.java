@@ -25,7 +25,7 @@ public class DesafioBasicAuthenticationEntryPoint extends BasicAuthenticationEnt
 	
 	@Override
 	public void afterPropertiesSet() throws Exception {
-		setRealmName("REALM_TESTE");
+		setRealmName("REALM_DESAFIO");
 		super.afterPropertiesSet();
 	}
 }

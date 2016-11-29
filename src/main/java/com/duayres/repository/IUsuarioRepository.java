@@ -12,8 +12,6 @@ import com.duayres.model.Usuario;
 public interface IUsuarioRepository extends JpaRepository<Usuario, Long> {
 	public List<Usuario> findByNomeIgnoreCaseContainingAndEmailIgnoreCaseContaining(String nome, String email);
 	
-	public Optional<Usuario> findByEmailIgnoreCase(String email);
-	
 	public Optional<Usuario> findByEmailIgnoreCaseAndStatusTrue(String email);
 
 	public Optional<Usuario> findByEmailIgnoreCaseAndSenha(String email, String senha);

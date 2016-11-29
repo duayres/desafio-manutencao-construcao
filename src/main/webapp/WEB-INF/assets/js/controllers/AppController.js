@@ -5,7 +5,7 @@ app.controller("AppController", function($scope, $timeout, $mdSidenav, send, $ht
     	/*@todo aqui está o login*/
     }    
     
-    //usado para abrir a sidebar em dispositivos menores
+    //toggler da barra lateral (sidenav) para mobile (extraido do site do angularmat)
     $scope.toggleLeft = buildDelayedToggler('left');
 
     function debounce(func, wait, context) {
@@ -23,16 +23,9 @@ app.controller("AppController", function($scope, $timeout, $mdSidenav, send, $ht
         return debounce(function() {
             // Component lookup should always be available since we are not using `ng-if`
             $mdSidenav(navID)
-                .toggle()
-                .then(function () {
-                console.log("Abriu barra esquerda");
-            });
+                .toggle();
         }, 200);
     }
-    //fim sidebar
-    
-    //Adiciona a string do basic auth nos headers para todos os envios ajax
-    $http.defaults.headers.common['Authorization'] = sessionStorage.getItem("authToken"); 
     
     //recupera do servidor os tipos de usuarios e coloca na scope
     /*$scope.tiposUsuarios = [];
@@ -47,9 +40,9 @@ app.controller("AppController", function($scope, $timeout, $mdSidenav, send, $ht
     $scope.toast403 = function(){
         $mdToast.show(
             $mdToast.simple()
-                .textContent('Você não tem permissão para executar essa ação')
+                .textContent('Somente administradores podem realizar esta ação')
                 .position("bottom right")
-                .hideDelay(3000)
+                .hideDelay(5000)
             );
     }
    

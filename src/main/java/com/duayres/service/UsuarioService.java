@@ -4,8 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,7 +15,7 @@ import com.duayres.repository.IUsuarioRepository;
 
 @Service
 public class UsuarioService {
-	private ShaPasswordEncoder encoder = new ShaPasswordEncoder();
+	private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 	
 	@Autowired
 	private IUsuarioRepository usuarioRepository;
@@ -56,10 +56,15 @@ public class UsuarioService {
 	
 	
 	public Usuario login(Usuario usuario) {
-		usuario.setSenha(encoder.encodePassword(usuario.getSenha(), "palavrasecreta"));
-		Optional<Usuario> userOpt = usuarioRepository.findByEmailIgnoreCaseAndSenha(usuario.getEmail(), usuario.getSenha());
+		System.out.println(encoder.encode(usuario.getSenha()));
+		Optional<Usuario> userOpt = usuarioRepository.findByEmailIgnoreCaseAndStatusTrue(usuario.getEmail());
 		
 		Usuario user = userOpt.orElseThrow(() -> new UsernameNotFoundException("Usuario e/ou senha não encontrados"));
+		
+		if (!encoder.matches(usuario.getSenha(), user.getSenha())){
+			throw new UsernameNotFoundException("Usuario e/ou senha não encontrados");
+		}
+		
 		return user;
 	}
 }

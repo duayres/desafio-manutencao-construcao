@@ -12,27 +12,31 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 
 import com.duayres.model.Usuario;
-import com.duayres.service.UsuarioService;
+import com.duayres.repository.IUsuarioRepository;
 
-
-public class AppUserDetailsService implements UserDetailsService {
+@Service
+public class AuthenticationService implements UserDetailsService
+{
 	@Autowired
-	private UsuarioService usuarioService;
+	private IUsuarioRepository usuarioRepository;
 	
 	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		Optional<Usuario> usuarioOpt = usuarioService.findByEmailIgnoreCaseAndStatusTrue(username);
+	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException
+	{
+		Optional<Usuario> usuarioOpt = usuarioRepository.findByEmailIgnoreCaseAndStatusTrue(email);
 		Usuario user = usuarioOpt.orElseThrow(() -> new UsernameNotFoundException("Usuário e/ou senha não encontrado"));
-		System.out.println("usuario:"+username);
-		return new User(user.getEmail(), user.getSenha(), true, true, true, true, getUserTipo(user));	
+		System.out.println(user.getEmail());
+		return new User(user.getEmail(), user.getSenha(), true, true, true, true, getTipoUsuario(user));
 	}
-
-	private Collection<? extends GrantedAuthority> getUserTipo(Usuario user) {
+	
+	private Collection<? extends GrantedAuthority> getTipoUsuario(Usuario user) {
 		List<GrantedAuthority> permissoes = new ArrayList<GrantedAuthority>();
 		permissoes.add(new SimpleGrantedAuthority("ROLE_"+user.getTipoUsuario()));
 		return permissoes;
 	}
+	
 	
 }

@@ -43,7 +43,7 @@ public class Usuario implements Serializable {
 	private String email;
 	
 	@NotBlank(message="A senha não pode estar em branco.") //atentar que será criptografada (oneway: hashcode)
-	@Column(length=50, nullable = false)
+	@Column(length=60, nullable = false)
 	private String senha;
 	
 	@Transient //validacao transiente de confirmação de senha (senha1 = senha2 ? :)

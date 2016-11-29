@@ -3,19 +3,15 @@ app.controller("UsuarioController", function($scope, $importService, send, $mdDi
     $importService("DWRUsuarioService");
     this.usuarios = [];
 
-    /*if(sessionStorage.getItem("usuarioLogado") != null && sessionStorage.getItem("usuarioLogado") != ""){
-        this.usuarioLogado = JSON.parse(sessionStorage.getItem("usuarioLogado"));
-    }else{*/
+    if(sessionStorage.getItem("usuario") != null && sessionStorage.getItem("usuario") != ""){
+        this.usuarioLogado = JSON.parse(sessionStorage.getItem("usuario"));
+    }else{
         this.usuarioLogado = "";
-    //}
+    }
 
     var UserCtrl = this;
     
     this.carregarUsuarios = function(){
-        /*send.get("/usuarios")
-            .success(function(usuarios){
-                UserCtrl.usuarios = usuarios;
-        });*/
         DWRUsuarioService.listAll({
         	callback: function(usuarios){UserCtrl.usuarios=usuarios}
         });
@@ -33,7 +29,7 @@ app.controller("UsuarioController", function($scope, $importService, send, $mdDi
             clickOutsideToClose: true,
             fullscreen: $scope.customFullscreen,
             locals:{
-                data: {usuarios: UserCtrl.usuarios, usuario: _usuario, tiposUsuarios: UserCtrl.tipos, usuarioLogado: UserCtrl.usuarioLogado}
+                data: {usuarios: UserCtrl.usuarios, usuario: _usuario, tiposUsuarios: UserCtrl.tipos, usuarioLogado: UserCtrl.usuario}
             }
         }).then(function(usuario){
             if(usuario){
@@ -88,15 +84,38 @@ app.controller("UsuarioController", function($scope, $importService, send, $mdDi
     }
     
     this.login = function(){
+    	$.post("login",$scope.usuario)
+    	.done(function (data) {
+    		//alert("ok xD"+JSON.stringify(data));
+    		if (typeof data === "object"){
+    			sessionStorage.setItem("usuario", JSON.stringify(data));
+    			location.href=base_url+"home";
+    		} else {
+    			$("#exception").html("Usuário e/ou senha incorretos");  
+    			console.log("não é um obj");
+    		}
+    	})
+    	.fail(function (data) {
+    		console.log("erro de requisicao");
+    	});
+    	
+    	return;
         send.post("login", $scope.usuario)
         .then(function(response){
-            sessionStorage.setItem("logged", "true");
-            var authString = btoa(response.data.email+":"+response.data.senha);
-            
-            sessionStorage.setItem("authToken",  "Basic "+authString);
-            sessionStorage.setItem("usuarioLogado", JSON.stringify(response.data));
-            location.href=base_url+"home";
+        	if (response.data.exception!=""){
+        		$("#exception").html(response.data.exception);
+
+                setTimeout(function(){
+                    $("#exception").html("");                    
+                }, 3000);
+                return;
+        	}
+        	alert("1");
+            sessionStorage.setItem("usuario", JSON.stringify(response.data));
+            //location.href=base_url+"home";
         }, function(response){
+        	console.log("dsdsds");
+        	alert("2"+response.status);
             if(response.status == 403){
                 $("#exception").html(response.data.exception);
 
@@ -109,7 +128,7 @@ app.controller("UsuarioController", function($scope, $importService, send, $mdDi
     
     this.logout = function(){
         sessionStorage.setItem("logged", "");
-        sessionStorage.setItem("usuarioLogado", "");
-        location.href=base_url;
+        sessionStorage.setItem("usuario", "");
+        location.href=base_url+"login";
     }
 });

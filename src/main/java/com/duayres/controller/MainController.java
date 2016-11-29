@@ -2,9 +2,12 @@ package com.duayres.controller;
 
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,34 +31,50 @@ public class MainController {
 	@Autowired
 	private TipoDeEquipamentoService tpService;
 	
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	public ModelAndView login(){
+		if (usuarioService.listAll().isEmpty()){
+				Usuario u = new Usuario();
+				u.setTipoUsuario(com.duayres.model.TipoUsuario.ADMINISTRADOR);
+				u.setEmail("eduardo@eduardoayres.com");
+				u.setNome("Eduardo Cebola");
+				u.setStatus(true);
+				/*u.setSenha("282ea255eb874bb63fb22f2f4e54a0a1f1e746e6");
+				u.setConfSenha("282ea255eb874bb63fb22f2f4e54a0a1f1e746e6");*/
+				
+				u.setSenha("$2a$10$2Ew.Cha8uI6sat5ywCnA0elRRahr91v4amVoNV5G9nQwMCpI3jhvO");
+				u.setConfSenha("$2a$10$2Ew.Cha8uI6sat5ywCnA0elRRahr91v4amVoNV5G9nQwMCpI3jhvO");
+				u=this.usuarioService.save(u);
+			}
+		
+		return new ModelAndView("login");
+	}
+	
 	
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public ResponseEntity<Usuario> doLogin(Usuario usuario){
-		Usuario u = new Usuario();
-		u.setTipoUsuario(com.duayres.model.TipoUsuario.ADMINISTRADOR);
-		u.setEmail("eduardo@eduardoayres.com");
-		u.setNome("Eduardo Cebola");
-		u.setStatus(true);
-		u.setSenha("282ea255eb874bb63fb22f2f4e54a0a1f1e746e6");
-		u.setConfSenha("282ea255eb874bb63fb22f2f4e54a0a1f1e746e6");
-		u=this.usuarioService.save(u);
+		System.out.println("existo!");
 		try {
 			Usuario user = usuarioService.login(usuario);
 			return ResponseEntity.ok(user);
 		} catch (UsernameNotFoundException e) {
 			Usuario user = new Usuario();
-			user.setException("Usuario ou senha incorretos");
+			user.setException("Usuario e/ou senha incorretos");
 			return ResponseEntity.badRequest().body(user);
 		}
 	}
 	
-	@RequestMapping(value = "/")
-	public ModelAndView login(){
-		return new ModelAndView("login");
+	@RequestMapping(value = "/currentUser", method = RequestMethod.GET)
+	public ResponseEntity<Usuario> currentUser	( @AuthenticationPrincipal User user ){
+		Optional<Usuario> usuario=usuarioService.findByEmailIgnoreCaseAndStatusTrue(user.getUsername());
+		usuario.orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado!"));
+		usuario.get().setSenha("");
+		return ResponseEntity.ok(usuario.get());
 	}
+
 	
 	@RequestMapping("/home")
-	public ModelAndView home(){
+	public String home(){
 		
 		if (usuarioService.listAll().isEmpty()){
 			Usuario u = new Usuario();
@@ -85,7 +104,7 @@ public class MainController {
 			this.agService.save(a);
 		}
 		
-		return new ModelAndView("index");
+		return "index";
 	}
 	
 }

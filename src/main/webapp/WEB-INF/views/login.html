@@ -1,23 +1,24 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Sistema Gerenciador de Manutenção de Equipamento</title>
+    	<meta charset="utf-8">
+        <title>Sistema Gerenciador de Agendamento de Manutenção de Equipamento</title>
         <link rel="stylesheet" href="./assets/css/app.css">
         <link rel="stylesheet" href="./webjars/angular-material/1.1.1/angular-material.min.css">
     </head>
 
-    <body ng-app="agendamentoManutencao">
+    <body ng-app="agendamentoManutencao" ng-coontroller="AppController">
 
         <div layout="column" flex role="main" ng-controller="UsuarioController as UserCtrl" style="height: 100%;">
             <md-content layout="vertical" flex>
-                <div layout="row" layout-align="center center" layout-fill>
-                    <md-whiteframe class="md-whiteframe-2dp" flex="30" layout="column" layout-padding>
-                        <md-content>
+                <div layout="row" layout-align="center center"  layout-fill>
+                    <md-whiteframe class="md-whiteframe-5dp " flex="37" layout="column" theme="blue-grey" style="background-color: #eef;" layout-padding>
+                        <md-content style="background-color: #eef;">
                             <div layout="row" layout-align="center center">
-                                <p>Progama silvio santos</p>
+                                <p>Sistema de Gerenciamento de Manutenção De Equipamento</p>
                             </div>
                             <div layout="row" layout-align="center center">
-                                <p>TESTE...123...Primavera-bota não é permitido :)</p>
+                                <p>Insira seu email e senha para continuar</p>
                             </div>
                             <form ng-submit="UserCtrl.login()" method="POST">
                                 <md-input-container class="md-block">
