@@ -41,7 +41,7 @@ app.controller("TipoDeEquipamentoController", function($scope, $importService, s
             clickOutsideToClose: true,
             fullscreen: $scope.customFullscreen,
             locals:{
-                data: {equipamentos: TipoDeEquipamentoCtrl.tiposDeEquipamento, equipamento: _equipamento}
+                data: {tiposDeEquipamento: TipoDeEquipamentoCtrl.tiposDeEquipamento, equipamento: _equipamento}
             }
         }).then(function(equipamento){
             if(equipamento){

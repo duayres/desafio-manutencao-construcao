@@ -1,10 +1,10 @@
 <md-dialog aria-label="Equipamento" flex="50">
-    <form ng-cloak ng-submit="EquipamentosFormCtrl.submitForm()" name="equipamento-form">
+    <form ng-cloak ng-submit="TipoDeEquipamentoFormCtrl.submitForm()" name="equipamento-form">
         <md-toolbar>
             <div class="md-toolbar-tools">
-                <h2>Usuario</h2>
+                <h2>Tipo de Equipamento</h2>
                 <span flex></span>
-                <md-button class="md-icon-button" ng-click="EquipamentosFormCtrl.closeModal()">
+                <md-button class="md-icon-button" ng-click="TipoDeEquipamentoFormCtrl.closeModal()">
                     X
                 </md-button>
             </div>
@@ -12,25 +12,47 @@
 
         <md-dialog-content>
             <div class="md-dialog-content" >
-                <input type="hidden" name="idEquipamento" ng-model="EquipamentosFormCtrl.equipamento.idEquipamento">
+                <input type="hidden" name="idEquipamento" ng-model="TipoDeEquipamentoFormCtrl.equipamento.idEquipamento">
                 <div layout="row">
-                    <md-input-container flex="60">
+                    <md-input-container flex>
                         <label>Nome</label>
-                        <input type="text" maxlength="100" id="nome" required  md-maxlength="100" ng-model="EquipamentosFormCtrl.equipamento.nomeEquipamento">
+                        <input type="text" maxlength="100" id="nome" required  md-maxlength="100" ng-model="TipoDeEquipamentoFormCtrl.equipamento.nome">
                     </md-input-container>
+				</div>
+				<div layout="row" flex>
+				<div class="md-input-container flex">
+					<input class="ng-hide" id="input-file-id" type="file" name="foto" />
+					<label for="input-file-id" class="md-button md-raised md-primary file-hack-btn">Enviar uma foto</label>
+		        </div>
+				<div class="md-input-container flex">
+					<input class="ng-hide" id="input-file2-id" type="file" name="manual" />
+					<label for="input-file2-id" class="md-button md-raised md-primary file-hack-btn">Enviar o manual</label>
+		        </div>
 
-            <md-input-container flex="40">
-                <input type="file" id="foto" aria-label="Foto" name="foto" ng-show="false">
-                <md-button class="md-raised" ng-click="TipoDeEquipamentoFormCtrl.upload()" >
-                    Foto
-                </md-button>
-                <small ng-show="TipoDeEquipamentoFormCtrl.equipamento.foto">
-                    <a href="{{TipoDeEquipamentoFormCtrl.equipamento.foto}}" class="link" target="_blank">
-                        <i class="zmdi zmdi-file zmdi-hc-2x"></i>
-                    </a>
-                    Clique no icone para baixar o arquivo atual
-                </small>
-            </md-input-container>
+		            <!-- md-input-container flex="50">
+		                <input type="file" id="foto" aria-label="Foto" name="foto" ng-show="false">
+		                <md-button class="md-raised" ng-click="TipoDeEquipamentoFormCtrl.upload()" >
+		                    Foto
+		                </md-button>
+		                <small ng-show="TipoDeEquipamentoFormCtrl.equipamento.foto">
+		                    <a href="{{TipoDeEquipamentoFormCtrl.equipamento.foto}}" class="link" target="_blank">
+		                        <i class="zmdi zmdi-file zmdi-hc-2x"></i>
+		                    </a>
+		                    Clique no icone para baixar o arquivo atual
+		                </small>
+		            </md-input-container>
+		            <md-input-container flex="50">
+		                <input type="file" id="foto" aria-label="Foto" name="foto" ng-show="false">
+		                <md-button class="md-raised" ng-click="TipoDeEquipamentoFormCtrl.upload()" >
+		                    Foto
+		                </md-button>
+		                <small ng-show="TipoDeEquipamentoFormCtrl.equipamento.foto">
+		                    <a href="{{TipoDeEquipamentoFormCtrl.equipamento.foto}}" class="link" target="_blank">
+		                        <i class="zmdi zmdi-file zmdi-hc-2x"></i>
+		                    </a>
+		                    Clique no icone para baixar o arquivo atual
+		                </small>
+		            </md-input-container-->
                 </div>
 				<div layout="row">
 			        <md-input-container flex="100">
@@ -45,7 +67,7 @@
         <md-dialog-actions layout="row">
             <p style="color: red;" id="exception"></p>
             <span flex></span>
-            <md-button ng-click="EquipamentosFormCtrl.closeModal()">
+            <md-button ng-click="TipoDeEquipamentoFormCtrl.closeModal()">
                 Cancelar
             </md-button>
             <md-button type="submit" class="md-primary">

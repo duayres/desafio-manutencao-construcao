@@ -14,11 +14,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import org.directwebremoting.annotations.DataTransferObject;
+import org.hibernate.annotations.Type;
+import org.hibernate.type.descriptor.java.PrimitiveByteArrayTypeDescriptor;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.validation.ObjectError;
 
@@ -28,7 +29,7 @@ import org.springframework.validation.ObjectError;
  */
 @Entity
 @Table(name = "tipo_equipamento")
-@DataTransferObject
+@DataTransferObject(type="hibernate3")
 public class TipoDeEquipamento implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
@@ -44,9 +45,13 @@ public class TipoDeEquipamento implements Serializable {
 	@NotBlank(message="A descrição não pode estar em branco.")
 	private String descricao;
 
-	@Lob//@Type(type="org.hibernate.type.PrimitiveByteArrayBlobType")
+	@Type(type="org.hibernate.type.BinaryType")
 	@Column(name = "foto")
 	private byte[] foto;
+	/*
+	private String foto;
+	private String manual;
+	*/
 
 	@Transient
 	private List<ObjectError> errors;
@@ -100,7 +105,23 @@ public class TipoDeEquipamento implements Serializable {
 	public void setStatus(Boolean status) {
 		this.status = status;
 	}
+/*
+	public String getFoto() {
+		return foto;
+	}
 
+	public void setFoto(String foto) {
+		this.foto = foto;
+	}
+
+	public String getManual() {
+		return manual;
+	}
+
+	public void setManual(String manual) {
+		this.manual = manual;
+	}
+*/
 	public String getException() {
 		return exception;
 	}

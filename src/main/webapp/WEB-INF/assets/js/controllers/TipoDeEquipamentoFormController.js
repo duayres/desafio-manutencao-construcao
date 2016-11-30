@@ -1,13 +1,23 @@
 app.controller("TipoDeEquipamentoFormController", function($scope, $mdDialog, data, send, $mdToast){
 	this.equipamento = data.equipamento;
-	var EquipamentosFormCtrl = this;
+	var TipoDeEquipamentoFormCtrl = this;
 	
 	this.submitForm = function(){
-		if(EquipamentosFormCtrl.equipamento){
-			delete TipoDeEquipamentosFormCtrl.equipamento.errors;
-			send.post("/tipodeequipamento", EquipamentosFormCtrl.equipamento)
+		if(TipoDeEquipamentoFormCtrl.equipamento){
+			delete TipoDeEquipamentoFormCtrl.equipamento.errors;
+			
+	        DWRTipoDeEquipamentoService.save(TipoDeEquipamentoFormCtrl.equipamento, {
+	        	async: false,
+	        	callback : function ( result ) {
+	        		alert(result);
+	        	}
+	        });
+			
+		}
+			/*
+			send.post("/tipodeequipamento", TipoDeEquipamentoFormCtrl.equipamento)
 			.then(function(response){
-				if(TipoDeEquipamentosFormCtrl.equipamento.idEquipamento){
+				if(TipoDeEquipamentoFormCtrl.equipamento.idEquipamento){
 	                    $mdDialog.hide();
 	                }else{
 	                    $mdDialog.hide(response.data);
@@ -40,7 +50,9 @@ app.controller("TipoDeEquipamentoFormController", function($scope, $mdDialog, da
 					.position("bottom right")
 					.hideDelay(3000)
 				);
-		}
+		}*/
+		
+		
 	}
 
 	this.closeModal = function(){

@@ -17,6 +17,10 @@ var app = angular.module("agendamentoManutencao", ['ngRoute', 'ngMaterial', 'eit
 
 app.filter('capitalize', function() {
     return function(input, scope) {
-        return input.substring(0,1).toUpperCase()+input.substring(1);
+    	return input.charAt(0).toUpperCase() + input.slice(1).toLowerCase();
     }
 });
+
+/*String.prototype.capitalize = function() {
+    return this.charAt(0).toUpperCase() + this.slice(1).toLowerCase();
+}*/

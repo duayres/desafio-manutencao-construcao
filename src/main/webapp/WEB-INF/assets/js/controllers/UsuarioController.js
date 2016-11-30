@@ -21,6 +21,9 @@ app.controller("UsuarioController", function($scope, $importService, send, $mdDi
     }
     
     this.openModal = function(event, _usuario){
+    	if (_usuario == null){
+    		var _usuario = {status: true};
+    	}
         $mdDialog.show({
             controller: "UsuarioFormController as UserFormCtrl",
             templateUrl: "./views/usuarios/usuario-form.html",
@@ -48,9 +51,9 @@ app.controller("UsuarioController", function($scope, $importService, send, $mdDi
         if(usuario.status == false){
             var confirm = $mdDialog.confirm()
                 .title("Tem certeza que deseja desativar esse usuario?")
-                .textContent("Ele não estará mais disponível nem poderá mais fazer login depois de desativado.")
+                .textContent("Se você desativar este usuário ele não terá mais acesso ao sistema")
                 .ariaLabel("Desativar Usuario")
-                .ok("Desativar")
+                .ok("Confirmar")
                 .cancel("Cancelar");
 
             $mdDialog.show(confirm)

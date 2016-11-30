@@ -23,7 +23,7 @@
                         <label>Email</label>
                         <input type="email" id="email" ng-model="UserFormCtrl.usuario.email">
                     </md-input-container>
-                </div><div ng-bind="UserFormCtrl.usuario"></div>
+                </div>
 
                 <div layout="row">
                     <md-input-container  flex ng-hide="UserFormCtrl.usuario.idUsuario">
@@ -43,8 +43,8 @@
                                 {{tipoUsuario}}
                             </md-option>
                         </md-select>
-                        <input type="text" id="status" ng-model="UserFormCtrl.usuario.status">
                     </md-input-container>
+                    <input type="text" name="status" id="status" class="ng-hide" ng-model="UserFormCtrl.usuario.status">
                 </div>
             </div>
         </md-dialog-content>

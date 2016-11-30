@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.Calendar;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -18,12 +17,15 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import org.directwebremoting.annotations.DataTransferObject;
+
 /**
  * @author Eduardo Ayres
  *
  */
 @Entity
 @Table(name = "agendamento")
+@DataTransferObject(type="hibernate3")
 public class Agendamento implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -49,9 +51,9 @@ public class Agendamento implements Serializable {
     @JoinColumn(name = "tipo_equipamento", nullable = false)//, insertable=false, updatable=false)
 	private TipoDeEquipamento tipoEquipamento;
 
-	@OneToMany(fetch=FetchType.EAGER)
-	@JoinTable(name="membro")
-	private List<Usuario> membros;
+//	@OneToMany(fetch=FetchType.EAGER)
+//	@JoinTable(name="membro")
+//	private List<Usuario> membros;
 
 	
 	public Calendar getDataInicial() {
@@ -86,14 +88,14 @@ public class Agendamento implements Serializable {
 		this.localizacao = localizacao;
 	}
 
-	public List<Usuario> getMembros() {
-		return membros;
-	}
-
-	public void setMembros(List<Usuario> membros) {
-		this.membros = membros;
-	}
-	
+//	public List<Usuario> getMembros() {
+//		return membros;
+//	}
+//
+//	public void setMembros(List<Usuario> membros) {
+//		this.membros = membros;
+//	}
+//	
 	
 	@Override
 	public int hashCode() {

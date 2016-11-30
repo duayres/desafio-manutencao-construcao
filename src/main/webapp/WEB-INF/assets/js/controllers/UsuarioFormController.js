@@ -10,8 +10,13 @@ app.controller("UsuarioFormController", function($scope, $mdDialog, data, send, 
     	
     	
         DWRUsuarioService.save(UserFormCtrl.usuario, {
+        	async: false,
         	callback : function ( result ) {
-        		alert(result);
+        		if(UserFormCtrl.usuario.idUsuario){
+        			$mdDialog.hide();
+        		} else {
+        			$mdDialog.hide(result);
+        		}
         	}
         });
         
