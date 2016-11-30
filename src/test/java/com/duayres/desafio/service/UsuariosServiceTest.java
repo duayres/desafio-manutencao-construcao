@@ -1,6 +1,7 @@
 package com.duayres.desafio.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.validation.ConstraintViolationException;
 
@@ -121,7 +122,9 @@ public class UsuariosServiceTest extends AbstractIntegrationTest{
 	public void testEditarUsuariosMustFail(){
 		/*this.authenticate(1);*/
 		
-		Usuario user = this.usuarioRepository.findByIdUsuario(Long.parseLong("1000"));
+		Optional<Usuario> userOpt = this.usuarioRepository.findByIdUsuario(Long.parseLong("1000"));
+		
+		Usuario user = userOpt.get();
 		
 		Assert.assertEquals(user.getNome(), "Eduardo Ayres");
 		user.setNome(null);
@@ -139,12 +142,12 @@ public class UsuariosServiceTest extends AbstractIntegrationTest{
 	@DatabaseTearDown(DATASET_CENARIO_LIMPO)
 	public void testLoginMustPass(){
 		Usuario usuario = new Usuario();
-		usuario.setEmail("duzao7667@gmail.com");
+		usuario.setEmail("eduardo@eduardoayres.com");
 		usuario.setSenha("admin");
 		
-		/*usuario = usuarioService.login(usuario);*/
-		Assert.assertEquals(usuario.getEmail(), "victor.blq@gmail.com");
-		Assert.assertEquals(usuario.getSenha(), "522d7ee4d28e5ab11e54f061d1a020190198be27");
+		usuario = usuarioService.login(usuario);
+		Assert.assertEquals(usuario.getEmail(), "eduardo@eduardoayres.com");
+		Assert.assertEquals(usuario.getSenha(), "$2a$10$2Ew.Cha8uI6sat5ywCnA0elRRahr91v4amVoNV5G9nQwMCpI3jhvO");
 	}
 	
 	/**
@@ -156,10 +159,10 @@ public class UsuariosServiceTest extends AbstractIntegrationTest{
 	@DatabaseTearDown(DATASET_CENARIO_LIMPO)
 	public void testLoginMustFail(){
 		Usuario usuario = new Usuario();
-		usuario.setEmail("victor.blq@gmail.com");
-		usuario.setSenha("admin123");
+		usuario.setEmail("eduardo@eduardoayres.com");
+		usuario.setSenha("senhainvalida");
 		
-		/*usuario = usuarioService.login(usuario);*/
+		usuario = usuarioService.login(usuario);
 		Assert.fail();
 	}
 	

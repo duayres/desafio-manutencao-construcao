@@ -27,8 +27,16 @@ public class UsuarioService {
 	
 	public Usuario findUserById( Long id )
 	{
-		return this.usuarioRepository.findOne( id );
+		Optional<Usuario> userOpt= this.usuarioRepository.findByIdUsuario(id);
+		
+		Usuario user = userOpt.orElseThrow(() -> new UsernameNotFoundException("User not found"));
+		return userOpt.get();
 	}
+	
+	/*public Usuario findUserById( Long id )
+	{
+		return this.usuarioRepository.findOne( id );
+	}*/
 	
 	public List<Usuario> listAll(){
 		return usuarioRepository.findAll();

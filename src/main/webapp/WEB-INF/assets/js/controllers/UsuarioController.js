@@ -55,11 +55,11 @@ app.controller("UsuarioController", function($scope, $importService, send, $mdDi
                 .ariaLabel("Desativar Usuario")
                 .ok("Confirmar")
                 .cancel("Cancelar");
-
+        }
             $mdDialog.show(confirm)
             .then(function(){
-                delete usuario.errors;
-                send.post("/usuarios", usuario)
+                var idUsuario=usuario.idUsuario;
+                send.post("/api/usuario/alter-status", {id: idUsuario, status:usuario.status})
                 .then(function(){
                     return;
                 }, function(response){
@@ -72,18 +72,6 @@ app.controller("UsuarioController", function($scope, $importService, send, $mdDi
                 $mdDialog.hide();
                 usuario.status = !usuario.status;
             });
-        }else{
-            delete usuario.errors;
-            send.post("/usuarios", usuario)
-            .then(function(){
-                return;
-            },function(response){
-                if(response.status == 403){
-                    usuario.status = !usuario.status;
-                    $scope.toast403();
-                }
-            });
-        }
     }
     
     this.login = function(){

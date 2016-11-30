@@ -23,7 +23,7 @@ import org.springframework.validation.ObjectError;
  */
 @Entity
 @Table(name = "usuario")
-@DataTransferObject(type="hibernate3")
+@DataTransferObject/*(type="hibernate3")*/
 public class Usuario implements Serializable {
 
 
@@ -58,7 +58,7 @@ public class Usuario implements Serializable {
 	@Column(name = "status", nullable = false)
 	private Boolean status;	
 	
-	//@Column(name = "tipo_usuario", nullable = false)
+	@Column(name = "tipo_usuario", nullable = false)
 	@Enumerated
 	private TipoUsuario tipoUsuario;	
 	

@@ -7,10 +7,10 @@
     <table class="table mdl-data-table" style="width: 100%;">
         <thead>
             <tr>
-                <th>Nome</th>
-                <th>Sala</th>
-                <th>Quantidade de usuários</th>
-                <th>Data</th>
+                <th>Localização</th>
+                <th>Data Inicial</th>
+                <th>Data Final</th>
+                <th>Tipo de Equip.</th>
                 <th>Ações</th>
             </tr>
         </thead>
@@ -18,13 +18,14 @@
         <tbody>
         <!-- ng-repeat="agendamento in AgndCtrl.agendamentos" -->
             <tr dir-paginate="agendamento in AgndCtrl.agendamentos | itemsPerPage: 10">
-                <td>{{agendamento.nomeAgendamento}}</td>
-                <td>{{agendamento.salaDeReuniao.nomeSala}}</td>
-                <td>{{agendamento.participantes.length}}</td>
+                <td>{{agendamento.localizacao.nome}}</td>
                 <td>
-                    <p>{{agendamento.data | date: 'dd/MM/yyyy'}} {{agendamento.hora | date: 'HH:mm'}}<p>
-                    <p>{{agendamento.duracao}} Horas</p>
+                    <p>{{agendamento.dataIncial | date: 'dd/MM/yyyy'}} {{agendamento.hora | date: 'HH:mm'}}<p>
                 </td>
+                <td>
+                    <p>{{agendamento.dataFinal | date: 'dd/MM/yyyy'}} {{agendamento.hora | date: 'HH:mm'}}<p>
+                </td>
+                <td>{{agendamento.tipodeequipamento.nome}}</td>
                 <td>
                     <md-button class="md-fab md-warn md-mini" aria-label="Editar" ng-href="#/agendamento/editar/{{agendamento.idAgendamento}}">
                         <i class="zmdi zmdi-edit"></i>

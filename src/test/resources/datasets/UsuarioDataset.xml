@@ -5,7 +5,7 @@
 		nome="Eduardo Ayres"
 		email="eduardo@eduardoayres.com"
 		status="true"
-		senha="522d7ee4d28e5ab11e54f061d1a020190198be27"
+		senha="$2a$10$2Ew.Cha8uI6sat5ywCnA0elRRahr91v4amVoNV5G9nQwMCpI3jhvO"
 		tipo_usuario="0"/><!-- admin -->>
 		
 	<usuario
@@ -13,7 +13,7 @@
 		nome="Fulano de tal"
 		email="fulano@10minutemail.com"
 		status="true"
-		senha="522d7ee4d28e5ab11e54f061d1a020190198be27"
+		senha="$2a$10$2Ew.Cha8uI6sat5ywCnA0elRRahr91v4amVoNV5G9nQwMCpI3jhvO"
 		tipo_usuario="1"/><!-- colaborador -->
 		
 </dataset>

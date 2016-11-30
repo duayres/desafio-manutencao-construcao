@@ -29,7 +29,7 @@ import org.springframework.validation.ObjectError;
  */
 @Entity
 @Table(name = "tipo_equipamento")
-@DataTransferObject(type="hibernate3")
+@DataTransferObject/*(type="hibernate3")*/
 public class TipoDeEquipamento implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
@@ -45,9 +45,9 @@ public class TipoDeEquipamento implements Serializable {
 	@NotBlank(message="A descrição não pode estar em branco.")
 	private String descricao;
 
-	@Type(type="org.hibernate.type.BinaryType")
-	@Column(name = "foto")
-	private byte[] foto;
+//	@Type(type="org.hibernate.type.BinaryType")
+//	@Column(name = "foto")
+//	private byte[] foto;
 	/*
 	private String foto;
 	private String manual;
@@ -78,25 +78,25 @@ public class TipoDeEquipamento implements Serializable {
 		this.descricao = descricao;
 	}
 
-	public BufferedImage getFoto() {
-		InputStream in = new ByteArrayInputStream(this.foto);
-        try {
-			return ImageIO.read(in);
-		} catch (IOException e) {
-			e.printStackTrace();//TODO fazer melhor
-		}
-		return null;
-	}
-
-	public void setFoto(BufferedImage foto) {
-		ByteArrayOutputStream saida = new ByteArrayOutputStream();
-        try {
-			ImageIO.write(foto, "JPG" , saida);
-		} catch (IOException e) {
-			e.printStackTrace();//TODO fazer melhor
-		}
-        this.foto = saida.toByteArray();
-	}
+//	public BufferedImage getFoto() {
+//		InputStream in = new ByteArrayInputStream(this.foto);
+//        try {
+//			return ImageIO.read(in);
+//		} catch (IOException e) {
+//			e.printStackTrace();//TODO fazer melhor
+//		}
+//		return null;
+//	}
+//
+//	public void setFoto(BufferedImage foto) {
+//		ByteArrayOutputStream saida = new ByteArrayOutputStream();
+//        try {
+//			ImageIO.write(foto, "JPG" , saida);
+//		} catch (IOException e) {
+//			e.printStackTrace();//TODO fazer melhor
+//		}
+//        this.foto = saida.toByteArray();
+//	}
 
 	public Boolean getStatus() {
 		return status;

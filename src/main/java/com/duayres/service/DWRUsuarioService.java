@@ -1,5 +1,6 @@
 package com.duayres.service;
 
+import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
 
@@ -64,6 +65,17 @@ public class DWRUsuarioService {
 		
 		Usuario user = userOpt.orElseThrow(() -> new UsernameNotFoundException("Usuario e/ou senha não encontrados"));
 		return user;
+	}
+	
+	public List<Usuario> listUsuariosLivresNoPeriodo(Calendar dtInicio, Calendar dtFinal){
+		dtInicio=Calendar.getInstance();
+		dtFinal=Calendar.getInstance();
+		
+		dtInicio.set(Calendar.DAY_OF_YEAR, 5);
+		dtInicio.set(Calendar.DAY_OF_YEAR, 5);
+		
+		
+		return usuarioRepository.listUsuariosLivresNoPeriodo(dtInicio, dtFinal);
 	}
 	
 }
