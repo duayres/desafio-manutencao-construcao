@@ -1,9 +1,13 @@
 "use strict";
-app.controller('AgendamentoFormController', function($scope, $mdDialog , send, $location, $routeParams){
+app.controller('AgendamentoFormController', function($scope, $mdDialog , send, $location, $routeParams, $importService){
+	$importService("DWRAgendamentoService");
+	$importService("DWRUsuarioService");
+	$importService("DWRTipoDeEquipamentoService");
+	
 	var AgndFormCtrl = this;
 	this.agendamento = {};
-	this.agendamento.participantes = [];
-	this.salasDeReuniao = [];
+	this.agendamento.membros = [];
+	this.tiposDeEquipamento = [];
 	this.usuarios = [];
 	this.usuarioPesquisa = {};
     this.exception = "";
@@ -24,17 +28,21 @@ app.controller('AgendamentoFormController', function($scope, $mdDialog , send, $
    	}
 
     this.carregarDados = function(){
-    	send.get("/salasdereuniao")
-    		.success(function(salas){
-    			AgndFormCtrl.salasDeReuniao = salas;
-    		});
+        DWRTipoDeEquipamentoService.listAll({
+        	async: false,
+        	callback: function(equipamentos){AgndFormCtrl.tiposDeEquipamento=equipamentos}
+        });
 
-    	send.get("/usuarios")
-    		.success(function(usuarios){
-    			AgndFormCtrl.usuarios = usuarios;
-    		});
+        
+        DWRUsuarioService.listAll({
+        	async: false,
+        	callback: function(usuarios){
+        		AgndFormCtrl.usuarios=usuarios;
+        		}
+        });
+        //AgndFormCtrl.usuarios={nome: "Complete as datas acima para liberar usuários"};
 
-		if($routeParams.id){
+		/*if($routeParams.id){
 			send.get("/getAgendamento", $routeParams.id)
 				.success(function(agendamento){
 					AgndFormCtrl.agendamento = agendamento;
@@ -42,26 +50,28 @@ app.controller('AgendamentoFormController', function($scope, $mdDialog , send, $
 					AgndFormCtrl.agendamento.hora = new Date(agendamento.hora);
 
 					var i = 0;
-					for(i = 0; i < AgndFormCtrl.salasDeReuniao.length; i++){
-						if(AgndFormCtrl.agendamento.salaDeReuniao.idSala == AgndFormCtrl.salasDeReuniao[i].idSala){
-							AgndFormCtrl.agendamento.salaDeReuniao = AgndFormCtrl.salasDeReuniao[i];
+					for(i = 0; i < AgndFormCtrl.tiposDeEquipamento.length; i++){
+						if(AgndFormCtrl.agendamento.salaDeReuniao.idSala == AgndFormCtrl.tiposDeEquipamento[i].idSala){
+							AgndFormCtrl.agendamento.salaDeReuniao = AgndFormCtrl.tiposDeEquipamento[i];
 						}
 					}
 				});
-		}
+		}*/
+    
+		//$scope.$apply();
     }
 
     this.verificaParticipante = function(usuario){
     	if(AgndFormCtrl.agendamento.idAgendamento){
     		var i = 0;
-    		for(i = 0; i < AgndFormCtrl.agendamento.participantes.length; i++){
-    			if(AgndFormCtrl.agendamento.participantes[i].idUsuario == usuario.idUsuario){
+    		for(i = 0; i < AgndFormCtrl.agendamento.membros.length; i++){
+    			if(AgndFormCtrl.agendamento.membros[i].idUsuario == usuario.idUsuario){
     				return true;
     			}
     		}
     	}else{
-    		if(AgndFormCtrl.agendamento.participantes.length != 0){
-    			var index = AgndFormCtrl.agendamento.participantes.indexOf(usuario);
+    		if(AgndFormCtrl.agendamento.membros.length != 0){
+    			var index = AgndFormCtrl.agendamento.membros.indexOf(usuario);
 
     			if(index != -1){
     				return true;
@@ -78,8 +88,8 @@ app.controller('AgendamentoFormController', function($scope, $mdDialog , send, $
     	if(AgndFormCtrl.agendamento.salaDeReuniao){
 	    	var index = -1;
 	    	var i = 0;
-    		for(i = 0; i < AgndFormCtrl.agendamento.participantes.length; i++){
-    			if(AgndFormCtrl.agendamento.participantes[i].idUsuario == usuario.idUsuario){
+    		for(i = 0; i < AgndFormCtrl.agendamento.membros.length; i++){
+    			if(AgndFormCtrl.agendamento.membros[i].idUsuario == usuario.idUsuario){
     				index = i;
     				break;
     			}
@@ -87,27 +97,27 @@ app.controller('AgendamentoFormController', function($scope, $mdDialog , send, $
 	    	var capacidade = AgndFormCtrl.agendamento.salaDeReuniao.capacidade;
 
 	    	if(index == -1){
-	    		if(AgndFormCtrl.agendamento.participantes.length == capacidade){
+	    		if(AgndFormCtrl.agendamento.membros.length == capacidade){
 	    			$mdDialog.show(
 				    	$mdDialog.alert()
 				        .clickOutsideToClose(true)
 				        .title('Capacidade excedida')
-				        .textContent('A capacidade dessa sala foi excedida, remova participantes ou escolha outra sala')
+				        .textContent('A capacidade dessa sala foi excedida, remova membros ou escolha outra sala')
 				        .ariaLabel('Alerta Sala')
 				        .ok('Ok')
 				    );
 				}else{
-	    			AgndFormCtrl.agendamento.participantes.push(usuario);
+	    			AgndFormCtrl.agendamento.membros.push(usuario);
 	    		}
 	    	}else{
-	    		AgndFormCtrl.agendamento.participantes.splice(index, 1);
+	    		AgndFormCtrl.agendamento.membros.splice(index, 1);
 	    	}
 	    }else{
 	    	$mdDialog.show(
 		    	$mdDialog.alert()
 		        .clickOutsideToClose(true)
 		        .title('Selecione uma sala')
-		        .textContent('Você deve selecionar uma sala antes de selecionar os participantes')
+		        .textContent('Você deve selecionar uma sala antes de selecionar os membros')
 		        .ariaLabel('Alerta Sala')
 		        .ok('Ok')
 		    );
@@ -115,8 +125,8 @@ app.controller('AgendamentoFormController', function($scope, $mdDialog , send, $
     }
 
     this.verificaCapacidade = function(){
-    	if(AgndFormCtrl.agendamento.salaDeReuniao.capacidade < AgndFormCtrl.agendamento.participantes.length){
-    		AgndFormCtrl.agendamento.participantes = [];
+    	if(AgndFormCtrl.agendamento.salaDeReuniao.capacidade < AgndFormCtrl.agendamento.membros.length){
+    		AgndFormCtrl.agendamento.membros = [];
     	}
     }
 
@@ -156,14 +166,14 @@ app.controller('AgendamentoFormController', function($scope, $mdDialog , send, $
     	agendEnvio.hora = AgndFormCtrl.agendamento.hora.getTime();
     	agendEnvio.data = AgndFormCtrl.agendamento.data.getTime();
 
-    	var participantes = {};
+    	var membros = {};
 
     	var i = 0;
-    	for (i = 0; i < agendEnvio.participantes.length; i++){
-    		delete agendEnvio.participantes[i].$$hashKey;
-    		participantes[i] = agendEnvio.participantes[i].idUsuario;
+    	for (i = 0; i < agendEnvio.membros.length; i++){
+    		delete agendEnvio.membros[i].$$hashKey;
+    		membros[i] = agendEnvio.membros[i].idUsuario;
     	}
-    	agendEnvio.participantes = participantes;
+    	agendEnvio.membros = membros;
     	agendEnvio.salaDeReuniao = agendEnvio.salaDeReuniao.idSala;
         delete agendEnvio.errors;
 

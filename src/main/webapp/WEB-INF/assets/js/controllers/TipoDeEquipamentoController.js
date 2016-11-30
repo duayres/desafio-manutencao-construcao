@@ -5,8 +5,10 @@ app.controller("TipoDeEquipamentoController", function($scope, $importService, s
     $importService("DWRTipoDeEquipamentoService");
 	this.carregarTiposDeEquipamento = function(){
         DWRTipoDeEquipamentoService.listAll({
+        	async: false,
         	callback: function(equipamentos){TipoDeEquipamentoCtrl.tiposDeEquipamento=equipamentos}
         });
+		//$scope.$apply();
 	}
 
 	this.excluir = function(event, equipamento, index){

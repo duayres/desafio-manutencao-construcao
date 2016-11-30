@@ -38,9 +38,6 @@ import com.duayres.controller.MainController;
 import com.duayres.rest.UsuarioRestController;
 
 
-//import com.github.mxab.thymeleaf.extras.dataattribute.dialect.DataAttributeDialect;
-//import nz.net.ultraq.thymeleaf.LayoutDialect;
-
 @Configuration
 @ComponentScan(basePackageClasses = { MainController.class, UsuarioRestController.class })
 @EnableWebMvc

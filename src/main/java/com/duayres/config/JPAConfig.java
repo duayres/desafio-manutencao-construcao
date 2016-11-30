@@ -23,7 +23,7 @@ import com.duayres.model.Agendamento;
 import com.duayres.repository.IAgendamentoRepository;
 
 /**
- * boilerplate.. 70% inútil hahaha
+ * configuração do hibernate/jpa e dados básicos de banco como usuarios, senhas, dialetos e opcoes do hibernate
  */
 @Configuration
 @ComponentScan(basePackageClasses = IAgendamentoRepository.class)

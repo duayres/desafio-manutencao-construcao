@@ -10,6 +10,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 /*import org.springframework.security.core.userdetails.UsernameNotFoundException;*/
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 /*import com.github.springtestdbunit.annotation.DatabaseOperation;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
@@ -154,10 +155,10 @@ public class UsuariosServiceTest extends AbstractIntegrationTest{
 	 * Metodo que testa com falha o login do usuario
 	 * O login falha pois a combinação usuario/senha não existe no banco de dados
 	 */
-	@Test/*(expected = UsernameNotFoundException.class)*/
+	@Test(expected = UsernameNotFoundException.class)
 	@DatabaseSetup(type = DatabaseOperation.CLEAN_INSERT, value = {DATASET_USUARIOS}, connection = "dataSource")
 	@DatabaseTearDown(DATASET_CENARIO_LIMPO)
-	public void testLoginMustFail(){
+	public void testLoginMustFail() throws UsernameNotFoundException{
 		Usuario usuario = new Usuario();
 		usuario.setEmail("eduardo@eduardoayres.com");
 		usuario.setSenha("senhainvalida");

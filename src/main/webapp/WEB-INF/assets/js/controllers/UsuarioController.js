@@ -13,11 +13,16 @@ app.controller("UsuarioController", function($scope, $importService, send, $mdDi
     
     this.carregarUsuarios = function(){
         DWRUsuarioService.listAll({
-        	callback: function(usuarios){UserCtrl.usuarios=usuarios}
+        	async: false,
+        	callback: function(usuarios){
+        		UserCtrl.usuarios=usuarios;
+        		}
         });
         DWRUsuarioService.listTiposUsuario({
+        	async: false,
         	callback: function(tipos){UserCtrl.tipos=tipos}
         });
+		//$scope.$apply();
     }
     
     this.openModal = function(event, _usuario){

@@ -38,10 +38,12 @@ public class Agendamento implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Long idAgendamento;
-	
+
+	@NotNull(message = "Você deve selecionar a data e hora de inicio do agendamento de manutenção.")
 	@Column(name = "data_inicial")
 	private Calendar dataInicial;
 
+	@NotNull(message = "Você deve selecionar a data e hora de finalização do agendamento.")
 	@Column(name = "data_final")
 	private Calendar dataFinal;
 	
@@ -49,7 +51,7 @@ public class Agendamento implements Serializable {
     //@JoinColumn(name = "localizacao", nullable = false, insertable=false, updatable=false)
 	private Localizacao localizacao;
 
-	@NotNull
+	@NotNull(message="O Tipo de equipamento é obrigatório")
 	@ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name = "tipo_equipamento", nullable = false)//, insertable=false, updatable=false)
 	private TipoDeEquipamento tipoEquipamento;
@@ -69,6 +71,14 @@ public class Agendamento implements Serializable {
 //	public void setMembros(List<Membro> membros) {
 //		this.membros = membros;
 //	}
+
+	public Long getIdAgendamento() {
+		return idAgendamento;
+	}
+
+	public void setIdAgendamento(Long idAgendamento) {
+		this.idAgendamento = idAgendamento;
+	}
 
 	public Calendar getDataInicial() {
 		return dataInicial;

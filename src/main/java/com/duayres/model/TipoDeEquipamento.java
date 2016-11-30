@@ -1,14 +1,8 @@
 package com.duayres.model;
 
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.imageio.ImageIO;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,8 +12,6 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import org.directwebremoting.annotations.DataTransferObject;
-import org.hibernate.annotations.Type;
-import org.hibernate.type.descriptor.java.PrimitiveByteArrayTypeDescriptor;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.validation.ObjectError;
 

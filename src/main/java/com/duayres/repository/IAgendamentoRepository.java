@@ -13,7 +13,7 @@ import com.duayres.model.Agendamento;
 @Transactional
 public interface IAgendamentoRepository extends JpaRepository<Agendamento, Long> {
 	
-//	List<Agendamento> findAll();
+	List<Agendamento> findAll();
 	
 	Optional<Agendamento> findByIdAgendamento(Long id);
 	

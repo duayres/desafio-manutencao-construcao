@@ -10,20 +10,18 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.jdbc.datasource.lookup.JndiDataSourceLookup;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.Database;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
-import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.duayres.model.Agendamento;
 import com.duayres.repository.IAgendamentoRepository;
 
 /**
- * boilerplate.. 70% inútil hahaha
+ * configuração do hibernate/jpa e dados básicos de banco como usuarios, senhas, dialetos e opcoes do hibernate
  */
 @Configuration
 @ComponentScan(basePackageClasses = IAgendamentoRepository.class)

@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.duayres.model.Agendamento;
-import com.duayres.model.TipoDeEquipamento;
 import com.duayres.repository.IAgendamentoRepository;
 
 @RemoteProxy

@@ -30,7 +30,7 @@ public class UsuarioService {
 		Optional<Usuario> userOpt= this.usuarioRepository.findByIdUsuario(id);
 		
 		Usuario user = userOpt.orElseThrow(() -> new UsernameNotFoundException("User not found"));
-		return userOpt.get();
+		return user;
 	}
 	
 	/*public Usuario findUserById( Long id )

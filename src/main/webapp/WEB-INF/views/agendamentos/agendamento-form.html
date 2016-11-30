@@ -10,7 +10,7 @@
         <div layout="row">
             <md-input-container flex="70">
                 <label>Nome</label>
-                <input type="text" maxlength="100" id="nome"  md-maxlength="100" ng-model="AgndFormCtrl.agendamento.nomeAgendamento" >
+                <input type="text" maxlength="100" id="nome"  md-maxlength="100" ng-model="AgndFormCtrl.agendamento.localizacao.nome" >
             </md-input-container>
 
             <md-input-container flex-gt-md="30">
@@ -26,11 +26,11 @@
 
         <div layout="row">
             <md-input-container flex="40">
-                <label>Sala</label>
-                <md-select  ng-model="AgndFormCtrl.agendamento.salaDeReuniao" ng-change="AgndFormCtrl.verificaCapacidade();">
-                    <md-option><em>Escolha</em></md-option>
-                    <md-option ng-repeat="sala in AgndFormCtrl.salasDeReuniao" ng-value="sala" >
-                        {{sala.nomeSala}}
+                <label>Tipo de equipamento</label>
+                <md-select  ng-model="AgndFormCtrl.agendamento.tipoDeEquipamento" ng-change="//AgndFormCtrl.verificaCapacidade();">
+                    <!-- md-option><em>Escolha</em></md-option-->
+                    <md-option ng-repeat="tipoDeEquipamento in AgndFormCtrl.tiposDeEquipamento" ng-value="tipoDeEquipamento" >
+                        {{tipoDeEquipamento.nome}}
                     </md-option>
                 </md-select>
             </md-input-container>
@@ -90,7 +90,7 @@
                             <md-checkbox ng-checked="AgndFormCtrl.verificaParticipante(usuario);" aria-label="Select" ng-disabled="AgndFormCtrl.agendamento.salaDeReuniao == undefined" ng-click="AgndFormCtrl.select(usuario);">
                             </md-checkbox>
                         </td>
-                        <td>{{usuario.nomeUsuario}}</td>
+                        <td>{{usuario.nome}}</td>
                         <td>{{usuario.email}}</td>
                     </tr>
                 </tbody>

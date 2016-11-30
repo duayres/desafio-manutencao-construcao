@@ -1,13 +1,15 @@
 "use strict";
 app.controller("AgendamentoController", function($scope, $importService, send, $mdToast, $mdDialog){
+	$importService("DWRAgendamentoService");
     this.agendamentos = [];
     var AgndCtrl = this;
 
 	this.carregarAgendamento = function(){
-    	send.get("/agendamentos")
-    		.success(function(agendamentos){
-    			AgndCtrl.agendamentos = agendamentos;
-    		});
+        DWRAgendamentoService.listAll({
+        	async: false,
+        	callback: function(agendamentos){AgndCtrl.agendamentos=agendamentos}
+        });
+		//$scope.$apply();
     }
 
     this.excluir = function(event, idAgendamento, index){
@@ -19,7 +21,7 @@ app.controller("AgendamentoController", function($scope, $importService, send, $
 			.cancel("Cancelar");
 
 		$mdDialog.show(confirm).then(function(){
-			send.delete("/agendamentos", idAgendamento)
+			send.delete("/dactivate-agendamento", idAgendamento)
 			.then(function(response){
 				AgndCtrl.agendamentos.splice(index, 1);
 			}, function(response){
