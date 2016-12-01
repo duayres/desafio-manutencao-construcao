@@ -24,6 +24,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.type.filter.AnnotationTypeFilter;
 import org.springframework.data.web.config.EnableSpringDataWebSupport;
+import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -100,14 +101,17 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationCon
 		Map<String, String> configParam = new HashMap<String, String>();
 		configParam.put("activeReverseAjaxEnabled", "true");
 		configParam.put("allowScriptTagRemoting", "true");
+		configParam.put("crossDomainSessionSecurity", "false");
 		configParam.put("accessLogLevel", "CALL");
 		configParam.put("debug", "true");
 		
 
-		ClassPathBeanDefinitionScanner scanner = new DwrClassPathBeanDefinitionScanner(beanDefinitionRegistry);
+		ClassPathBeanDefinitionScanner scanner = new com.duayres.dwr.DwrClassPathBeanDefinitionScanner(beanDefinitionRegistry);
 		scanner.addIncludeFilter(new AnnotationTypeFilter(RemoteProxy.class));
 		scanner.addIncludeFilter(new AnnotationTypeFilter(DataTransferObject.class));
 		scanner.addIncludeFilter(new AnnotationTypeFilter(GlobalFilter.class));
+		scanner.addIncludeFilter(new AnnotationTypeFilter(Service.class));
+		
 		scanner.scan("com.duayres.service","com.duayres.model","com.duayres.security");
 		
 

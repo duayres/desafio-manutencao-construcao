@@ -17,7 +17,7 @@ import com.duayres.config.ServiceConfig;
 import com.duayres.config.WebConfig;
 
 /**
- * AppInitilizer que utilizar uma abstração do WebApplicationInitializer (já implementado, facilitando algumas coisas)
+ * AppInitializer que utilizar uma abstração do WebApplicationInitializer (já implementado, facilitando algumas coisas)
  */
 
 public class AppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
@@ -68,6 +68,7 @@ public class AppInitializer extends AbstractAnnotationConfigDispatcherServletIni
 		dwrDispatcher.addMapping("/");
 		dwrDispatcher.setInitParameter("debug", "true");
 		dwrDispatcher.setInitParameter("allowScriptTagRemoting", "true");	
+		dwrDispatcher.setInitParameter("crossDomainSessionSecurity", "false");
 		dwrDispatcher.setInitParameter("accessLogLevel", "CALL");
 	    
 	}

@@ -8,19 +8,29 @@
     <form ng-cloak ng-submit="AgndFormCtrl.submitForm()" name="agendForm" >
         <input type="hidden" name="idAgendamento" ng-model="AgndFormCtrl.agendamento.idAgendamento">
         <div layout="row">
-            <md-input-container flex="70">
+            <md-input-container flex>
                 <label>Nome</label>
                 <input type="text" maxlength="100" id="nome"  md-maxlength="100" ng-model="AgndFormCtrl.agendamento.localizacao.nome" >
             </md-input-container>
-
-            <md-input-container flex-gt-md="30">
-                <label>Timepicker</label>
-                <input mdc-datetime-picker="" date="true" time="false" type="text" placeholder="Data" min-date="date" format="DD/MM/YYYY" ng-model="AgndFormCtrl.agendamento.data" class="md-input" >
+        </div>
+        <div layout="row">
+           <md-input-container flex-gt-md="25">
+                <label>Data Inicial</label>
+                <input mdc-datetime-picker="" date="true" time="false" type="text" placeholder="Data" min-date="date" format="DD/MM/YYYY" ng-model="AgndFormCtrl.agendamento.dataInicial" class="md-input" >
             </md-input-container>
 
-            <md-input-container flex-gt-md="30">
-                <label>Timepicker</label>
-                <input mdc-datetime-picker="" date="false" time="true" type="text" short-time="true"  placeholder="Time" min-date="minDate" format="HH:mm" ng-model="AgndFormCtrl.agendamento.hora" class=" md-input" >
+            <md-input-container flex-gt-md="25">
+                <label>Hora Inicial</label>
+                <input mdc-datetime-picker="" date="false" time="true" type="text" short-time="true"  placeholder="Time" min-date="minDate" format="HH:mm" ng-model="AgndFormCtrl.agendamento.dataInicial" class=" md-input" >
+            </md-input-container>
+           <md-input-container flex-gt-md="25">
+                <label>Data Final</label>
+                <input mdc-datetime-picker="" date="true" time="false" type="text" placeholder="Data" min-date="date" format="DD/MM/YYYY" ng-model="AgndFormCtrl.agendamento.dataFinal" class="md-input" >
+            </md-input-container>
+
+            <md-input-container flex-gt-md="25">
+                <label>Hora Final</label>
+                <input mdc-datetime-picker="" date="false" time="true" type="text" short-time="true"  placeholder="Time" min-date="minDate" format="HH:mm" ng-model="AgndFormCtrl.agendamento.dataFinal" class=" md-input" >
             </md-input-container> 
         </div>
 
@@ -41,7 +51,7 @@
             </md-input-container>
 
             <md-input-container flex="40">
-                <input type="file" id="arquivo" aria-label="Arquivo" name="arquivo" ng-show="false">
+                <input type="file" id="arquivo" aria-label="Arquivo" name="arquivo" ng-show="false">{{AgndFormCtrl.agendamento}}
                 <md-button class="md-raised" ng-click="AgndFormCtrl.upload()" >
                     Arquivo
                 </md-button>

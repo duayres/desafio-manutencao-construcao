@@ -39,7 +39,7 @@ public class UsuariosServiceTest extends AbstractIntegrationTest{
 	@DatabaseSetup(type = DatabaseOperation.CLEAN_INSERT, value = {DATASET_USUARIOS}, connection = "dataSource")
 	@DatabaseTearDown(DATASET_CENARIO_LIMPO)
 	public void testListAllUsuariosMustPass(){
-		/*this.authenticate(1);*/
+		this.authenticate(4L);
 		List<Usuario> usuarios = usuarioService.listAll();
 		
 		Assert.assertNotNull(usuarios);
@@ -53,7 +53,7 @@ public class UsuariosServiceTest extends AbstractIntegrationTest{
 	@DatabaseSetup(type = DatabaseOperation.CLEAN_INSERT, value = {DATASET_USUARIOS}, connection = "dataSource")
 	@DatabaseTearDown(DATASET_CENARIO_LIMPO)
 	public void testCadastrarUsuariosMustPass(){
-		/*this.authenticate(1);*/
+		this.authenticate(4L);
 		Usuario user = new Usuario();
 		user.setIdUsuario(null);
 		user.setNome("Mauricio de Souza");
@@ -80,7 +80,7 @@ public class UsuariosServiceTest extends AbstractIntegrationTest{
 	@DatabaseSetup(type = DatabaseOperation.CLEAN_INSERT, value = {DATASET_USUARIOS}, connection = "dataSource")
 	@DatabaseTearDown(DATASET_CENARIO_LIMPO)
 	public void testCadastrarUsuariosMustFail(){
-		/*this.authenticate(1);*/
+		this.authenticate(4L);
 		Usuario user = new Usuario();
 		user.setIdUsuario(null);
 		user.setNome("Marcel Micheletto");
@@ -102,7 +102,7 @@ public class UsuariosServiceTest extends AbstractIntegrationTest{
 	@DatabaseSetup(type = DatabaseOperation.CLEAN_INSERT, value = {DATASET_USUARIOS}, connection = "dataSource")
 	@DatabaseTearDown(DATASET_CENARIO_LIMPO)
 	public void testEditarUsuariosMustPass(){
-		/*this.authenticate(1);*/
+		this.authenticate(4L);
 		Usuario user = this.usuarioRepository.findAll().get(0);//this.usuarioRepository.findOne(Long.parseLong("1"));
 		
 		Assert.assertEquals(user.getNome(), "Eduardo Ayres");
@@ -121,9 +121,9 @@ public class UsuariosServiceTest extends AbstractIntegrationTest{
 	@DatabaseSetup(type = DatabaseOperation.CLEAN_INSERT, value = {DATASET_USUARIOS}, connection = "dataSource")
 	@DatabaseTearDown(DATASET_CENARIO_LIMPO)
 	public void testEditarUsuariosMustFail(){
-		/*this.authenticate(1);*/
+		this.authenticate(4L);
 		
-		Optional<Usuario> userOpt = this.usuarioRepository.findByIdUsuario(Long.parseLong("1000"));
+		Optional<Usuario> userOpt = this.usuarioRepository.findByIdUsuario(Long.parseLong("4"));
 		
 		Usuario user = userOpt.get();
 		

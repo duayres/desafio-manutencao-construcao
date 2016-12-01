@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataset>
 	<membro
-		agendamento_id_agendamento="1"
-		membro_id_usuario="1"/>
+		id="1"
+		agendamento_id="1"
+		usuario_id="1"/>
 		
 	<membro
-		agendamento_id_agendamento="1"
-		membro_id_usuario="2"/>
+		id="2"
+		agendamento_id="1"
+		usuario_id="2"/>
 		
 	<membro
-		agendamento_id_agendamento="2"
-		membro_id_usuario="1"/>
+		id="3"
+		agendamento_id="2"
+		usuario_id="1"/>
 </dataset>

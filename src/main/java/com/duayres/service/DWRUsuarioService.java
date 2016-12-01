@@ -6,8 +6,10 @@ import java.util.Optional;
 
 import org.directwebremoting.annotations.RemoteProxy;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
@@ -25,7 +27,6 @@ public class DWRUsuarioService {
 	
 	@Transactional
 	public Usuario save(Usuario usuario){
-		
 		return this.usuarioRepository.saveAndFlush(usuario);
 	}
 	
@@ -35,6 +36,7 @@ public class DWRUsuarioService {
 		return this.usuarioRepository.findOne( id );
 	}
 
+	@PreAuthorize("hasRole('ROLE_ADMINISTRADOR')")
 	public List<Usuario> listAll(){
 		return usuarioRepository.findAll();
 	}

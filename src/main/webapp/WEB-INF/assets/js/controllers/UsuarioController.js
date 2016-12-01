@@ -60,10 +60,10 @@ app.controller("UsuarioController", function($scope, $importService, send, $mdDi
                 .ariaLabel("Desativar Usuario")
                 .ok("Confirmar")
                 .cancel("Cancelar");
-        }
+
             $mdDialog.show(confirm)
             .then(function(){
-                var idUsuario=usuario.idUsuario;
+            	var idUsuario=usuario.idUsuario;
                 send.post("/api/usuario/alter-status", {id: idUsuario, status:usuario.status})
                 .then(function(){
                     return;
@@ -77,6 +77,18 @@ app.controller("UsuarioController", function($scope, $importService, send, $mdDi
                 $mdDialog.hide();
                 usuario.status = !usuario.status;
             });
+        } else {
+        	var idUsuario=usuario.idUsuario;
+            send.post("/api/usuario/alter-status", {id: idUsuario, status:usuario.status})
+            .then(function(){
+                //
+            }, function(response){
+                if(response.status == 403){
+                    usuario.status = !usuario.status;
+                    $scope.toast403();
+                }
+            });
+        }
     }
     
     this.login = function(){
@@ -87,6 +99,7 @@ app.controller("UsuarioController", function($scope, $importService, send, $mdDi
     			sessionStorage.setItem("usuario", JSON.stringify(data));
     			location.href=base_url+"home";
     		} else {
+    			if (data.indexOf('') !== -1){location.href=base_url+"home";return;};
     			$("#exception").html("Usuário e/ou senha incorretos");  
     			console.log("não é um obj");
     		}
@@ -110,7 +123,6 @@ app.controller("UsuarioController", function($scope, $importService, send, $mdDi
             sessionStorage.setItem("usuario", JSON.stringify(response.data));
             //location.href=base_url+"home";
         }, function(response){
-        	console.log("dsdsds");
         	alert("2"+response.status);
             if(response.status == 403){
                 $("#exception").html(response.data.exception);

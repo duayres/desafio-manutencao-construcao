@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataset>
 	<usuario
-		id="1000"
+		id="4"
 		nome="Eduardo Ayres"
 		email="eduardo@eduardoayres.com"
 		status="true"
@@ -9,7 +9,7 @@
 		tipo_usuario="0"/><!-- admin -->>
 		
 	<usuario
-		id="1001"
+		id="5"
 		nome="Fulano de tal"
 		email="fulano@10minutemail.com"
 		status="true"

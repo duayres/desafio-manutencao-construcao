@@ -3,8 +3,8 @@ package com.duayres.rest;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -36,13 +36,33 @@ public class UsuarioRestController {
 		return usuarioService.listAll();
 	}
 	
+	/*
+	 * Altera o status (ativo|inativo) do usuario
+	 * @param Long idUsuario id do usuario
+	 * @param Boolean status O estado de usuario (true=ativo, false=inativo)
+	 * @return json de codigo de sucesso (200)
+	 */
+	@PreAuthorize("hasRole('ROLE_ADMINISTRADOR')")
+	@RequestMapping(value="/alter-status", method=RequestMethod.POST)
+	public String alterStatus(@RequestParam("id") Long idUsuario, @RequestParam("status") Boolean status){
+		Usuario usuario = usuarioService.findUserById(idUsuario);//TODO ver os save se tem flush
+		usuario.setStatus(status);
+		usuarioService.save(usuario);
+		return "{code: 200}";
+	}
 	
-	@RequestMapping(value="/alter-status", method=RequestMethod.POST, produces = "application/json")
-	public ResponseEntity<String> alterStatus(@RequestParam("id") Long idUsuario, @RequestParam("status") Boolean status){
-		Usuario user = usuarioService.findUserById(idUsuario);
-		user.setStatus(status);
-		usuarioService.save(user);
-		return new ResponseEntity<String>("{code: 200}",HttpStatus.OK);
+	/*
+	 * Ativa um usuario
+	 * @param Long idUsuario id do usuario para ser ativado
+	 * @return json c/ codigo de sucesso (200)
+	 */
+	@PreAuthorize("hasRole('ROLE_ADMINISTRADOR')")
+	@RequestMapping(value="/activate/{id}", method=RequestMethod.GET)
+	public String activateUser(@PathVariable("id") Long idUsuario){
+		Usuario usuario = usuarioService.findUserById(idUsuario);
+		usuario.setStatus(true);
+		//usuarioService.save(usuario);
+		return "{code: 200}";
 	}
 	
 }

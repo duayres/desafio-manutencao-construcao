@@ -19,6 +19,12 @@ public class DWRAgendamentoService {
 		return this.agendamentoRepository.saveAndFlush(agendamento);
 	}
 	
+	public Agendamento findByIdAgendamento(Long id){
+		Agendamento agendamento = this.agendamentoRepository.findByIdAgendamento(id).get();
+		return agendamento;
+		//return this.agendamentoRepository.getOne(id);
+	}
+	
 	public List<Agendamento> listAll(){
 		List<Agendamento>	agendamentos = this.agendamentoRepository.findAll();
 		for (Agendamento agendamento : agendamentos) {

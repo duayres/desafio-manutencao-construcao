@@ -42,6 +42,25 @@ app.controller('AgendamentoFormController', function($scope, $mdDialog , send, $
         });
         //AgndFormCtrl.usuarios={nome: "Complete as datas acima para liberar usuários"};
 
+        if($routeParams.id){
+            DWRAgendamentoService.findByIdAgendamento($routeParams.id,{
+            	async: false,
+            	callback: function(agendamento){
+            		
+            		AgndFormCtrl.agendamento=agendamento;
+					AgndFormCtrl.agendamento.dataInicial = new Date(agendamento.dataInicial);
+					AgndFormCtrl.agendamento.dataFinal = new Date(agendamento.dataFinal);
+
+					var i = 0;
+					for(i = 0; i < AgndFormCtrl.tiposDeEquipamento.length; i++){
+						if(AgndFormCtrl.agendamento.equipamento.idEquipamento == AgndFormCtrl.tiposDeEquipamento[i].idEquipamento){
+							AgndFormCtrl.agendamento.tipoDeEquipamento = AgndFormCtrl.tiposDeEquipamento[i];
+						}
+					}
+            	
+            	}
+            });
+        }
 		/*if($routeParams.id){
 			send.get("/getAgendamento", $routeParams.id)
 				.success(function(agendamento){
