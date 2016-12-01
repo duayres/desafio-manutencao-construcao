@@ -1,6 +1,10 @@
 package com.duayres.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @Controller
@@ -12,6 +16,13 @@ public class UsuarioController {
 	 */
 	/*@RequestMapping(value="/tipoUsuario", method=RequestMethod.GET)
 	public @ResponseBody TipoUsuario[] getTiposDeUsuario(){
-		return TipoUsuario;
+		return TipoUsuario.values();
 	}*/
+	
+	@RequestMapping("/isSuperUser")
+	@PreAuthorize("hasRole('ROLE_ADMINISTRADOR')")
+	public String isSuperUser(HttpServletRequest request){
+		return "{response: yes}";//caso contrário 403
+	}
+	
 }

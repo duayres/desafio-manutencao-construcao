@@ -22,5 +22,9 @@ public class TipoDeEquipamentoService {
 	public List<TipoDeEquipamento> listAll(){
 		return this.tipoDeEquipamentoRepository.findAll();
 	}
+
+	public TipoDeEquipamento findTipoDeEquipamentoById(Long idTipoDeEquipamento) {
+		return this.tipoDeEquipamentoRepository.findOne(idTipoDeEquipamento);
+	}
 	
 }

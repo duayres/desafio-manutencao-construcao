@@ -13,14 +13,14 @@ app.controller("TipoDeEquipamentoController", function($scope, $importService, s
 
 	this.excluir = function(event, equipamento, index){
 		var confirm = $mdDialog.confirm()
-			.title("Tem certeza que deseja excluir esse tipo de equipamento?")
-			.htmlContent("Ela não estará mais disponível depois de excluida.<p>Essa ação não poderá ser desfeita!</p>")
-			.ariaLabel("Excluir Tipo de Equipamento")
+			.title("Tem certeza que deseja excluir este tipo de equipamento?")
+			.htmlContent("Ela não estará mais disponível depois de excluida")
+			.ariaLabel("Aviso de Exclusão")
 			.ok("Excluir")
 			.cancel("Cancelar");
 
 		$mdDialog.show(confirm).then(function(){
-			send.delete("/tipodeequipamento", equipamento)
+			send.post("/api/tipodeequipamento/alter-status", {id: equipamento.idEquipamento, status: false})
 			.then(function(data){
 				TipoDeEquipamentoCtrl.tiposDeEquipamento.splice(index, 1);
 			}, function(response){

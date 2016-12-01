@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -12,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.duayres.model.TipoUsuario;
 import com.duayres.model.Usuario;
 import com.duayres.repository.IUsuarioRepository;
+import com.duayres.service.exception.EmailJaExistenteException;
 
 @Service
 public class UsuarioService {
@@ -22,6 +24,12 @@ public class UsuarioService {
 	
 	@Transactional
 	public Usuario save(Usuario usuario){
+		if (usuario.isNew()){
+			if (findByEmailIgnoreCaseAndStatusTrue(usuario.getEmail()).isPresent()){
+				System.out.println(usuario.getNome());
+				throw new EmailJaExistenteException("Email já existente.");
+			}
+		}
 		return this.usuarioRepository.saveAndFlush(usuario);
 	}
 	

@@ -61,7 +61,7 @@ public class UsuarioRestController {
 	public String activateUser(@PathVariable("id") Long idUsuario){
 		Usuario usuario = usuarioService.findUserById(idUsuario);
 		usuario.setStatus(true);
-		//usuarioService.save(usuario);
+		usuarioService.save(usuario);
 		return "{code: 200}";
 	}
 	

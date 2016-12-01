@@ -30,7 +30,7 @@ public class TipoDeEquipamento implements Serializable {
 	@Column(name = "id")
 	private Long idEquipamento;
 	
-	@NotBlank(message="O nome não pode estar em branco.") //NotEmpty não se mostrou eficiente pois não "trimma" o dado
+	@NotBlank(message="O nome não pode estar em branco.")
 	@Column(nullable = false, length = 150)
 	private String nome;
 	
@@ -40,10 +40,10 @@ public class TipoDeEquipamento implements Serializable {
 //	@Type(type="org.hibernate.type.BinaryType")
 //	@Column(name = "foto")
 //	private byte[] foto;
-	/*
+
 	private String foto;
 	private String manual;
-	*/
+	
 
 	@Transient
 	private List<ObjectError> errors;
@@ -97,7 +97,7 @@ public class TipoDeEquipamento implements Serializable {
 	public void setStatus(Boolean status) {
 		this.status = status;
 	}
-/*
+
 	public String getFoto() {
 		return foto;
 	}
@@ -113,7 +113,7 @@ public class TipoDeEquipamento implements Serializable {
 	public void setManual(String manual) {
 		this.manual = manual;
 	}
-*/
+
 	public String getException() {
 		return exception;
 	}

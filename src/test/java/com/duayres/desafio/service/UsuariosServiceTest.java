@@ -8,8 +8,6 @@ import javax.validation.ConstraintViolationException;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-/*import org.springframework.security.core.userdetails.UsernameNotFoundException;*/
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 /*import com.github.springtestdbunit.annotation.DatabaseOperation;
@@ -20,6 +18,7 @@ import com.duayres.model.TipoUsuario;
 import com.duayres.model.Usuario;
 import com.duayres.repository.IUsuarioRepository;
 import com.duayres.service.UsuarioService;
+import com.duayres.service.exception.EmailJaExistenteException;
 import com.github.springtestdbunit.annotation.DatabaseOperation;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 /*import com.duayres.service.exception.EmailJaCadastradoException;*/
@@ -76,7 +75,7 @@ public class UsuariosServiceTest extends AbstractIntegrationTest{
 	 * Metodo que testa com falha a inserção de um usuario
 	 * A inserção falha pois o teste tenta inserir um email que ja existe, o que não é permitido (uk)
 	 */
-	@Test(expected = DataIntegrityViolationException.class)/*(expected = EmailJaExistenteException.class)*/
+	@Test(expected = EmailJaExistenteException.class)
 	@DatabaseSetup(type = DatabaseOperation.CLEAN_INSERT, value = {DATASET_USUARIOS}, connection = "dataSource")
 	@DatabaseTearDown(DATASET_CENARIO_LIMPO)
 	public void testCadastrarUsuariosMustFail(){

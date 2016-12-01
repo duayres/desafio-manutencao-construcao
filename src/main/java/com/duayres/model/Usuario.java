@@ -136,6 +136,10 @@ public class Usuario implements Serializable {
 	public void setException(String exception) {
 		this.exception = exception;
 	}
+	
+	public Boolean isNew(){
+		return (idUsuario==null);
+	}
 
 	
 	@Override

@@ -38,7 +38,7 @@ public class AppInitializer extends AbstractAnnotationConfigDispatcherServletIni
 	}
 	
 	
-	@Override
+	/*@Override
 	public void onStartup(ServletContext servletContext) {
 	    AnnotationConfigWebApplicationContext rootAppContext = new AnnotationConfigWebApplicationContext();
 	//scan pela pacote de classes com annotation @Configuration
@@ -71,7 +71,7 @@ public class AppInitializer extends AbstractAnnotationConfigDispatcherServletIni
 		dwrDispatcher.setInitParameter("crossDomainSessionSecurity", "false");
 		dwrDispatcher.setInitParameter("accessLogLevel", "CALL");
 	    
-	}
+	}*/
 	
 	/**
 	 * Encoding -> UTF-8

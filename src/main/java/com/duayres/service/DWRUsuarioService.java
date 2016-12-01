@@ -9,13 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import com.duayres.model.TipoUsuario;
 import com.duayres.model.Usuario;
 import com.duayres.repository.IUsuarioRepository;
+import com.duayres.service.exception.EmailJaExistenteException;
 
 @RemoteProxy
 public class DWRUsuarioService {
@@ -26,7 +26,13 @@ public class DWRUsuarioService {
 	private IUsuarioRepository usuarioRepository;
 	
 	@Transactional
+	@PreAuthorize("hasRole('ROLE_ADMINISTRADOR')")
 	public Usuario save(Usuario usuario){
+		if (usuario.isNew()){
+			if (findByEmailIgnoreCaseAndStatusTrue(usuario.getEmail())!=null){
+				throw new EmailJaExistenteException("Email já existente.");
+			}
+		}
 		return this.usuarioRepository.saveAndFlush(usuario);
 	}
 	
