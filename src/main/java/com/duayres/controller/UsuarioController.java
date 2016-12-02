@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Controller
 @RestController
+@RequestMapping("/usuario")
 public class UsuarioController {
 	/**
 	 * Método que retorna os tipos de usuarios
@@ -21,8 +22,8 @@ public class UsuarioController {
 	
 	@RequestMapping("/isSuperUser")
 	@PreAuthorize("hasRole('ROLE_ADMINISTRADOR')")
-	public String isSuperUser(HttpServletRequest request){
-		return "{response: yes}";//caso contrário 403
+	public String isSuperUser(){
+		return "{\"response\": 200}";//caso contrário 403
 	}
 	
 }

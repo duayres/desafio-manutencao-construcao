@@ -59,12 +59,12 @@ public class DwrClassPathBeanDefinitionScanner extends ClassPathBeanDefinitionSc
 
     public DwrClassPathBeanDefinitionScanner(BeanDefinitionRegistry registry)
     {
-        super(registry, true);
+        super(registry, false);
 //        addExcludeFilter(new AnnotationTypeFilter(Component.class));
 //        addExcludeFilter(new AnnotationTypeFilter(Service.class));
 //        addExcludeFilter(new AnnotationTypeFilter(Repository.class));
 //        addExcludeFilter(new AnnotationTypeFilter(Controller.class));
-        setScopedProxyMode(ScopedProxyMode.INTERFACES);
+        //setScopedProxyMode(ScopedProxyMode.INTERFACES);
     }
 
     @Override

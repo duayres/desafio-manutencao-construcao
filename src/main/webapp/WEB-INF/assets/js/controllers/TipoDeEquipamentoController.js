@@ -4,14 +4,14 @@ app.controller("TipoDeEquipamentoController", function($scope, $importService, s
 
     $importService("DWRTipoDeEquipamentoService");
 	this.carregarTiposDeEquipamento = function(){
-        DWRTipoDeEquipamentoService.listAll({
+        DWRTipoDeEquipamentoService.listActives({
         	async: false,
         	callback: function(equipamentos){TipoDeEquipamentoCtrl.tiposDeEquipamento=equipamentos}
         });
 		//$scope.$apply();
 	}
 
-	this.excluir = function(event, equipamento, index){
+	this.excluir = function(event, idEquipamento, index){
 		var confirm = $mdDialog.confirm()
 			.title("Tem certeza que deseja excluir este tipo de equipamento?")
 			.htmlContent("Ela não estará mais disponível depois de excluida")
@@ -20,7 +20,7 @@ app.controller("TipoDeEquipamentoController", function($scope, $importService, s
 			.cancel("Cancelar");
 
 		$mdDialog.show(confirm).then(function(){
-			send.post("/api/tipodeequipamento/alter-status", {id: equipamento.idEquipamento, status: false})
+			send.post("/api/tipodeequipamento/alter-status", {id: idEquipamento, status: false})
 			.then(function(data){
 				TipoDeEquipamentoCtrl.tiposDeEquipamento.splice(index, 1);
 			}, function(response){

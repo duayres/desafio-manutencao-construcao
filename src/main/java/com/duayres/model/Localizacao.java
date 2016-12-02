@@ -35,6 +35,24 @@ public class Localizacao {
 	@NotBlank(message = "O nome da localização deve ser preenchido.")
 	private String nome;
 
+
+	public Localizacao() {
+		super();
+	}
+	
+	public Localizacao(String nome) {
+		super();
+		this.nome = nome;
+	}
+
+	public Long getIdLocalizacao() {
+		return idLocalizacao;
+	}
+
+	public void setIdLocalizacao(Long idLocalizacao) {
+		this.idLocalizacao = idLocalizacao;
+	}
+
 	public String getNome() {
 		return nome;
 	}

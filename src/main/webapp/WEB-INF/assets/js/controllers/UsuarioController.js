@@ -26,6 +26,21 @@ app.controller("UsuarioController", function($scope, $importService, send, $mdDi
     }
     
     this.openModal = function(event, _usuario){
+    	var auth=true;
+    	$.ajax({
+    		url:"usuario/isSuperUser",
+    		async: false,
+    		complete: function (xhr,msg){
+    			if (xhr.status==403){
+                    auth=false;
+                    $scope.toast403();
+                    return;
+    			}
+    		}
+    	})
+
+        if (!auth) return;
+    	
     	if (_usuario == null){
     		var _usuario = {status: true};
     	}

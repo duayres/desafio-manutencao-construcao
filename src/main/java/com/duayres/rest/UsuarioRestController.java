@@ -48,7 +48,7 @@ public class UsuarioRestController {
 		Usuario usuario = usuarioService.findUserById(idUsuario);//TODO ver os save se tem flush
 		usuario.setStatus(status);
 		usuarioService.save(usuario);
-		return "{code: 200}";
+		return "{\"code\": 200}";
 	}
 	
 	/*
@@ -62,7 +62,7 @@ public class UsuarioRestController {
 		Usuario usuario = usuarioService.findUserById(idUsuario);
 		usuario.setStatus(true);
 		usuarioService.save(usuario);
-		return "{code: 200}";
+		return "{\"code\": 200}";
 	}
 	
 }

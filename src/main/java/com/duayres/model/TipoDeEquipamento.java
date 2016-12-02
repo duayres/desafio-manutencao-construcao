@@ -54,6 +54,14 @@ public class TipoDeEquipamento implements Serializable {
 	private Boolean status;
 
 	
+	public Long getIdEquipamento() {
+		return idEquipamento;
+	}
+
+	public void setIdEquipamento(Long idEquipamento) {
+		this.idEquipamento = idEquipamento;
+	}
+
 	public String getNome() {
 		return nome;
 	}

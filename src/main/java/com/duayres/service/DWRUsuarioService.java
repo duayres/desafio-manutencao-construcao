@@ -1,5 +1,6 @@
 package com.duayres.service;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
@@ -42,7 +43,6 @@ public class DWRUsuarioService {
 		return this.usuarioRepository.findOne( id );
 	}
 
-	@PreAuthorize("hasRole('ROLE_ADMINISTRADOR')")
 	public List<Usuario> listAll(){
 		return usuarioRepository.findAll();
 	}
@@ -75,14 +75,7 @@ public class DWRUsuarioService {
 		return user;
 	}
 	
-	public List<Usuario> listUsuariosLivresNoPeriodo(Calendar dtInicio, Calendar dtFinal){
-		dtInicio=Calendar.getInstance();
-		dtFinal=Calendar.getInstance();
-		
-		dtInicio.set(Calendar.DAY_OF_YEAR, 5);
-		dtInicio.set(Calendar.DAY_OF_YEAR, 5);
-		
-		
+	public List<Usuario> listUsuariosLivresNoPeriodo(Calendar dtInicio, Calendar dtFinal){		
 		return usuarioRepository.listUsuariosLivresNoPeriodo(dtInicio, dtFinal);
 	}
 	

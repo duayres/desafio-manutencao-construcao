@@ -38,7 +38,7 @@ public class AppInitializer extends AbstractAnnotationConfigDispatcherServletIni
 	}
 	
 	
-	/*@Override
+	@Override
 	public void onStartup(ServletContext servletContext) {
 	    AnnotationConfigWebApplicationContext rootAppContext = new AnnotationConfigWebApplicationContext();
 	//scan pela pacote de classes com annotation @Configuration
@@ -51,7 +51,6 @@ public class AppInitializer extends AbstractAnnotationConfigDispatcherServletIni
 	    rootAppContext.scan("com.duayres.config");            // scan dos config tudo
 	    
 		DwrSpringServlet dwrServlet = new DwrSpringServlet();
-		//dwrServlet.set;
 		//dwrServlet.setApplicationContext(dispatcherServletContext);//não funga esse carai o.O
 		
 		ServletRegistration.Dynamic defaultDispatcher = servletContext.addServlet("dispatcher",
@@ -71,7 +70,7 @@ public class AppInitializer extends AbstractAnnotationConfigDispatcherServletIni
 		dwrDispatcher.setInitParameter("crossDomainSessionSecurity", "false");
 		dwrDispatcher.setInitParameter("accessLogLevel", "CALL");
 	    
-	}*/
+	}
 	
 	/**
 	 * Encoding -> UTF-8

@@ -6,6 +6,9 @@ app.controller("TipoDeEquipamentoFormController", function($scope, $mdDialog, da
 		if(TipoDeEquipamentoFormCtrl.equipamento){
 			delete TipoDeEquipamentoFormCtrl.equipamento.errors;
 			
+			if (!TipoDeEquipamentoFormCtrl.equipamento.hasOwnProperty("idEquipamento"))
+				TipoDeEquipamentoFormCtrl.equipamento.status=true;
+			
 	        DWRTipoDeEquipamentoService.save(TipoDeEquipamentoFormCtrl.equipamento, {
 	        	async: false,
 	        	callback : function ( result ) {

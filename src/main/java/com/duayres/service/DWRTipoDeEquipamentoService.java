@@ -23,5 +23,8 @@ public class DWRTipoDeEquipamentoService {
 	public List<TipoDeEquipamento> listAll(){
 		return this.tipoDeEquipamentoRepository.findAll();
 	}
-	
+
+	public List<TipoDeEquipamento> listActives(){
+		return this.tipoDeEquipamentoRepository.findByStatusTrue();
+	}
 }

@@ -1,17 +1,28 @@
 <md-content flex layout-padding class="layout-fill" ng-init="AgndFormCtrl.carregarDados();">
     <md-toolbar class="md-theme-light">
         <h2 class="md-toolbar-tools">
-            <span>Agendamento</span>
+            <span>Cadastro de Agendamento</span>
         </h2>
     </md-toolbar>
 
     <form ng-cloak ng-submit="AgndFormCtrl.submitForm()" name="agendForm" >
         <input type="hidden" name="idAgendamento" ng-model="AgndFormCtrl.agendamento.idAgendamento">
-        <div layout="row">
-            <md-input-container flex>
-                <label>Nome</label>
-                <input type="text" maxlength="100" id="nome"  md-maxlength="100" ng-model="AgndFormCtrl.agendamento.localizacao.nome" >
-            </md-input-container>
+        <div layout="row" flex>
+                    <md-autocomplete md-floating-label="Localização:" 
+                            flex="" 
+                            md-item-text="item.nome"
+                            md-items="item in AgndFormCtrl.localizacoes" 
+                            md-search-text-change="AgndFormCtrl.buscaLocalizacao(AgndFormCtrl.buscaTermo)"
+                            md-search-text="AgndFormCtrl.buscaTermo" 
+                            md-selected-item="AgndFormCtrl.agendamento.localizacao" 
+                            md-no-cache="true" 
+                            md-input-maxlength="30" 
+                            md-input-minlength="3" 
+                            md-input-name="AgndFormCtrl.localizacao" 
+                            required="true">
+              <md-item-template>
+                <span md-highlight-text="AgndFormCtrl.buscaTermo">{{item.nome}}</span>
+              </md-item-template>
         </div>
         <div layout="row">
            <md-input-container flex-gt-md="25">
@@ -47,7 +58,7 @@
 
             <md-input-container flex="20">
                 <label>Duração (Horas)</label>
-                <input type="number" min="1" max="8"  ng-model="AgndFormCtrl.agendamento.duracao" >
+                <input type="number" ng-change="console.log('mudô xD')"  min="1" max="8"  ng-model="AgndFormCtrl.agendamento.duracao" >
             </md-input-container>
 
             <md-input-container flex="40">

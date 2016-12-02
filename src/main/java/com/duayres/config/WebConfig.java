@@ -10,11 +10,8 @@ import org.directwebremoting.annotations.DataTransferObject;
 import org.directwebremoting.annotations.GlobalFilter;
 import org.directwebremoting.annotations.RemoteProxy;
 import org.directwebremoting.extend.Configurator;
-import org.directwebremoting.spring.DwrAnnotationPostProcessor;
-import org.directwebremoting.spring.DwrClassPathBeanDefinitionScanner;
 import org.directwebremoting.spring.DwrController;
 import org.directwebremoting.spring.DwrHandlerMapping;
-import org.directwebremoting.spring.DwrSpringServlet;
 import org.directwebremoting.spring.SpringConfigurator;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
@@ -38,7 +35,6 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
 import com.duayres.controller.MainController;
-import com.duayres.dwr.ServletRegistrationBean;
 import com.duayres.rest.UsuarioRestController;
 
 
@@ -91,32 +87,12 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationCon
 		return new FixedLocaleResolver(new Locale("pt", "BR"));
 	}
     
-	@Bean
-	public DwrAnnotationPostProcessor dwrAnnotationPostProcessor( ApplicationContext applicationContext )
-	{
-		final BeanDefinitionRegistry beanDefinitionRegistry = (BeanDefinitionRegistry) applicationContext.getAutowireCapableBeanFactory();
-		final ClassPathBeanDefinitionScanner scanner = new DwrClassPathBeanDefinitionScanner(beanDefinitionRegistry);
-        scanner.addIncludeFilter(new AnnotationTypeFilter(DataTransferObject.class));
-        scanner.scan("com.duayres");
-        
-		return new DwrAnnotationPostProcessor();
-	}
-
-	@Bean
-	public ServletRegistrationBean dwrSpringServletRegistration( )
-	{
-		final ServletRegistrationBean registration = new ServletRegistrationBean( new DwrSpringServlet(), "/dwr/*" );
-		registration.addInitParameter( "debug", "true");
-		registration.addInitParameter( "scriptCompressed", "false");
-		registration.setName( "dwrSpringServlet" );
-		return registration;
-	}
 	
 	/*
 	 * Configuração experimental do DWR começa aqui:
 	 * 
 	 */
-	/*@Bean
+	@Bean
 	public DwrController dwrController(ApplicationContext applicationContextx) {
 
 		BeanDefinitionRegistry beanDefinitionRegistry = (BeanDefinitionRegistry) applicationContextx
@@ -159,12 +135,12 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationCon
 	@Bean
 	public DwrHandlerMapping dwrHandlerMapping(DwrController dwrController) {
 		Map<String, DwrController> urlMap = new HashMap<String, DwrController>();
-		urlMap.put("/dwr/*", dwrController);
+		urlMap.put("/dwr/**/*", dwrController);
 
 		DwrHandlerMapping dwrHandlerMapping = new DwrHandlerMapping();
 		dwrHandlerMapping.setAlwaysUseFullPath(false);
 		dwrHandlerMapping.setUrlMap(urlMap);
 		return dwrHandlerMapping;
-	}*/
+	}
 
 }

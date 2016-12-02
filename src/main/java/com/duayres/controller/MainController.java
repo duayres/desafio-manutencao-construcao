@@ -14,9 +14,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.duayres.model.Agendamento;
+import com.duayres.model.Localizacao;
 import com.duayres.model.Membro;
 import com.duayres.model.TipoDeEquipamento;
 import com.duayres.model.Usuario;
+import com.duayres.repository.ILocalizacaoRepository;
 import com.duayres.repository.IMembroRepository;
 import com.duayres.service.AgendamentoService;
 import com.duayres.service.TipoDeEquipamentoService;
@@ -33,6 +35,8 @@ public class MainController {
 	private TipoDeEquipamentoService tpService;
 	@Autowired
 	private IMembroRepository mRepo;
+	@Autowired
+	private ILocalizacaoRepository lRepo;
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public ModelAndView login() {
@@ -69,6 +73,10 @@ public class MainController {
 			a.setDataInicial(Calendar.getInstance());
 			a.setDataFinal(Calendar.getInstance());
 			a.setTipoEquipamento(e);
+			
+			Localizacao loc = new Localizacao("assis");
+			lRepo.saveAndFlush(loc);
+			a.setLocalizacao(loc);
 
 			a = agService.save(a);
 

@@ -16,7 +16,7 @@
                 <div layout="row">
                     <md-input-container flex>
                         <label>Nome</label>
-                        <input type="text" maxlength="100" id="nome" required  md-maxlength="100" ng-model="TipoDeEquipamentoFormCtrl.equipamento.nome">
+                        <input type="text" maxlength="150" id="nome" required  md-maxlength="100" ng-model="TipoDeEquipamentoFormCtrl.equipamento.nome">
                     </md-input-container>
 				</div>
 				<div layout="row" flex>
@@ -57,7 +57,7 @@
 				<div layout="row">
 			        <md-input-container flex="100">
 			          <label>Descrição</label>
-			          <textarea ng-model="TipoDeEquipamentoFormCtrl.equipamento.descricao" rows="3" md-select-on-focus></textarea>
+			          <textarea ng-model="TipoDeEquipamentoFormCtrl.equipamento.descricao" required rows="3" md-select-on-focus></textarea>
 			        </md-input-container>
                 </div>
                 

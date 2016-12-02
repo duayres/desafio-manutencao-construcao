@@ -26,6 +26,16 @@ app.controller('AgendamentoFormController', function($scope, $mdDialog , send, $
                 $mdDialog.hide();
             });
    	}
+   	
+   	this.buscaLocalizacao = function (query) {
+      send.get('localizacao/busca/' + escape(query))
+        .then(function(result) {
+          AgndFormCtrl.localizacoes= result.data;
+          return result.data;
+       });
+      
+      //return AgndFormCtrl.localizacoes.data;
+   	}
 
     this.carregarDados = function(){
         DWRTipoDeEquipamentoService.listAll({
