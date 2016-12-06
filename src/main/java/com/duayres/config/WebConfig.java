@@ -24,6 +24,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.type.filter.AnnotationTypeFilter;
 import org.springframework.data.web.config.EnableSpringDataWebSupport;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartResolver;
+import org.springframework.web.multipart.support.StandardServletMultipartResolver;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -31,6 +33,7 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping;
 import org.springframework.web.servlet.i18n.FixedLocaleResolver;
+import org.springframework.web.servlet.resource.DefaultServletHttpRequestHandler;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
@@ -76,7 +79,22 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationCon
         bean.setSuffix(".html");
         return bean;
     }
-	
+
+    @Bean
+    public DefaultServletHttpRequestHandler createDefaultServletHttpRequestHandler() {
+        return new DefaultServletHttpRequestHandler();
+    }
+    
+//    @Bean(name="multiPartResolver")
+//    public CommonsMultipartResolver multipartResolver(){
+//        return new CommonsMultipartResolver();
+//    }
+    
+    @Bean
+    public MultipartResolver multipartResolver(){
+        return new StandardServletMultipartResolver();
+    }
+    
 	/**
 	 * Metodo que fixa os headers e identifiers do servidor para a localização brasil (pt_BR)
 	 * @return Objeto FixedLocaleResolver

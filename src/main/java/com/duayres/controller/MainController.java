@@ -1,5 +1,6 @@
 package com.duayres.controller;
 
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Optional;
 
@@ -38,6 +39,13 @@ public class MainController {
 	@Autowired
 	private ILocalizacaoRepository lRepo;
 
+	
+	@RequestMapping("/")
+	public String toHome(){
+		return "redirect:/home";
+	}
+	
+	
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public ModelAndView login() {
 		if (usuarioService.listAll().isEmpty()) {
@@ -70,15 +78,17 @@ public class MainController {
 
 			Agendamento a = new Agendamento();
 
-			a.setDataInicial(Calendar.getInstance());
-			a.setDataFinal(Calendar.getInstance());
+			Calendar di=Calendar.getInstance();
+			Calendar df=Calendar.getInstance();
+			di.setTimeInMillis(1480676400000L);//2016-12-02 09:00:00
+			df.setTimeInMillis(1480680000000L);//2016-12-02 10:00:00
+			a.setDataInicial(di);
+			a.setDataFinal(df);
 			a.setTipoEquipamento(e);
 			
 			Localizacao loc = new Localizacao("assis");
 			lRepo.saveAndFlush(loc);
 			a.setLocalizacao(loc);
-
-			a = agService.save(a);
 
 			Membro m = new Membro();
 			m.setUsuario(u);
@@ -86,9 +96,23 @@ public class MainController {
 			Membro m2 = new Membro();
 			m2.setAgendamento(a);
 			m2.setUsuario(u2);
+			a.setMembros(Arrays.asList(m,m2));
+			
+			/*Membro m = new Membro();
+			m.setUsuario(u);
+			m.setAgendamento(a);
+			Membro m2 = new Membro();
+			m2.setAgendamento(a);
+			m2.setUsuario(u2);
+			
+			a.getMembros().add(m);
+			a.getMembros().add(m2);*/
+			
+			a = agService.save(a);
 
-			mRepo.save(m);
-			mRepo.save(m2);
+
+			/*mRepo.save(m);
+			mRepo.save(m2);*/
 
 		}
 

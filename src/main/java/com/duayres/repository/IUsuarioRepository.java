@@ -25,6 +25,12 @@ public interface IUsuarioRepository extends JpaRepository<Usuario, Long> {
 	
 	public Optional<Usuario> findByIdUsuario(Long idUsuario);
 	
-	@Query("FROM Usuario u WHERE NOT EXISTS ( FROM Membro m WHERE m.agendamento.dataInicial >= :inicial AND m.agendamento.dataFinal <= :final AND m.usuario.id = u.id)")
+	@Query("FROM Usuario u "
+			+ "WHERE NOT EXISTS ( "
+			+ "FROM Membro m "
+			+ "WHERE ( m.agendamento.dataInicial between :inicial AND :final "
+			+ "OR m.agendamento.dataFinal between :inicial AND :final "
+			+ "OR  m.agendamento.dataInicial <= :inicial AND m.agendamento.dataFinal >= :final )  "
+			+ "AND m.usuario.id = u.id )")
 	public List<Usuario> listUsuariosLivresNoPeriodo(@Param("inicial") Calendar dtInicio, @Param("final") Calendar dtFinal);
 }

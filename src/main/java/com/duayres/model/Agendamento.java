@@ -13,14 +13,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 import org.directwebremoting.annotations.DataTransferObject;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 /**
  * @author Eduardo Ayres
@@ -56,21 +56,25 @@ public class Agendamento implements Serializable {
     @JoinColumn(name = "tipo_equipamento", nullable = false)//, insertable=false, updatable=false)
 	private TipoDeEquipamento tipoEquipamento;
 
-//	@OneToMany(cascade=CascadeType.ALL, mappedBy="agendamento")
-//	@Transient
-//	private List<Membro> membros = new ArrayList<>();
-//	@OneToMany(fetch=FetchType.EAGER)
-//	@JoinTable(name="membro")
-//	private List<Usuario> membros;
+	/*@OneToMany(cascade=CascadeType.ALL, mappedBy="agendamento")
+	@Transient
+	private List<Membro> membros = new ArrayList<>();*/
+	/*@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
+	@JoinTable(name="membro")
+	private List<Usuario> membros;*/
+	
+	@OneToMany(mappedBy="usuario", fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
+	@OnDelete(action=OnDeleteAction.CASCADE)
+	private List<Membro> membros = new ArrayList<>();
 
 	
-//	public List<Membro> getMembros() {
-//		return membros;
-//	}
-//
-//	public void setMembros(List<Membro> membros) {
-//		this.membros = membros;
-//	}
+	/*public List<Membro> getMembros() {
+		return membros;
+	}
+
+	public void setMembros(List<Membro> membros) {
+		this.membros = membros;
+	}*/
 
 	public Long getIdAgendamento() {
 		return idAgendamento;
@@ -112,14 +116,14 @@ public class Agendamento implements Serializable {
 		this.localizacao = localizacao;
 	}
 
-//	public List<Usuario> getMembros() {
-//		return membros;
-//	}
-//
-//	public void setMembros(List<Usuario> membros) {
-//		this.membros = membros;
-//	}
-//	
+	public List<Membro> getMembros() {
+		return membros;
+	}
+
+	public void setMembros(List<Membro> membros) {
+		this.membros = membros;
+	}
+	
 	
 	@Override
 	public int hashCode() {

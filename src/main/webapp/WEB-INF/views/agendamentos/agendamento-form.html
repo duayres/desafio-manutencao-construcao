@@ -41,14 +41,14 @@
 
             <md-input-container flex-gt-md="25">
                 <label>Hora Final</label>
-                <input mdc-datetime-picker="" date="false" time="true" type="text" short-time="true"  placeholder="Time" min-date="minDate" format="HH:mm" ng-model="AgndFormCtrl.agendamento.dataFinal" class=" md-input" >
+                <input mdc-datetime-picker="" ng-change="alert('teste')" date="false" time="true" type="text" short-time="true"  placeholder="Time" min-date="minDate" format="HH:mm" ng-model="AgndFormCtrl.agendamento.dataFinal" class=" md-input" >
             </md-input-container> 
         </div>
 
         <div layout="row">
             <md-input-container flex="40">
                 <label>Tipo de equipamento</label>
-                <md-select  ng-model="AgndFormCtrl.agendamento.tipoDeEquipamento" ng-change="//AgndFormCtrl.verificaCapacidade();">
+                <md-select  ng-model="AgndFormCtrl.agendamento.tipoDeEquipamento">
                     <!-- md-option><em>Escolha</em></md-option-->
                     <md-option ng-repeat="tipoDeEquipamento in AgndFormCtrl.tiposDeEquipamento" ng-value="tipoDeEquipamento" >
                         {{tipoDeEquipamento.nome}}
@@ -58,7 +58,7 @@
 
             <md-input-container flex="20">
                 <label>Duração (Horas)</label>
-                <input type="number" ng-change="console.log('mudô xD')"  min="1" max="8"  ng-model="AgndFormCtrl.agendamento.duracao" >
+                <input type="number"  min="1" max="8"  ng-model="AgndFormCtrl.agendamento.duracao" >
             </md-input-container>
 
             <md-input-container flex="40">
@@ -75,7 +75,7 @@
             </md-input-container>
         </div>
 
-        <h3 flex="100">Pesquisar Usuários</h3>
+        <h2 flex="100">Pesquisar Usuários</h2>
         <div layout="row">
             <form ng-cloak>
                 <md-input-container flex="50">
@@ -108,7 +108,7 @@
                 <tbody>
                     <tr ng-repeat="usuario in AgndFormCtrl.usuarios" class="usuario">
                         <td>
-                            <md-checkbox ng-checked="AgndFormCtrl.verificaParticipante(usuario);" aria-label="Select" ng-disabled="AgndFormCtrl.agendamento.salaDeReuniao == undefined" ng-click="AgndFormCtrl.select(usuario);">
+                            <md-checkbox ng-checked="AgndFormCtrl.verificaParticipante(usuario);" aria-label="Select" ng-click="AgndFormCtrl.select(usuario);">
                             </md-checkbox>
                         </td>
                         <td>{{usuario.nome}}</td>

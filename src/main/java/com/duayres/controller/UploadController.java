@@ -1,8 +1,7 @@
 package com.duayres.controller;
 
-import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileOutputStream;
+import java.util.UUID;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -21,22 +20,24 @@ public class UploadController {
     {
         try
         {
-        	byte[] bytes=file.getBytes();
+        	//byte[] bytes=file.getBytes();
         	ServletContext context = request.getServletContext();
-            String filesPath = context.getRealPath("/")+"files/";
-            String origName=file.getOriginalFilename();
+            String filesPath = context.getRealPath("/")+"WEB-INF/assets/uploads/";//System.getenv("HOME")
+            String origName=UUID.randomUUID().toString()+"_"+file.getOriginalFilename();
 
             File serverFile = new File(filesPath+origName);
-            BufferedOutputStream stream = new BufferedOutputStream(
+            System.out.println(filesPath+origName);
+            /*BufferedOutputStream stream = new BufferedOutputStream(
                     new FileOutputStream(serverFile));
             stream.write(bytes);
-            stream.close();
+            stream.close();*/
+            file.transferTo(serverFile);
             
-            return "success ";
+            return "{\"uniqueFile\": \""+origName+"\" }";
         }
         catch(Exception e)
         {
-            return "error = "+e;
+            return "{\"uniqueFile\": \"error\"}";//+e;
         }
 
     }

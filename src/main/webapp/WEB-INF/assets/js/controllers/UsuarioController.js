@@ -107,12 +107,13 @@ app.controller("UsuarioController", function($scope, $importService, send, $mdDi
     }
     
     this.login = function(){
-    	$.post("login",$scope.usuario)
+    	
+    	/*$.post("login",$scope.usuario)
     	.done(function (data) {
     		//alert("ok xD"+JSON.stringify(data));
     		if (typeof data === "object"){
     			sessionStorage.setItem("usuario", JSON.stringify(data));
-    			location.href=base_url+"home";
+    			//location.href=base_url+"home";
     		} else {
     			if (data.indexOf('') !== -1){location.href=base_url+"home";return;};
     			$("#exception").html("Usuário e/ou senha incorretos");  
@@ -121,37 +122,33 @@ app.controller("UsuarioController", function($scope, $importService, send, $mdDi
     	})
     	.fail(function (data) {
     		console.log("erro de requisicao");
-    	});
+    	});*/
     	
-    	return;
         send.post("login", $scope.usuario)
         .then(function(response){
-        	if (response.data.exception!=""){
-        		$("#exception").html(response.data.exception);
-
-                setTimeout(function(){
-                    $("#exception").html("");                    
-                }, 3000);
-                return;
+        	if (typeof response.data === "object"){
+    			sessionStorage.setItem("usuario", JSON.stringify(response.data));
+    			location.href=base_url+"home";
+    			return false;
+    		} else {
+    			if (response.data.indexOf('sidebar') !== -1){//spring-sec vampiro de response
+    				send.get("currentUser")
+	    		        .then(function(response){
+	    		        	sessionStorage.setItem("usuario", JSON.stringify(response.data));
+	    	    			location.href=base_url+"home";
+	    		        });
+    				return;
+    			}
+    			$("#exception").html("Usuário e/ou senha incorretos");  
+    			console.log("não é um obj");
+    			return false;
         	}
-        	alert("1");
-            sessionStorage.setItem("usuario", JSON.stringify(response.data));
-            //location.href=base_url+"home";
-        }, function(response){
-        	alert("2"+response.status);
-            if(response.status == 403){
-                $("#exception").html(response.data.exception);
-
-                setTimeout(function(){
-                    $("#exception").html("");                    
-                }, 3000);
-            }
         });
     }
     
     this.logout = function(){
         sessionStorage.setItem("logged", "");
         sessionStorage.setItem("usuario", "");
-        location.href=base_url+"login";
+        location.href=base_url+"logout";
     }
 });

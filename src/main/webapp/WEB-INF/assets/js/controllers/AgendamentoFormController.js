@@ -11,7 +11,27 @@ app.controller('AgendamentoFormController', function($scope, $mdDialog , send, $
 	this.usuarios = [];
 	this.usuarioPesquisa = {};
     this.exception = "";
-
+    
+    $scope.$watch('AgndFormCtrl.agendamento.dataInicial',function (newValue, oldValue) {
+    	if (newValue==oldValue) return;
+    	AgndFormCtrl.atualizaMembros();
+    });
+    $scope.$watch('AgndFormCtrl.agendamento.dataFinal',function (newValue, oldValue) {
+    	if (newValue==oldValue) return;
+    	AgndFormCtrl.atualizaMembros();
+    });
+    
+    
+    this.atualizaMembros = function(){
+    	if (AgndFormCtrl.agendamento.dataInicial == undefined || AgndFormCtrl.agendamento.dataFinal == undefined) return;
+        DWRUsuarioService.listUsuariosLivresNoPeriodo(AgndFormCtrl.agendamento.dataInicial,AgndFormCtrl.agendamento.dataFinal,{
+        	async: false,
+        	callback: function(usuarios){
+        		AgndFormCtrl.usuarios=usuarios;
+        		}
+        });
+    }
+    
    	this.cancelar = function(){
    		 var confirm = $mdDialog.confirm()
                 .title("Tem certeza que deseja cancelar?")
@@ -114,7 +134,7 @@ app.controller('AgendamentoFormController', function($scope, $mdDialog , send, $
     }
 
     this.select = function(usuario){
-    	if(AgndFormCtrl.agendamento.salaDeReuniao){
+    	if(AgndFormCtrl.agendamento.tipoDeEquipamento){
 	    	var index = -1;
 	    	var i = 0;
     		for(i = 0; i < AgndFormCtrl.agendamento.membros.length; i++){
@@ -123,21 +143,10 @@ app.controller('AgendamentoFormController', function($scope, $mdDialog , send, $
     				break;
     			}
     		}
-	    	var capacidade = AgndFormCtrl.agendamento.salaDeReuniao.capacidade;
+	    	/*var capacidade = AgndFormCtrl.agendamento.salaDeReuniao.capacidade;*/
 
 	    	if(index == -1){
-	    		if(AgndFormCtrl.agendamento.membros.length == capacidade){
-	    			$mdDialog.show(
-				    	$mdDialog.alert()
-				        .clickOutsideToClose(true)
-				        .title('Capacidade excedida')
-				        .textContent('A capacidade dessa sala foi excedida, remova membros ou escolha outra sala')
-				        .ariaLabel('Alerta Sala')
-				        .ok('Ok')
-				    );
-				}else{
 	    			AgndFormCtrl.agendamento.membros.push(usuario);
-	    		}
 	    	}else{
 	    		AgndFormCtrl.agendamento.membros.splice(index, 1);
 	    	}
@@ -145,20 +154,14 @@ app.controller('AgendamentoFormController', function($scope, $mdDialog , send, $
 	    	$mdDialog.show(
 		    	$mdDialog.alert()
 		        .clickOutsideToClose(true)
-		        .title('Selecione uma sala')
-		        .textContent('Você deve selecionar uma sala antes de selecionar os membros')
-		        .ariaLabel('Alerta Sala')
+		        .title('Selecione um tipo de equipamento')
+		        .textContent('Você deve selecionar o tipo de equipamento antes de selecionar os membros')
+		        .ariaLabel('Aviso')
 		        .ok('Ok')
 		    );
 	    }
     }
-
-    this.verificaCapacidade = function(){
-    	if(AgndFormCtrl.agendamento.salaDeReuniao.capacidade < AgndFormCtrl.agendamento.membros.length){
-    		AgndFormCtrl.agendamento.membros = [];
-    	}
-    }
-
+    
     this.upload = function(){
     	angular.element($("#arquivo")).click();
     }

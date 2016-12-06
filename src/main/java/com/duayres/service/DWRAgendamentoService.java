@@ -27,11 +27,13 @@ public class DWRAgendamentoService {
 	
 	public List<Agendamento> listAll(){
 		List<Agendamento>	agendamentos = this.agendamentoRepository.findAll();
-		for (Agendamento agendamento : agendamentos) {
-			
+//		for (Agendamento agendamento : agendamentos) {
 //			agendamento.setTipoEquipamento(null);
-		}
+//		}
 		return agendamentos;
 	}
 	
+	public void exclude(Long idAgendamento) {
+		this.agendamentoRepository.delete(idAgendamento);
+	}
 }

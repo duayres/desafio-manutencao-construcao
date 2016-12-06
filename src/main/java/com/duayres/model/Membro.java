@@ -25,12 +25,12 @@ public class Membro {
 	private Long id;
 	
 	@NotNull
-	@ManyToOne(fetch=FetchType.EAGER)
+	@ManyToOne(fetch=FetchType.EAGER, optional=false)
     @JoinColumn(name = "usuario_id", nullable = false)
 	private Usuario usuario;
 	
 	@NotNull
-	@ManyToOne(fetch=FetchType.EAGER)
+	@ManyToOne(fetch=FetchType.EAGER, optional=false)
     @JoinColumn(name = "agendamento_id", nullable = false)
 	private Agendamento agendamento;
 

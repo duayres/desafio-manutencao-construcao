@@ -30,7 +30,7 @@ public class DWRUsuarioService {
 	@PreAuthorize("hasRole('ROLE_ADMINISTRADOR')")
 	public Usuario save(Usuario usuario){
 		if (usuario.isNew()){
-			if (findByEmailIgnoreCaseAndStatusTrue(usuario.getEmail())!=null){
+			if (findByEmailIgnoreCaseAndStatusTrue(usuario.getEmail()).isPresent()){
 				throw new EmailJaExistenteException("Email já existente.");
 			}
 		}
@@ -75,7 +75,15 @@ public class DWRUsuarioService {
 		return user;
 	}
 	
-	public List<Usuario> listUsuariosLivresNoPeriodo(Calendar dtInicio, Calendar dtFinal){		
+	public List<Usuario> listUsuariosLivresNoPeriodo(Calendar dtInicio, Calendar dtFinal){
+		SimpleDateFormat formatter = new SimpleDateFormat("ddd MMM yy HH:mm:ss");
+		//dtInicio=Calendar.getInstance();
+		//dtFinal=Calendar.getInstance();
+		System.out.println(formatter.format(dtFinal.getTime()));
+		//dtInicio.set(Calendar.DAY_OF_YEAR, 5);
+		//dtInicio.set(Calendar.DAY_OF_YEAR, 5);
+		
+		
 		return usuarioRepository.listUsuariosLivresNoPeriodo(dtInicio, dtFinal);
 	}
 	

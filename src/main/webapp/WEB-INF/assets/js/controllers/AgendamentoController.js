@@ -15,13 +15,13 @@ app.controller("AgendamentoController", function($scope, $importService, send, $
     this.excluir = function(event, idAgendamento, index){
     	var confirm = $mdDialog.confirm()
 			.title("Tem certeza que deseja excluir esse agendamento?")
-			.htmlContent("Essa ação não pode ser desfeita!")
+			.htmlContent("<b>Essa ação não pode ser desfeita!</b>")
 			.ariaLabel("Excluir Agendamento")
 			.ok("Excluir")
 			.cancel("Cancelar");
 
 		$mdDialog.show(confirm).then(function(){
-			send.delete("/dactivate-agendamento", idAgendamento)
+			send.delete("/deactivate-agendamento", idAgendamento)
 			.then(function(response){
 				AgndCtrl.agendamentos.splice(index, 1);
 			}, function(response){
