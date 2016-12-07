@@ -21,7 +21,7 @@ app.controller("AgendamentoController", function($scope, $importService, send, $
 			.cancel("Cancelar");
 
 		$mdDialog.show(confirm).then(function(){
-			send.delete("/deactivate-agendamento", idAgendamento)
+			send.delete("delete-agendamento/"+idAgendamento, "" )
 			.then(function(response){
 				AgndCtrl.agendamentos.splice(index, 1);
 			}, function(response){

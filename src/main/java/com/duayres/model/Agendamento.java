@@ -54,7 +54,7 @@ public class Agendamento implements Serializable {
 	@NotNull(message="O Tipo de equipamento é obrigatório")
 	@ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name = "tipo_equipamento", nullable = false)//, insertable=false, updatable=false)
-	private TipoDeEquipamento tipoEquipamento;
+	private TipoDeEquipamento tipoDeEquipamento;
 
 	/*@OneToMany(cascade=CascadeType.ALL, mappedBy="agendamento")
 	@Transient
@@ -63,12 +63,12 @@ public class Agendamento implements Serializable {
 	@JoinTable(name="membro")
 	private List<Usuario> membros;*/
 	
-	@OneToMany(mappedBy="usuario", fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
+	/*@OneToMany(mappedBy="usuario", fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
 	@OnDelete(action=OnDeleteAction.CASCADE)
 	private List<Membro> membros = new ArrayList<>();
 
 	
-	/*public List<Membro> getMembros() {
+	public List<Membro> getMembros() {
 		return membros;
 	}
 
@@ -104,26 +104,17 @@ public class Agendamento implements Serializable {
 		return localizacao;
 	}
 
-	public TipoDeEquipamento getTipoEquipamento() {
-		return tipoEquipamento;
+	public TipoDeEquipamento getTipoDeEquipamento() {
+		return tipoDeEquipamento;
 	}
 
-	public void setTipoEquipamento(TipoDeEquipamento tipoEquipamento) {
-		this.tipoEquipamento = tipoEquipamento;
+	public void setTipoDeEquipamento(TipoDeEquipamento tipoDeEquipamento) {
+		this.tipoDeEquipamento = tipoDeEquipamento;
 	}
 	
 	public void setLocalizacao(Localizacao localizacao) {
 		this.localizacao = localizacao;
 	}
-
-	public List<Membro> getMembros() {
-		return membros;
-	}
-
-	public void setMembros(List<Membro> membros) {
-		this.membros = membros;
-	}
-	
 	
 	@Override
 	public int hashCode() {

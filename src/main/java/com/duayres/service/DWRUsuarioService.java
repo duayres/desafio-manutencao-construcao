@@ -8,10 +8,9 @@ import java.util.Optional;
 import org.directwebremoting.annotations.RemoteProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.Assert;
 
 import com.duayres.model.TipoUsuario;
 import com.duayres.model.Usuario;
@@ -21,7 +20,7 @@ import com.duayres.service.exception.EmailJaExistenteException;
 @RemoteProxy
 public class DWRUsuarioService {
 	
-	private ShaPasswordEncoder encoder = new ShaPasswordEncoder();
+	private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 	
 	@Autowired
 	private IUsuarioRepository usuarioRepository;
@@ -33,15 +32,23 @@ public class DWRUsuarioService {
 			if (findByEmailIgnoreCaseAndStatusTrue(usuario.getEmail()).isPresent()){
 				throw new EmailJaExistenteException("Email já existente.");
 			}
+			if (!usuario.getSenha().isEmpty()) usuario.setSenha(encoder.encode(usuario.getSenha()));
 		}
 		return this.usuarioRepository.saveAndFlush(usuario);
 	}
 	
 	public Usuario findUserById( Long id )
 	{
-		Assert.notNull(id, "id nao informado");
-		return this.usuarioRepository.findOne( id );
+		Optional<Usuario> userOpt= this.usuarioRepository.findByIdUsuario(id);
+		
+		Usuario user = userOpt.orElseThrow(() -> new UsernameNotFoundException("User not found"));
+		return user;
 	}
+	
+	/*public Usuario findUserById( Long id )
+	{
+		return this.usuarioRepository.findOne( id );
+	}*/
 
 	public List<Usuario> listAll(){
 		return usuarioRepository.findAll();
@@ -68,10 +75,15 @@ public class DWRUsuarioService {
 	}
 	
 	public Usuario login(Usuario usuario) {
-		usuario.setSenha(encoder.encodePassword(usuario.getSenha(), "palavrasecreta"));
-		Optional<Usuario> userOpt = usuarioRepository.findByEmailIgnoreCaseAndSenha(usuario.getEmail(), usuario.getSenha());
+		System.out.println(encoder.encode(usuario.getSenha()));
+		Optional<Usuario> userOpt = usuarioRepository.findByEmailIgnoreCaseAndStatusTrue(usuario.getEmail());
 		
 		Usuario user = userOpt.orElseThrow(() -> new UsernameNotFoundException("Usuario e/ou senha não encontrados"));
+		
+		if (!encoder.matches(usuario.getSenha(), user.getSenha())){
+			throw new UsernameNotFoundException("Usuario e/ou senha não encontrados");
+		}
+		
 		return user;
 	}
 	

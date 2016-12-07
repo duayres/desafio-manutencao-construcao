@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -23,6 +23,7 @@ public class UsuarioService {
 	private IUsuarioRepository usuarioRepository;
 	
 	@Transactional
+	//@PreAuthorize("hasRole('ROLE_ADMINISTRADOR')")
 	public Usuario save(Usuario usuario){
 		if (usuario.isNew()){
 			if (findByEmailIgnoreCaseAndStatusTrue(usuario.getEmail()).isPresent()){

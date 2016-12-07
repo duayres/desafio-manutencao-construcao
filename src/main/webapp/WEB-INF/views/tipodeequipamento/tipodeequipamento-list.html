@@ -17,7 +17,13 @@
         <tbody>
             <tr ng-repeat="equipamento in TipoDeEquipamentoCtrl.tiposDeEquipamento">
                 <td >{{equipamento.nome}}</td>
-                <td >{{equipamento.foto}Será uma<br>foto xD</td>
+                <td >
+                	<span ng-show="equipamento.foto">
+                		<a href="assets/uploads/{{equipamento.foto}}" target="_blank">
+                			<img src="assets/uploads/{{equipamento.foto}}" height="77" alt="Clique para visualizar" />
+                		</a>
+                	</span>
+                </td>
                 <td width="10">
                     <md-button class="md-fab md-warn md-mini" aria-label="Editar" ng-click="TipoDeEquipamentoCtrl.openModal(event, equipamento);">
                         <i class="zmdi zmdi-edit"></i>

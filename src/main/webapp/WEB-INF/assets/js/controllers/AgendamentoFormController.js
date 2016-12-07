@@ -83,7 +83,7 @@ app.controller('AgendamentoFormController', function($scope, $mdDialog , send, $
 
 					var i = 0;
 					for(i = 0; i < AgndFormCtrl.tiposDeEquipamento.length; i++){
-						if(AgndFormCtrl.agendamento.equipamento.idEquipamento == AgndFormCtrl.tiposDeEquipamento[i].idEquipamento){
+						if(AgndFormCtrl.agendamento.tipoDeEquipamento.idEquipamento == AgndFormCtrl.tiposDeEquipamento[i].idEquipamento){
 							AgndFormCtrl.agendamento.tipoDeEquipamento = AgndFormCtrl.tiposDeEquipamento[i];
 						}
 					}
@@ -113,6 +113,7 @@ app.controller('AgendamentoFormController', function($scope, $mdDialog , send, $
     this.verificaParticipante = function(usuario){
     	if(AgndFormCtrl.agendamento.idAgendamento){
     		var i = 0;
+    		if (AgndFormCtrl.agendamento.membros.length==0) return;
     		for(i = 0; i < AgndFormCtrl.agendamento.membros.length; i++){
     			if(AgndFormCtrl.agendamento.membros[i].idUsuario == usuario.idUsuario){
     				return true;
@@ -193,7 +194,38 @@ app.controller('AgendamentoFormController', function($scope, $mdDialog , send, $
 
     this.submitForm = function(){
     	var agendEnvio = {};
+    	var membros = {};
+    	var localizacao = {};
     	angular.copy(AgndFormCtrl.agendamento, agendEnvio);
+    	angular.copy(AgndFormCtrl.agendamento.localizacao, localizacao);
+    	angular.copy(AgndFormCtrl.membros, membros);
+    	delete agendEnvio.localizacao;
+    	delete agendEnvio.usuarios;
+    	
+    	DWRAgendamentoService.save(agendEnvio, /*localizacao, membros,*/ {
+        	async: false,
+        	callback : function ( result ) {
+        		if(result.idAgendamento){
+        			return $location.path("/agendamento");
+        		} else {
+        			alert("bugou");
+        		}
+        	},
+        	errorHandler : function (msg, exception){
+        		erros=exception.localizedMessage.split("'");
+        		var msgErro = "";
+        		if (erros.length<3) msgErro=exception.localizedMessage;
+        		for(i=1;i<erros.length;i=i+4){
+        			msgErro+=erros[i]+"<br />";
+        		}
+        		$("#exception").show().html(msgErro);
+        		setTimeout(function(){$("#exception").fadeOut()},5000*(erros.length/4));
+        		return false;
+        	}
+        });
+    	
+    	
+    	return;
 
     	agendEnvio.hora = AgndFormCtrl.agendamento.hora.getTime();
     	agendEnvio.data = AgndFormCtrl.agendamento.data.getTime();
@@ -238,6 +270,14 @@ app.controller('AgendamentoFormController', function($scope, $mdDialog , send, $
     	}else{
     		send.post("/agendamentos", agendEnvio)
 			.then(function(data){
+				$mdDialog.show(
+				    	$mdDialog.alert()
+				        .clickOutsideToClose(true)
+				        .title('Sucesso')
+				        .textContent('Agendamento cadastrado com sucesso!')
+				        .ariaLabel('Sucesso')
+				        .ok('Ok')
+				    );
 				return $location.path("/agendamento");
 			}, function(response){
                 if(response.data.exception){

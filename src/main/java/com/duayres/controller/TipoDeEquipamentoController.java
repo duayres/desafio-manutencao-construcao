@@ -17,10 +17,25 @@ public class TipoDeEquipamentoController {
 	@Autowired
 	UploadService uploadService;
 	
-	@RequestMapping(value="/uploadImage",method = RequestMethod.POST)
+	@RequestMapping(value="/uploadFoto",method = RequestMethod.POST)
     public @ResponseBody String uploadImage(@RequestParam("file") MultipartFile file,HttpServletRequest request)
     {
-		
-		
+		try{
+			return "{\"uniqueFile\": \""+uploadService.uploadImageFile(file, request.getServletContext())+"\"}";
+		} catch (Exception e) {
+			return "{\"uniqueFile\": \"error\"}";//+e;
+		}
+
+    }
+	
+	@RequestMapping(value="/uploadManual",method = RequestMethod.POST)
+    public @ResponseBody String uploadManual(@RequestParam("file") MultipartFile file,HttpServletRequest request)
+    {
+		try{
+			return "{\"uniqueFile\": \""+uploadService.uploadFile(file, request.getServletContext())+"\"}";
+		} catch (Exception e) {
+			return "{\"uniqueFile\": \"error\"}";//+e;
+		}
+
     }
 }

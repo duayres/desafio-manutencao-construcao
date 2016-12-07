@@ -56,9 +56,9 @@
 		<convert converter="exception" match="java.lang.Exception" />
 		<convert converter="exception" match="org.postgresql.util.ServerErrorMessage" />
 		
-		<!--convert match="java.lang.Exception" converter="exception">
+		<convert match="org.hibernate.validator.internal.engine.ConstraintViolationImpl" converter="exception">
 		  <param name='include' value='message,lineNumber'/>
-		</convert-->
+		</convert>
 		<convert converter="bean" match="java.lang.StackTraceElement" />
 		
 		

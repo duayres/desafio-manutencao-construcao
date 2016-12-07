@@ -3,6 +3,8 @@ package com.duayres.rest;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,11 +37,14 @@ public class TipoDeEquipamentoRestController {
 	 */
 	@PreAuthorize("hasRole('ROLE_ADMINISTRADOR')")
 	@RequestMapping(value="/alter-status", method=RequestMethod.POST)
-	public String alterStatus(@RequestParam("id") Long idTipoDeEquipamento, @RequestParam("status") Boolean status){
+	public ResponseEntity<TipoDeEquipamento> alterStatus(@RequestParam("id") Long idTipoDeEquipamento, @RequestParam("status") Boolean status){
 		TipoDeEquipamento equipamento = equipamentoService.findTipoDeEquipamentoById(idTipoDeEquipamento);
+		if (equipamento == null) {
+			return new ResponseEntity<TipoDeEquipamento>(HttpStatus.NOT_FOUND);
+		}
 		equipamento.setStatus(status);
 		equipamentoService.save(equipamento);
-		return "{code: 200}";
+		return new ResponseEntity<TipoDeEquipamento>(HttpStatus.NO_CONTENT);
 	}
 	
 	/*
@@ -49,11 +54,14 @@ public class TipoDeEquipamentoRestController {
 	 */
 	@PreAuthorize("hasRole('ROLE_ADMINISTRADOR')")
 	@RequestMapping(value="/activate/{id}", method=RequestMethod.GET)
-	public String activateUser(@PathVariable("id") Long idTipoDeEquipamento){
+	public  ResponseEntity<TipoDeEquipamento> activateUser(@PathVariable("id") Long idTipoDeEquipamento){
 		TipoDeEquipamento equipamento = equipamentoService.findTipoDeEquipamentoById(idTipoDeEquipamento);
+		if (equipamento == null) {
+			return new ResponseEntity<TipoDeEquipamento>(HttpStatus.NOT_FOUND);
+		}
 		equipamento.setStatus(true);
 		equipamentoService.save(equipamento);
-		return "{code: 200}";
+		return new ResponseEntity<TipoDeEquipamento>(HttpStatus.NO_CONTENT);
 	}
 	
 }

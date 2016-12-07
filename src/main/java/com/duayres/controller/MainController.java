@@ -84,7 +84,7 @@ public class MainController {
 			df.setTimeInMillis(1480680000000L);//2016-12-02 10:00:00
 			a.setDataInicial(di);
 			a.setDataFinal(df);
-			a.setTipoEquipamento(e);
+			a.setTipoDeEquipamento(e);
 			
 			Localizacao loc = new Localizacao("assis");
 			lRepo.saveAndFlush(loc);
@@ -96,7 +96,7 @@ public class MainController {
 			Membro m2 = new Membro();
 			m2.setAgendamento(a);
 			m2.setUsuario(u2);
-			a.setMembros(Arrays.asList(m,m2));
+			//a.setMembros(Arrays.asList(m,m2));
 			
 			/*Membro m = new Membro();
 			m.setUsuario(u);
@@ -111,8 +111,8 @@ public class MainController {
 			a = agService.save(a);
 
 
-			/*mRepo.save(m);
-			mRepo.save(m2);*/
+			mRepo.save(m);
+			mRepo.save(m2);
 
 		}
 
@@ -164,7 +164,7 @@ public class MainController {
 			a.setDataInicial(Calendar.getInstance());
 			a.setDataFinal(Calendar.getInstance());
 			// a.setMembros(Arrays.asList(u));
-			a.setTipoEquipamento(e);
+			a.setTipoDeEquipamento(e);
 			// a.setLocalizacao(new Localizacao());
 
 			this.agService.save(a);

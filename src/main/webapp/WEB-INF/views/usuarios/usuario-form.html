@@ -16,29 +16,29 @@
                 <div layout="row">
                     <md-input-container flex="70">
                         <label>Nome</label>
-                        <input type="text" maxlength="150" id="nome"  md-maxlength="140" ng-model="UserFormCtrl.usuario.nome"> 
+                        <input type="text" maxlength="150" id="nome" required md-maxlength="140" ng-model="UserFormCtrl.usuario.nome"> 
                     </md-input-container>
 
                     <md-input-container  flex="30">
                         <label>Email</label>
-                        <input type="email" maxlength="150" id="email" ng-model="UserFormCtrl.usuario.email">
+                        <input type="email" maxlength="150" required id="email" ng-model="UserFormCtrl.usuario.email">
                     </md-input-container>
                 </div>
 
                 <div layout="row">
                     <md-input-container  flex ng-hide="UserFormCtrl.usuario.idUsuario">
                         <label>Senha</label>
-                        <input type="text" id="senha" ng-model="UserFormCtrl.usuario.senha">
+                        <input type="password" id="senha" ng-required ng-model="UserFormCtrl.usuario.senha">
                     </md-input-container>
 
                     <md-input-container  flex ng-hide="UserFormCtrl.usuario.idUsuario">
                         <label>Confirme a Senha</label>
-                        <input type="text" id="confSenha" ng-model="UserFormCtrl.usuario.confSenha">
+                        <input type="password" id="confSenha"  ng-model="UserFormCtrl.usuario.confSenha">
                     </md-input-container>
 
                     <md-input-container flex="30">
                         <label>Tipo</label>
-                        <md-select ng-model="UserFormCtrl.usuario.tipoUsuario" placeholder="Selecione">
+                        <md-select ng-model="UserFormCtrl.usuario.tipoUsuario" placeholder="Selecione" ng-required="true">
                             <md-option ng-repeat="tipoUsuario in UserFormCtrl.tiposUsuarios" ng-value="tipoUsuario">
                                 {{tipoUsuario}}
                             </md-option>

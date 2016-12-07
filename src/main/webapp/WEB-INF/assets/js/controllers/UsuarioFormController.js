@@ -9,14 +9,37 @@ app.controller("UsuarioFormController", function($scope, $mdDialog, data, send, 
     	delete UserFormCtrl.usuario.exception;
     	
     	
+    	if (UserFormCtrl.usuario.senha!=UserFormCtrl.usuario.confSenha && !UserFormCtrl.usuario.idUsuario){
+    		$("#exception").show().html("As senhas digitadas não conferem!");
+    		setTimeout(function(){$("#exception").fadeOut()},5000);
+    		return false;
+    	}
+    	
         DWRUsuarioService.save(UserFormCtrl.usuario, {
         	async: false,
         	callback : function ( result ) {
         		if(UserFormCtrl.usuario.idUsuario){
         			$mdDialog.hide();
+        			if(UserFormCtrl.usuario.idUsuario == UserFormCtrl.usuarioLogado.idUsuario
+        			   && UserFormCtrl.usuario.tipoUsuario != UserFormCtrl.usuarioLogado.tipoUsuario){
+                        return location.href=base_url+"logout";
+                    }else{
+                        $mdDialog.hide();
+                    }
         		} else {
         			$mdDialog.hide(result);
         		}
+        	},
+        	errorHandler : function (msg, exception){
+        		erros=exception.localizedMessage.split("'");
+        		var msgErro = "";
+        		if (erros.length<3) msgErro=exception.localizedMessage;
+        		for(i=1;i<erros.length;i=i+4){
+        			msgErro+=erros[i]+"<br />";
+        		}
+        		$("#exception").show().html(msgErro);
+        		setTimeout(function(){$("#exception").fadeOut()},5000*(erros.length/4));
+        		return false;
         	}
         });
         
