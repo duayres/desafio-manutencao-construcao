@@ -1,5 +1,7 @@
 package com.duayres.controller;
 
+import java.util.Calendar;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +27,9 @@ public class AgendamentoController {
 		Agendamento agendamento = agendamentoService.findByIdAgendamento(idAgendamento);
 		if (agendamento == null) {
 			return new ResponseEntity<Agendamento>(HttpStatus.NOT_FOUND);
+		}
+		if (agendamento.getDataFinal().after(Calendar.getInstance())){
+			return new ResponseEntity<Agendamento>(HttpStatus.LOCKED);
 		}
 		membroService.deleteWithAgendamento(agendamento);
 		agendamentoService.exclude(idAgendamento);

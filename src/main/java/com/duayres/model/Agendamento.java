@@ -1,7 +1,9 @@
 package com.duayres.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,11 +13,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import org.directwebremoting.annotations.DataTransferObject;
-import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 /**
  * @author Eduardo Ayres
@@ -51,6 +55,14 @@ public class Agendamento implements Serializable {
 	@ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name = "tipo_equipamento", nullable = false)//, insertable=false, updatable=false)
 	private TipoDeEquipamento tipoDeEquipamento;
+	
+	/**
+	 * 
+	 */
+	@NotNull
+	@OneToMany( mappedBy="agendamento", fetch = FetchType.EAGER )
+    @OnDelete(action=OnDeleteAction.CASCADE)
+	private List<Membro> membros = new ArrayList<Membro>();
 
 	/*@OneToMany(cascade=CascadeType.ALL, mappedBy="agendamento")
 	@Transient

@@ -45,6 +45,14 @@ app.controller("AppController", function($scope, $timeout, $mdSidenav, send, $ht
                 .hideDelay(5000)
             );
     }
-   
+ 
+    $scope.toast423 = function(msg){
+        $mdToast.show(
+            $mdToast.simple()
+                .textContent(msg)
+                .position("bottom right")
+                .hideDelay(5000)
+            );
+    }
     
 });

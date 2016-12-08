@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+	<tipo_equipamento
+		id="1"
+		foto="notebook.jpg"
+		manual="UIIDUNICOAQUI_manual.pdf"
+		status="true"
+		nome="Notebook Dell"
+		descricao="Notebook Dell Inspiron 5000 I5 8GB Mem" />
+		
+	<tipo_equipamento
+		id="2"
+		foto="[null]"
+		manual="UIIDUNICOAQUI_arcond.pdf"
+		status="true"
+		nome="Ar condicionado Split"
+		descricao="Ar Condicionado Split duas cabeças 9000BTUs"/>
+</dataset>

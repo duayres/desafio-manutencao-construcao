@@ -14,9 +14,11 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.github.springtestdbunit.annotation.DatabaseTearDown;*/
 import com.duayres.desafio.AbstractIntegrationTest;
+import com.duayres.model.Agendamento;
 import com.duayres.model.TipoUsuario;
 import com.duayres.model.Usuario;
 import com.duayres.repository.IUsuarioRepository;
+import com.duayres.service.AgendamentoService;
 import com.duayres.service.UsuarioService;
 import com.duayres.service.exception.EmailJaExistenteException;
 import com.github.springtestdbunit.annotation.DatabaseOperation;
@@ -27,12 +29,13 @@ import com.github.springtestdbunit.annotation.DatabaseTearDown;
 public class UsuariosServiceTest extends AbstractIntegrationTest{
 	public static final String DATASET_CENARIO_LIMPO = "classpath:datasets/AbstractDataset.xml";
 	public static final String DATASET_USUARIOS = "classpath:datasets/UsuarioDataset.xml";
-	
+
 	@Autowired(required = false)
 	private UsuarioService usuarioService;
 	
 	@Autowired(required = false)
 	private IUsuarioRepository usuarioRepository;
+
 	
 	@Test
 	@DatabaseSetup(type = DatabaseOperation.CLEAN_INSERT, value = {DATASET_USUARIOS}, connection = "dataSource")

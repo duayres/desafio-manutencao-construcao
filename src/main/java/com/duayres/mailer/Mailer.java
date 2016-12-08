@@ -17,7 +17,7 @@ public class Mailer{
 	@Autowired(required=false)
 	private JavaMailSender mailSender;
 	/**
-	 * Metodo que efetua o envio de uma mensagem de email, chamado assincronamente
+	 * Metodo que efetua o envio de uma mensagem de email (metodo assincrono)
 	 * @param usuario
 	 */
 	@Async
@@ -26,8 +26,8 @@ public class Mailer{
 		
 		mensagem.setFrom("duzao7667@gmail.com");
 		mensagem.setTo(usuario.getEmail());
-		mensagem.setSubject("Seu cadastro está completo");
-		mensagem.setText("Seu cadastro está completo. Seus dados de acesso são: Usuario: "+usuario.getEmail()+" Senha: "+usuario.getConfSenha());
+		mensagem.setSubject("Seu cadastro foi efetuado com sucesso.");
+		mensagem.setText("Você se cadastrou no sistema. Seus dados de acesso são: Usuario: "+usuario.getEmail()+" Senha: "+usuario.getConfSenha());
 		
 		mailSender.send(mensagem);
 	}

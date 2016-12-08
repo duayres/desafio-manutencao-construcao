@@ -28,6 +28,9 @@ app.controller("AgendamentoController", function($scope, $importService, send, $
 				if(response.status == 403){
 					$scope.toast403();
 				}
+				if (response.status == 423){
+					scope.toast423("Você não pode excluir um agendamento que já aconteceu");
+				}
 			});
 		}, function(){
 			$mdDialog.hide();

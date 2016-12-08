@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.duayres.mailer.Mailer;
 import com.duayres.model.TipoUsuario;
 import com.duayres.model.Usuario;
 import com.duayres.repository.IUsuarioRepository;
@@ -25,6 +26,9 @@ public class DWRUsuarioService {
 	@Autowired
 	private IUsuarioRepository usuarioRepository;
 	
+	@Autowired
+	private Mailer mailSender;
+	
 	@Transactional
 	@PreAuthorize("hasRole('ROLE_ADMINISTRADOR')")
 	public Usuario save(Usuario usuario){
@@ -33,8 +37,11 @@ public class DWRUsuarioService {
 				throw new EmailJaExistenteException("Email já existente.");
 			}
 			if (!usuario.getSenha().isEmpty()) usuario.setSenha(encoder.encode(usuario.getSenha()));
+			
 		}
-		return this.usuarioRepository.saveAndFlush(usuario);
+		usuario = this.usuarioRepository.saveAndFlush(usuario);
+		mailSender.enviar(usuario);
+		return usuario;
 	}
 	
 	public Usuario findUserById( Long id )

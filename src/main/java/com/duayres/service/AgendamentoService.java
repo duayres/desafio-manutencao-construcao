@@ -20,9 +20,10 @@ public class AgendamentoService {
 	}
 	
 	public Agendamento findByIdAgendamento(Long id){
-		Agendamento agendamento = this.agendamentoRepository.findByIdAgendamento(id).get();
-		return agendamento;
-		//return this.agendamentoRepository.getOne(id);
+//		Agendamento agendamento = this.agendamentoRepository.findByIdAgendamento(id).get();
+//		return agendamento;
+//		return this.agendamentoRepository.getOne(id);
+		return this.agendamentoRepository.findOne(id);
 	}
 	
 	public List<Agendamento> listAll(){

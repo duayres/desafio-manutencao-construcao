@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.directwebremoting.annotations.RemoteProxy;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.duayres.model.TipoDeEquipamento;
@@ -25,5 +26,14 @@ public class DWRTipoDeEquipamentoService {
 
 	public List<TipoDeEquipamento> listActives(){
 		return this.tipoDeEquipamentoRepository.findByStatusTrue();
+	}
+	
+	@PreAuthorize("hasRole('ROLE_ADMINISTRADOR')")
+	public void logicExclusion(Long idTipoDeEquipamento) throws Exception {
+		TipoDeEquipamento tipoDeEquipamento=this.tipoDeEquipamentoRepository.findOne(idTipoDeEquipamento);
+		if (tipoDeEquipamento==null){
+			throw new Exception("Tipo de equipamento não encontrado");
+		}
+		tipoDeEquipamento.setStatus(false);
 	}
 }

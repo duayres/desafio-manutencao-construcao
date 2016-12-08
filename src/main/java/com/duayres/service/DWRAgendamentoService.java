@@ -55,7 +55,8 @@ public class DWRAgendamentoService {
 	
 	public Agendamento findByIdAgendamento(Long id){
 		Agendamento agendamento = this.agendamentoRepository.findByIdAgendamento(id).get();
-		return agendamento;
+		//return agendamento;
+		return this.agendamentoRepository.findOne(id);
 		//return this.agendamentoRepository.getOne(id);
 	}
 	

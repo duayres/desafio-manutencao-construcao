@@ -11,14 +11,14 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 
 import com.duayres.mailer.Mailer;
 
-
+@Configuration
 @ComponentScan(basePackageClasses={Mailer.class})
 public class MailerConfig {
 	
 	/**
-	 * Metodo que seta as configurações do envio de emails
+	 * Método que configura os parametros de envio de email
 	 * @author duayres
-	 * @return Objeto JavaMailSenderImpl com as configurações do servidor de envio setadas
+	 * @return Objeto JavaMailSenderImpl com as configurações do servidor de envio definidas
 	 */
 	@Bean
 	public JavaMailSender mailSender(){
