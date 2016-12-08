@@ -3,6 +3,7 @@ app.controller('AgendamentoFormController', function($scope, $mdDialog , send, $
 	$importService("DWRAgendamentoService");
 	$importService("DWRUsuarioService");
 	$importService("DWRTipoDeEquipamentoService");
+	$importService("DWRMembroService");
 	
 	var AgndFormCtrl = this;
 	this.agendamento = {};
@@ -77,6 +78,7 @@ app.controller('AgendamentoFormController', function($scope, $mdDialog , send, $
             	async: false,
             	callback: function(agendamento){
             		
+            		
             		AgndFormCtrl.agendamento=agendamento;
 					AgndFormCtrl.agendamento.dataInicial = new Date(agendamento.dataInicial);
 					AgndFormCtrl.agendamento.dataFinal = new Date(agendamento.dataFinal);
@@ -90,6 +92,14 @@ app.controller('AgendamentoFormController', function($scope, $mdDialog , send, $
             	
             	}
             });
+            
+            DWRMembroService.findByAgendamentoId($routeParams.id,{
+            	async: false,
+            	callback: function(usuarios){
+            		AgndFormCtrl.agendamento.membros=usuarios;
+            	}
+            });
+            
         }
 		/*if($routeParams.id){
 			send.get("/getAgendamento", $routeParams.id)
@@ -162,10 +172,6 @@ app.controller('AgendamentoFormController', function($scope, $mdDialog , send, $
 		    );
 	    }
     }
-    
-    this.upload = function(){
-    	angular.element($("#arquivo")).click();
-    }
 
     this.pesquisaUsuario = function(){
     	if((!AgndFormCtrl.usuarioPesquisa.nome || AgndFormCtrl.usuarioPesquisa.nome == '') && (!AgndFormCtrl.usuarioPesquisa.email || AgndFormCtrl.usuarioPesquisa.email == '')){
@@ -198,11 +204,18 @@ app.controller('AgendamentoFormController', function($scope, $mdDialog , send, $
     	var localizacao = {};
     	angular.copy(AgndFormCtrl.agendamento, agendEnvio);
     	angular.copy(AgndFormCtrl.agendamento.localizacao, localizacao);
-    	angular.copy(AgndFormCtrl.membros, membros);
+    	//angular.copy(AgndFormCtrl.agendamento.membros, membros);
     	delete agendEnvio.localizacao;
     	delete agendEnvio.usuarios;
+    	delete agendEnvio.membros;
     	
-    	DWRAgendamentoService.save(agendEnvio, /*localizacao, membros,*/ {
+    	membros=AgndFormCtrl.agendamento.membros;
+    	
+    	if (localizacao==null || $.isEmptyObject(localizacao)){
+    		localizacao={idLocalizacao: null, nome: AgndFormCtrl.buscaTermo};
+    	}
+    	
+    	DWRAgendamentoService.save(agendEnvio, localizacao, membros, {
         	async: false,
         	callback : function ( result ) {
         		if(result.idAgendamento){

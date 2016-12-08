@@ -21,7 +21,8 @@ public class DWRAgendamentoService {
 	@Autowired
 	IMembroRepository membroRepository;
 	
-	
+	@Autowired
+	DWRLocalizacaoService localizacaoService;
 	
 	@Transactional
 	public Agendamento save(Agendamento agendamento){
@@ -30,18 +31,26 @@ public class DWRAgendamentoService {
 
 	@Transactional
 	public Agendamento save(Agendamento agendamento, Localizacao localizacao, List<Usuario> usuarios){
-		if (localizacao.getIdLocalizacao()==null){
-			new com.duayres.service.DWRLocalizacaoService().save(localizacao);
+		try {
+			if (localizacao.getIdLocalizacao()==null){
+				localizacao=localizacaoService.save(localizacao);
+				agendamento.setLocalizacao(localizacao);
+			}
+			agendamento = this.agendamentoRepository.saveAndFlush(agendamento);
+			for (Usuario usuario : usuarios){
+				Membro membro = new Membro();
+				membro.setUsuario(usuario);
+				membro.setAgendamento(agendamento);
+				//agendamento.getMembros().add(membro);
+				membroRepository.saveAndFlush(membro);
+				return agendamento;
+			}	
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
 		}
-		agendamento = this.agendamentoRepository.saveAndFlush(agendamento);
-		for (Usuario usuario : usuarios){
-			Membro membro = new Membro();
-			membro.setUsuario(usuario);
-			membro.setAgendamento(agendamento);
-			//agendamento.getMembros().add(membro);
-			membroRepository.saveAndFlush(membro);
-		}
-		return agendamento;
+		
+		return null;
 	}
 	
 	public Agendamento findByIdAgendamento(Long id){

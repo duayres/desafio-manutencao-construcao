@@ -19,7 +19,7 @@ app.controller("TipoDeEquipamentoFormController", function($scope, $mdDialog, da
 		    	send.file("/uploadFoto", fd)
 		    	.success(function (data){
 		    		if (data.uniqueFile=="error") {
-		    			$('#exception').html("Erro ao mandar a foto").show();
+		    			$('#exception').html("Erro ao mandar a foto"+data.msg).show();
 		    			return false;
 		    		}
 		    		TipoDeEquipamentoFormCtrl.equipamento.foto=data.uniqueFile;
@@ -35,7 +35,7 @@ app.controller("TipoDeEquipamentoFormController", function($scope, $mdDialog, da
 		    	send.file("/uploadManual", fd)
 		    	.success(function (data){
 		    		if (data.uniqueFile=="error") {
-		    			$('#exception').html("Erro ao mandar a foto").show();
+		    			$('#exception').html("Erro ao mandar a manual").show();
 		    			return false;
 		    		}
 		    		TipoDeEquipamentoFormCtrl.equipamento.manual=data.uniqueFile;

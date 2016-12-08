@@ -46,35 +46,17 @@
         </div>
 
         <div layout="row">
-            <md-input-container flex="40">
+            <md-input-container flex="80">
                 <label>Tipo de equipamento</label>
                 <md-select  ng-model="AgndFormCtrl.agendamento.tipoDeEquipamento">
                     <!-- md-option><em>Escolha</em></md-option-->
                     <md-option ng-repeat="tipoDeEquipamento in AgndFormCtrl.tiposDeEquipamento" ng-value="tipoDeEquipamento" >
-                        {{tipoDeEquipamento.nome}}
+                        {{tipoDeEquipamento.nome}} <image ng-show="tipoDeEquipamento.foto" src="/assets/uploads/{{tipoDeEquipamento.foto}}" heigth="45" />
                     </md-option>
                 </md-select>
             </md-input-container>
-
-            <md-input-container flex="20">
-                <label>Duração (Horas)</label>
-                <input type="number"  min="1" max="8"  ng-model="AgndFormCtrl.agendamento.duracao" >
-            </md-input-container>
-
-            <md-input-container flex="40">
-                <input type="file" id="arquivo" aria-label="Arquivo" name="arquivo" ng-show="false">{{AgndFormCtrl.agendamento}}
-                <md-button class="md-raised" ng-click="AgndFormCtrl.upload()" >
-                    Arquivo
-                </md-button>
-                <small ng-show="AgndFormCtrl.agendamento.urlArquivo">
-                    <a href="{{AgndFormCtrl.agendamento.urlArquivo}}" class="link" target="_blank">
-                        <i class="zmdi zmdi-file zmdi-hc-2x"></i>
-                    </a>
-                    Clique no icone para baixar o arquivo atual
-                </small>
-            </md-input-container>
         </div>
-
+		<div>{{AgndFormCtrl.agendamento}}</div>
         <h2 flex="100">Pesquisar Usuários</h2>
         <div layout="row">
             <form ng-cloak>

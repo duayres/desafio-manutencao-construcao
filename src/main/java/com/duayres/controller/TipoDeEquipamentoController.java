@@ -2,6 +2,7 @@ package com.duayres.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.fileupload.InvalidFileNameException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,7 +24,8 @@ public class TipoDeEquipamentoController {
 		try{
 			return "{\"uniqueFile\": \""+uploadService.uploadImageFile(file, request.getServletContext())+"\"}";
 		} catch (Exception e) {
-			return "{\"uniqueFile\": \"error\"}";//+e;
+			//return "{\"uniqueFile\": \"error\",\"msg\":\""+e.getMessage()+"\"}";
+			return "{\"uniqueFile\": \"error\",\"msg\":\"A foto deve ser uma imagem válida\"}";
 		}
 
     }

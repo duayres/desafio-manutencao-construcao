@@ -2,6 +2,7 @@ package com.duayres.service;
 
 import java.util.List;
 
+import org.directwebremoting.annotations.RemoteProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,8 +12,8 @@ import com.duayres.model.Membro;
 import com.duayres.model.Usuario;
 import com.duayres.repository.IMembroRepository;
 
-@Service
-public class MembroService {
+@RemoteProxy
+public class DWRMembroService {
 	@Autowired
 	IMembroRepository membroRepository;
 	

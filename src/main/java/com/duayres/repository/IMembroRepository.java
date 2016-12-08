@@ -17,7 +17,11 @@ import com.duayres.model.Usuario;
 @Transactional
 public interface IMembroRepository extends JpaRepository<Membro, Long> {
 	
-	public List<Usuario> findByAgendamento(Agendamento agendamento);
+	public List<Membro> findByAgendamento(Agendamento agendamento);
+	
+	@Query("SELECT m.usuario FROM Membro m WHERE m.agendamento.idAgendamento = :id ")
+	public List<Usuario> findByAgendamentoId(@Param("id") Long idAgendamento);
+	
 	
 	@Modifying
 	@Query("DELETE FROM Membro m WHERE m.agendamento = :agendamento ")

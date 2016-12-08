@@ -25,7 +25,7 @@ public class UploadService {
 	public String uploadImageFile(MultipartFile file, ServletContext context) throws Exception{
 		String mimeType = context.getMimeType(file.getOriginalFilename());
 		if (!mimeType.startsWith("image/")) {
-		    throw new InvalidFileNameException("image", "file is not an image");
+		    throw new Exception("A foto deve ser uma imagem válida.");
 		}
 		
         String filesPath = context.getRealPath("/")+"WEB-INF/assets/uploads/";//System.getenv("HOME")

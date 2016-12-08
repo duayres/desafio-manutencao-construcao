@@ -1,11 +1,8 @@
 package com.duayres.model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -14,13 +11,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import org.directwebremoting.annotations.DataTransferObject;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
+import org.hibernate.validator.constraints.NotBlank;
 
 /**
  * @author Eduardo Ayres
@@ -47,8 +42,9 @@ public class Agendamento implements Serializable {
 	@Column(name = "data_final")
 	private Calendar dataFinal;
 	
+	@NotNull
 	@ManyToOne(fetch=FetchType.EAGER)//(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
-    //@JoinColumn(name = "localizacao", nullable = false, insertable=false, updatable=false)
+    //@JoinColumn(name = "localizacao", nullable = false)
 	private Localizacao localizacao;
 
 	@NotNull(message="O Tipo de equipamento é obrigatório")
