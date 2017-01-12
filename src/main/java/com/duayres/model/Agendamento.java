@@ -64,25 +64,6 @@ public class Agendamento implements Serializable {
     @OnDelete(action=OnDeleteAction.CASCADE)
 	private List<Membro> membros = new ArrayList<Membro>();
 
-	/*@OneToMany(cascade=CascadeType.ALL, mappedBy="agendamento")
-	@Transient
-	private List<Membro> membros = new ArrayList<>();*/
-	/*@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
-	@JoinTable(name="membro")
-	private List<Usuario> membros;*/
-	
-	/*@OneToMany(mappedBy="usuario", fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
-	@OnDelete(action=OnDeleteAction.CASCADE)
-	private List<Membro> membros = new ArrayList<>();
-
-	
-	public List<Membro> getMembros() {
-		return membros;
-	}
-
-	public void setMembros(List<Membro> membros) {
-		this.membros = membros;
-	}*/
 
 	public Long getIdAgendamento() {
 		return idAgendamento;

@@ -48,7 +48,7 @@ public class TipoDeEquipamentoServiceTest extends AbstractIntegrationTest{
 	public void testCadastrarTipoDeEquipamentosMustPass(){
 		this.authenticate(4L);
 		TipoDeEquipamento tipoDeEquipamento = new TipoDeEquipamento();
-		tipoDeEquipamento.setIdEquipamento(10L);
+		tipoDeEquipamento.setIdEquipamento(100L);
 		tipoDeEquipamento.setNome("Geladeira frost-free 315L");
 		tipoDeEquipamento.setDescricao("Geladeira frost-free com 315 litros");
 		tipoDeEquipamento.setFoto("UIIIDUNICOAQUI_SemNome.jpg");

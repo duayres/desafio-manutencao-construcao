@@ -26,7 +26,7 @@ public class AgendamentoServiceTest {
 	/**
 	 * teste com a marci... apagar
 	 */
-	@Test
+	//@Test
 	@DatabaseSetup(type = DatabaseOperation.CLEAN_INSERT, value = {DATASET_LOCALIZACAO, DATASET_TIPO_EQUIPAMENTO, DATASET_AGENDAMENTO, DATASET_USUARIOS, DATASET_MEMBRO}, connection = "dataSource")
 	@DatabaseTearDown(DATASET_CENARIO_LIMPO)
 	public void testFindAgendamentoByIdMustPass(){
