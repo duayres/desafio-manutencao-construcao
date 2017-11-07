@@ -255,6 +255,23 @@
 			<artifactId>angular-material</artifactId>
 			<version>${angular-material.version}</version>
 		</dependency>
+		
+		<dependency>
+		    <groupId>org.webjars.bower</groupId>
+		    <artifactId>angular-messages</artifactId>
+		    <version>${angular.version}</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.webjars.bower</groupId>
+		    <artifactId>angular-animate</artifactId>
+		    <version>1.5.5</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.webjars.bower</groupId>
+		    <artifactId>angular-aria</artifactId>
+		    <version>1.5.5</version>
+		</dependency>
+		
 
 		<!-- Angular Modules -->
 		<dependency>
