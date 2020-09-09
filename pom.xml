@@ -26,7 +26,7 @@
 		<postgres-driver.version>9.4.1212.jre7</postgres-driver.version>
 
 		<!-- Bean Validation / Hibernate Validator -->
-		<hibernate-validator.version>5.2.4.Final</hibernate-validator.version>
+		<hibernate-validator.version>5.3.6.Final</hibernate-validator.version>
 
 		<!-- Logging -->
 		<log4j.version>2.6.2</log4j.version>
